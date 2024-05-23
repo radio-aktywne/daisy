@@ -1,0 +1,973 @@
+info:
+  title: emischeduler app
+  version: 0.8.0
+  description: Emission scheduling 📅
+openapi: 3.1.0
+servers:
+  - url: /
+paths:
+  /ping:
+    get:
+      summary: Ping
+      description: Do nothing.
+      operationId: PingPing
+      responses:
+        "204":
+          description: Request fulfilled, nothing follows
+          headers:
+            cache-control:
+              schema:
+                type: string
+              name: cache-control
+              in: header
+              required: false
+              deprecated: false
+              allowEmptyValue: false
+              allowReserved: false
+          content:
+            application/json:
+              schema:
+                type: "null"
+      deprecated: false
+  /tasks/{id}:
+    get:
+      summary: Get task
+      description: Get task by id.
+      operationId: TasksIdGetTask
+      parameters:
+        - name: id
+          in: path
+          schema:
+            type: string
+            format: uuid
+          required: true
+          deprecated: false
+          allowEmptyValue: false
+          allowReserved: false
+      responses:
+        "200":
+          description: Request fulfilled, document follows
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GenericTask"
+        "400":
+          description: Bad request syntax or unsupported method
+          content:
+            application/json:
+              schema:
+                properties:
+                  status_code:
+                    type: integer
+                  detail:
+                    type: string
+                  extra:
+                    additionalProperties: {}
+                    type:
+                      - "null"
+                      - object
+                      - array
+                type: object
+                required:
+                  - detail
+                  - status_code
+                description: Validation Exception
+                examples:
+                  ValidationException:
+                    value:
+                      status_code: 400
+                      detail: Bad Request
+                      extra: {}
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                properties:
+                  status_code:
+                    type: integer
+                  detail:
+                    type: string
+                  extra:
+                    additionalProperties: {}
+                    type:
+                      - "null"
+                      - object
+                      - array
+                type: object
+                required:
+                  - detail
+                  - status_code
+                description: Not Found Exception
+                examples:
+                  NotFoundException:
+                    value:
+                      status_code: 404
+                      detail: Not Found
+                      extra: {}
+      deprecated: false
+    delete:
+      summary: Cancel task
+      description: Cancel a task.
+      operationId: TasksIdCancelTask
+      parameters:
+        - name: id
+          in: path
+          schema:
+            type: string
+            format: uuid
+          required: true
+          deprecated: false
+          allowEmptyValue: false
+          allowReserved: false
+      responses:
+        "200":
+          description: Request fulfilled, document follows
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CancelledTask"
+        "400":
+          description: Bad request syntax or unsupported method
+          content:
+            application/json:
+              schema:
+                properties:
+                  status_code:
+                    type: integer
+                  detail:
+                    type: string
+                  extra:
+                    additionalProperties: {}
+                    type:
+                      - "null"
+                      - object
+                      - array
+                type: object
+                required:
+                  - detail
+                  - status_code
+                description: Validation Exception
+                examples:
+                  ValidationException:
+                    value:
+                      status_code: 400
+                      detail: Bad Request
+                      extra: {}
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                properties:
+                  status_code:
+                    type: integer
+                  detail:
+                    type: string
+                  extra:
+                    additionalProperties: {}
+                    type:
+                      - "null"
+                      - object
+                      - array
+                type: object
+                required:
+                  - detail
+                  - status_code
+                description: Not Found Exception
+                examples:
+                  NotFoundException:
+                    value:
+                      status_code: 404
+                      detail: Not Found
+                      extra: {}
+      deprecated: false
+  /tasks/clean:
+    post:
+      summary: Clean tasks
+      description: Clean stale tasks.
+      operationId: TasksCleanCleanTasks
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CleanRequest"
+        required: true
+      responses:
+        "200":
+          description: Request fulfilled, document follows
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CleaningResult"
+        "400":
+          description: Bad request syntax or unsupported method
+          content:
+            application/json:
+              schema:
+                properties:
+                  status_code:
+                    type: integer
+                  detail:
+                    type: string
+                  extra:
+                    additionalProperties: {}
+                    type:
+                      - "null"
+                      - object
+                      - array
+                type: object
+                required:
+                  - detail
+                  - status_code
+                description: Validation Exception
+                examples:
+                  ValidationException:
+                    value:
+                      status_code: 400
+                      detail: Bad Request
+                      extra: {}
+        "422":
+          description: Unprocessable Content
+          content:
+            application/json:
+              schema:
+                properties:
+                  status_code:
+                    type: integer
+                  detail:
+                    type: string
+                  extra:
+                    additionalProperties: {}
+                    type:
+                      - "null"
+                      - object
+                      - array
+                type: object
+                required:
+                  - detail
+                  - status_code
+                description: Unprocessable Content Exception
+                examples:
+                  UnprocessableContentException:
+                    value:
+                      status_code: 422
+                      detail: Unprocessable Content
+                      extra: {}
+      deprecated: false
+  /tasks/cancelled/{id}:
+    get:
+      summary: Get cancelled task
+      description: Get cancelled task by id.
+      operationId: TasksCancelledIdGetCancelledTask
+      parameters:
+        - name: id
+          in: path
+          schema:
+            type: string
+            format: uuid
+          required: true
+          deprecated: false
+          allowEmptyValue: false
+          allowReserved: false
+      responses:
+        "200":
+          description: Request fulfilled, document follows
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CancelledTask"
+        "400":
+          description: Bad request syntax or unsupported method
+          content:
+            application/json:
+              schema:
+                properties:
+                  status_code:
+                    type: integer
+                  detail:
+                    type: string
+                  extra:
+                    additionalProperties: {}
+                    type:
+                      - "null"
+                      - object
+                      - array
+                type: object
+                required:
+                  - detail
+                  - status_code
+                description: Validation Exception
+                examples:
+                  ValidationException:
+                    value:
+                      status_code: 400
+                      detail: Bad Request
+                      extra: {}
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                properties:
+                  status_code:
+                    type: integer
+                  detail:
+                    type: string
+                  extra:
+                    additionalProperties: {}
+                    type:
+                      - "null"
+                      - object
+                      - array
+                type: object
+                required:
+                  - detail
+                  - status_code
+                description: Not Found Exception
+                examples:
+                  NotFoundException:
+                    value:
+                      status_code: 404
+                      detail: Not Found
+                      extra: {}
+      deprecated: false
+  /tasks/completed/{id}:
+    get:
+      summary: Get completed task
+      description: Get completed task by id.
+      operationId: TasksCompletedIdGetCompletedTask
+      parameters:
+        - name: id
+          in: path
+          schema:
+            type: string
+            format: uuid
+          required: true
+          deprecated: false
+          allowEmptyValue: false
+          allowReserved: false
+      responses:
+        "200":
+          description: Request fulfilled, document follows
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CompletedTask"
+        "400":
+          description: Bad request syntax or unsupported method
+          content:
+            application/json:
+              schema:
+                properties:
+                  status_code:
+                    type: integer
+                  detail:
+                    type: string
+                  extra:
+                    additionalProperties: {}
+                    type:
+                      - "null"
+                      - object
+                      - array
+                type: object
+                required:
+                  - detail
+                  - status_code
+                description: Validation Exception
+                examples:
+                  ValidationException:
+                    value:
+                      status_code: 400
+                      detail: Bad Request
+                      extra: {}
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                properties:
+                  status_code:
+                    type: integer
+                  detail:
+                    type: string
+                  extra:
+                    additionalProperties: {}
+                    type:
+                      - "null"
+                      - object
+                      - array
+                type: object
+                required:
+                  - detail
+                  - status_code
+                description: Not Found Exception
+                examples:
+                  NotFoundException:
+                    value:
+                      status_code: 404
+                      detail: Not Found
+                      extra: {}
+      deprecated: false
+  /tasks/failed/{id}:
+    get:
+      summary: Get failed task
+      description: Get failed task by id.
+      operationId: TasksFailedIdGetFailedTask
+      parameters:
+        - name: id
+          in: path
+          schema:
+            type: string
+            format: uuid
+          required: true
+          deprecated: false
+          allowEmptyValue: false
+          allowReserved: false
+      responses:
+        "200":
+          description: Request fulfilled, document follows
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/FailedTask"
+        "400":
+          description: Bad request syntax or unsupported method
+          content:
+            application/json:
+              schema:
+                properties:
+                  status_code:
+                    type: integer
+                  detail:
+                    type: string
+                  extra:
+                    additionalProperties: {}
+                    type:
+                      - "null"
+                      - object
+                      - array
+                type: object
+                required:
+                  - detail
+                  - status_code
+                description: Validation Exception
+                examples:
+                  ValidationException:
+                    value:
+                      status_code: 400
+                      detail: Bad Request
+                      extra: {}
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                properties:
+                  status_code:
+                    type: integer
+                  detail:
+                    type: string
+                  extra:
+                    additionalProperties: {}
+                    type:
+                      - "null"
+                      - object
+                      - array
+                type: object
+                required:
+                  - detail
+                  - status_code
+                description: Not Found Exception
+                examples:
+                  NotFoundException:
+                    value:
+                      status_code: 404
+                      detail: Not Found
+                      extra: {}
+      deprecated: false
+  /tasks:
+    get:
+      summary: Get index
+      description: Get tasks index.
+      operationId: TasksGetIndex
+      responses:
+        "200":
+          description: Request fulfilled, document follows
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TaskIndex"
+      deprecated: false
+    post:
+      summary: Schedule task
+      description: Schedule a task.
+      operationId: TasksScheduleTask
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ScheduleRequest"
+        required: true
+      responses:
+        "201":
+          description: Document created, URL follows
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PendingTask"
+        "400":
+          description: Bad request syntax or unsupported method
+          content:
+            application/json:
+              schema:
+                properties:
+                  status_code:
+                    type: integer
+                  detail:
+                    type: string
+                  extra:
+                    additionalProperties: {}
+                    type:
+                      - "null"
+                      - object
+                      - array
+                type: object
+                required:
+                  - detail
+                  - status_code
+                description: Validation Exception
+                examples:
+                  ValidationException:
+                    value:
+                      status_code: 400
+                      detail: Bad Request
+                      extra: {}
+        "422":
+          description: Unprocessable Content
+          content:
+            application/json:
+              schema:
+                properties:
+                  status_code:
+                    type: integer
+                  detail:
+                    type: string
+                  extra:
+                    additionalProperties: {}
+                    type:
+                      - "null"
+                      - object
+                      - array
+                type: object
+                required:
+                  - detail
+                  - status_code
+                description: Unprocessable Content Exception
+                examples:
+                  UnprocessableContentException:
+                    value:
+                      status_code: 422
+                      detail: Unprocessable Content
+                      extra: {}
+      deprecated: false
+  /tasks/pending/{id}:
+    get:
+      summary: Get pending task
+      description: Get pending task by id.
+      operationId: TasksPendingIdGetPendingTask
+      parameters:
+        - name: id
+          in: path
+          schema:
+            type: string
+            format: uuid
+          required: true
+          deprecated: false
+          allowEmptyValue: false
+          allowReserved: false
+      responses:
+        "200":
+          description: Request fulfilled, document follows
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PendingTask"
+        "400":
+          description: Bad request syntax or unsupported method
+          content:
+            application/json:
+              schema:
+                properties:
+                  status_code:
+                    type: integer
+                  detail:
+                    type: string
+                  extra:
+                    additionalProperties: {}
+                    type:
+                      - "null"
+                      - object
+                      - array
+                type: object
+                required:
+                  - detail
+                  - status_code
+                description: Validation Exception
+                examples:
+                  ValidationException:
+                    value:
+                      status_code: 400
+                      detail: Bad Request
+                      extra: {}
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                properties:
+                  status_code:
+                    type: integer
+                  detail:
+                    type: string
+                  extra:
+                    additionalProperties: {}
+                    type:
+                      - "null"
+                      - object
+                      - array
+                type: object
+                required:
+                  - detail
+                  - status_code
+                description: Not Found Exception
+                examples:
+                  NotFoundException:
+                    value:
+                      status_code: 404
+                      detail: Not Found
+                      extra: {}
+      deprecated: false
+  /tasks/running/{id}:
+    get:
+      summary: Get running task
+      description: Get running task by id.
+      operationId: TasksRunningIdGetRunningTask
+      parameters:
+        - name: id
+          in: path
+          schema:
+            type: string
+            format: uuid
+          required: true
+          deprecated: false
+          allowEmptyValue: false
+          allowReserved: false
+      responses:
+        "200":
+          description: Request fulfilled, document follows
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RunningTask"
+        "400":
+          description: Bad request syntax or unsupported method
+          content:
+            application/json:
+              schema:
+                properties:
+                  status_code:
+                    type: integer
+                  detail:
+                    type: string
+                  extra:
+                    additionalProperties: {}
+                    type:
+                      - "null"
+                      - object
+                      - array
+                type: object
+                required:
+                  - detail
+                  - status_code
+                description: Validation Exception
+                examples:
+                  ValidationException:
+                    value:
+                      status_code: 400
+                      detail: Bad Request
+                      extra: {}
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                properties:
+                  status_code:
+                    type: integer
+                  detail:
+                    type: string
+                  extra:
+                    additionalProperties: {}
+                    type:
+                      - "null"
+                      - object
+                      - array
+                type: object
+                required:
+                  - detail
+                  - status_code
+                description: Not Found Exception
+                examples:
+                  NotFoundException:
+                    value:
+                      status_code: 404
+                      detail: Not Found
+                      extra: {}
+      deprecated: false
+components:
+  schemas:
+    GenericTask:
+      properties:
+        task:
+          $ref: "#/components/schemas/Task"
+        status:
+          type: string
+          enum:
+            - pending
+            - running
+            - cancelled
+            - failed
+            - completed
+      type: object
+      required:
+        - status
+        - task
+      title: GenericTask
+    Task:
+      properties:
+        id:
+          type: string
+          format: uuid
+        operation:
+          $ref: "#/components/schemas/Specification"
+        condition:
+          $ref: "#/components/schemas/Specification"
+        dependencies:
+          additionalProperties:
+            type: string
+            format: uuid
+          type: object
+      type: object
+      required:
+        - condition
+        - dependencies
+        - id
+        - operation
+      title: Task
+    Specification:
+      properties:
+        type:
+          type: string
+        parameters:
+          additionalProperties:
+            oneOf:
+              - type: "null"
+              - additionalProperties: {}
+                type: object
+              - items: {}
+                type: array
+              - type: string
+              - type: integer
+              - type: number
+              - type: boolean
+          type: object
+      type: object
+      required:
+        - parameters
+        - type
+      title: Specification
+    CancelledTask:
+      properties:
+        task:
+          $ref: "#/components/schemas/Task"
+        scheduled:
+          type: string
+          format: date-time
+        started:
+          oneOf:
+            - type: "null"
+            - type: string
+              format: date-time
+        cancelled:
+          type: string
+          format: date-time
+      type: object
+      required:
+        - cancelled
+        - scheduled
+        - task
+      title: CancelledTask
+    CleanRequest:
+      properties:
+        strategy:
+          $ref: "#/components/schemas/Specification"
+      type: object
+      required:
+        - strategy
+      title: CleanRequest
+    CleaningResult:
+      properties:
+        removed:
+          items:
+            type: string
+            format: uuid
+          type: array
+      type: object
+      required:
+        - removed
+      title: CleaningResult
+    CompletedTask:
+      properties:
+        task:
+          $ref: "#/components/schemas/Task"
+        scheduled:
+          type: string
+          format: date-time
+        started:
+          type: string
+          format: date-time
+        completed:
+          type: string
+          format: date-time
+        result:
+          oneOf:
+            - type: "null"
+            - additionalProperties: {}
+              type: object
+            - items: {}
+              type: array
+            - type: string
+            - type: integer
+            - type: number
+            - type: boolean
+      type: object
+      required:
+        - completed
+        - scheduled
+        - started
+        - task
+      title: CompletedTask
+    FailedTask:
+      properties:
+        task:
+          $ref: "#/components/schemas/Task"
+        scheduled:
+          type: string
+          format: date-time
+        started:
+          type: string
+          format: date-time
+        failed:
+          type: string
+          format: date-time
+        error:
+          type: string
+      type: object
+      required:
+        - error
+        - failed
+        - scheduled
+        - started
+        - task
+      title: FailedTask
+    TaskIndex:
+      properties:
+        pending:
+          items:
+            type: string
+            format: uuid
+          type: array
+        running:
+          items:
+            type: string
+            format: uuid
+          type: array
+        cancelled:
+          items:
+            type: string
+            format: uuid
+          type: array
+        failed:
+          items:
+            type: string
+            format: uuid
+          type: array
+        completed:
+          items:
+            type: string
+            format: uuid
+          type: array
+      type: object
+      required:
+        - cancelled
+        - completed
+        - failed
+        - pending
+        - running
+      title: TaskIndex
+    ScheduleRequest:
+      properties:
+        operation:
+          $ref: "#/components/schemas/Specification"
+        condition:
+          $ref: "#/components/schemas/Specification"
+        dependencies:
+          additionalProperties:
+            type: string
+            format: uuid
+          type: object
+      type: object
+      required:
+        - condition
+        - dependencies
+        - operation
+      title: ScheduleRequest
+    PendingTask:
+      properties:
+        task:
+          $ref: "#/components/schemas/Task"
+        scheduled:
+          type: string
+          format: date-time
+      type: object
+      required:
+        - scheduled
+        - task
+      title: PendingTask
+    RunningTask:
+      properties:
+        task:
+          $ref: "#/components/schemas/Task"
+        scheduled:
+          type: string
+          format: date-time
+        started:
+          type: string
+          format: date-time
+      type: object
+      required:
+        - scheduled
+        - started
+        - task
+      title: RunningTask
