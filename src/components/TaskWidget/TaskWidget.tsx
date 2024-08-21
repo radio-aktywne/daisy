@@ -1,12 +1,13 @@
 "use client";
 
 import { CodeHighlight } from "@mantine/code-highlight";
-import { useHydrated, useTask } from "../../hooks";
-import { TaskWidgetProps } from "./TaskWidget.types";
-
 import { Button, Stack } from "@mantine/core";
 import { useCallback } from "react";
 import { cancelTask } from "../../actions";
+import { labels } from "../../config/labels";
+import { useHydrated, useTask } from "../../hooks";
+import { TaskWidgetProps } from "./TaskWidget.types";
+
 import classes from "./TaskWidget.module.css";
 
 export function TaskWidget({ task: prefetchedTask }: TaskWidgetProps) {
@@ -35,7 +36,7 @@ export function TaskWidget({ task: prefetchedTask }: TaskWidgetProps) {
         loading={!hydrated}
         onClick={handleCancel}
       >
-        Cancel
+        {labels.widgets.task.buttons.cancel.label}
       </Button>
     </Stack>
   );
