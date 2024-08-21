@@ -85,5 +85,12 @@ export const labels = {
         text: "No tasks.",
       },
     },
+    task: {
+      buttons: {
+        cancel: {
+          label: "Cancel",
+        },
+      },
+    },
   },
 };
