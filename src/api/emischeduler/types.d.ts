@@ -3,79 +3,95 @@
  * Do not make direct changes to the file.
  */
 
+/** OneOf type helpers */
+type Without<T, U> = { [P in Exclude<keyof T, keyof U>]?: never };
+type XOR<T, U> = T | U extends object
+  ? (Without<T, U> & U) | (Without<U, T> & T)
+  : T | U;
+type OneOf<T extends unknown[]> = T extends [infer Only]
+  ? Only
+  : T extends [infer A, infer B, ...infer Rest]
+  ? OneOf<[XOR<A, B>, ...Rest]>
+  : never;
+
 export interface paths {
   "/ping": {
     /**
      * Ping
-     * @description Do nothing.
+     * @description Ping.
      */
     get: operations["PingPing"];
+    /**
+     * Ping headers
+     * @description Ping headers.
+     */
+    head: operations["PingHeadping"];
   };
   "/tasks/{id}": {
     /**
      * Get task
-     * @description Get task by id.
+     * @description Get a task.
      */
-    get: operations["TasksIdGetTask"];
+    get: operations["TasksIdGet"];
     /**
      * Cancel task
      * @description Cancel a task.
      */
-    delete: operations["TasksIdCancelTask"];
+    delete: operations["TasksIdCancel"];
   };
   "/tasks/clean": {
     /**
      * Clean tasks
-     * @description Clean stale tasks.
+     * @description Clean tasks.
      */
-    post: operations["TasksCleanCleanTasks"];
+    post: operations["TasksCleanClean"];
   };
   "/tasks/cancelled/{id}": {
     /**
      * Get cancelled task
-     * @description Get cancelled task by id.
+     * @description Get a cancelled task.
      */
-    get: operations["TasksCancelledIdGetCancelledTask"];
+    get: operations["TasksCancelledIdGetCancelled"];
   };
   "/tasks/completed/{id}": {
     /**
      * Get completed task
-     * @description Get completed task by id.
+     * @description Get a completed task.
      */
-    get: operations["TasksCompletedIdGetCompletedTask"];
+    get: operations["TasksCompletedIdGetCompleted"];
   };
   "/tasks/failed/{id}": {
     /**
      * Get failed task
-     * @description Get failed task by id.
+     * @description Get a failed task.
      */
-    get: operations["TasksFailedIdGetFailedTask"];
-  };
-  "/tasks": {
-    /**
-     * Get index
-     * @description Get tasks index.
-     */
-    get: operations["TasksGetIndex"];
-    /**
-     * Schedule task
-     * @description Schedule a task.
-     */
-    post: operations["TasksScheduleTask"];
+    get: operations["TasksFailedIdGetFailed"];
   };
   "/tasks/pending/{id}": {
     /**
      * Get pending task
-     * @description Get pending task by id.
+     * @description Get a pending task.
      */
-    get: operations["TasksPendingIdGetPendingTask"];
+    get: operations["TasksPendingIdGetPending"];
   };
   "/tasks/running/{id}": {
     /**
      * Get running task
-     * @description Get running task by id.
+     * @description Get a running task.
      */
-    get: operations["TasksRunningIdGetRunningTask"];
+    get: operations["TasksRunningIdGetRunning"];
+  };
+  "/tasks": {
+    /**
+     * Get index
+     * @description List tasks.
+     */
+    get: operations["TasksList"];
+    /**
+     * Schedule task
+     * @description Schedule a task.
+     */
+    post: operations["TasksSchedule"];
   };
 }
 
@@ -83,18 +99,124 @@ export type webhooks = Record<string, never>;
 
 export interface components {
   schemas: {
+    /** CancelledTask */
+    CancelledTask: {
+      task: components["schemas"]["Task"];
+      /**
+       * Format: date-time
+       * @description Date and time when the task was scheduled.
+       */
+      scheduled: string;
+      /** @description Date and time when the task was started. */
+      started?: null | string;
+      /**
+       * Format: date-time
+       * @description Date and time when the task was cancelled.
+       */
+      cancelled: string;
+    };
+    /**
+     * CleanRequestModel
+     * @description Data to clean tasks.
+     */
+    CleanRequestModel: {
+      strategy: components["schemas"]["Specification"];
+    };
+    /** CleaningResult */
+    CleaningResult: {
+      /** @description Identifiers of removed tasks. */
+      removed: string[];
+    };
+    /** CompletedTask */
+    CompletedTask: {
+      task: components["schemas"]["Task"];
+      /**
+       * Format: date-time
+       * @description Date and time when the task was scheduled.
+       */
+      scheduled: string;
+      /**
+       * Format: date-time
+       * @description Date and time when the task was started.
+       */
+      started: string;
+      /**
+       * Format: date-time
+       * @description Date and time when the task was completed.
+       */
+      completed: string;
+      /** @description Result of the task. */
+      result?:
+        | null
+        | {
+            [key: string]: unknown;
+          }
+        | unknown[]
+        | string
+        | number
+        | boolean;
+    };
+    /** FailedTask */
+    FailedTask: {
+      task: components["schemas"]["Task"];
+      /**
+       * Format: date-time
+       * @description Date and time when the task was scheduled.
+       */
+      scheduled: string;
+      /**
+       * Format: date-time
+       * @description Date and time when the task was started.
+       */
+      started: string;
+      /**
+       * Format: date-time
+       * @description Date and time when the task failed.
+       */
+      failed: string;
+      /** @description Error message. */
+      error: string;
+    };
     /** GenericTask */
     GenericTask: {
       task: components["schemas"]["Task"];
-      /** @enum {string} */
+      /**
+       * @description Task status.
+       * @enum {string}
+       */
       status: "pending" | "running" | "cancelled" | "failed" | "completed";
     };
-    /** Task */
-    Task: {
-      /** Format: uuid */
-      id: string;
+    /** PendingTask */
+    PendingTask: {
+      task: components["schemas"]["Task"];
+      /**
+       * Format: date-time
+       * @description Date and time when the task was scheduled.
+       */
+      scheduled: string;
+    };
+    /** RunningTask */
+    RunningTask: {
+      task: components["schemas"]["Task"];
+      /**
+       * Format: date-time
+       * @description Date and time when the task was scheduled.
+       */
+      scheduled: string;
+      /**
+       * Format: date-time
+       * @description Date and time when the task was started.
+       */
+      started: string;
+    };
+    /**
+     * ScheduleRequestModel
+     * @description Data to schedule a task.
+     */
+    ScheduleRequestModel: {
       operation: components["schemas"]["Specification"];
       condition: components["schemas"]["Specification"];
+      /** @description Dependencies of the task. */
       dependencies: {
         [key: string]: string;
       };
@@ -114,82 +236,31 @@ export interface components {
           | boolean;
       };
     };
-    /** CancelledTask */
-    CancelledTask: {
-      task: components["schemas"]["Task"];
-      /** Format: date-time */
-      scheduled: string;
-      started?: null | string;
-      /** Format: date-time */
-      cancelled: string;
-    };
-    /** CleanRequest */
-    CleanRequest: {
-      strategy: components["schemas"]["Specification"];
-    };
-    /** CleaningResult */
-    CleaningResult: {
-      removed: string[];
-    };
-    /** CompletedTask */
-    CompletedTask: {
-      task: components["schemas"]["Task"];
-      /** Format: date-time */
-      scheduled: string;
-      /** Format: date-time */
-      started: string;
-      /** Format: date-time */
-      completed: string;
-      result?:
-        | null
-        | {
-            [key: string]: unknown;
-          }
-        | unknown[]
-        | string
-        | number
-        | boolean;
-    };
-    /** FailedTask */
-    FailedTask: {
-      task: components["schemas"]["Task"];
-      /** Format: date-time */
-      scheduled: string;
-      /** Format: date-time */
-      started: string;
-      /** Format: date-time */
-      failed: string;
-      error: string;
-    };
-    /** TaskIndex */
-    TaskIndex: {
-      pending: string[];
-      running: string[];
-      cancelled: string[];
-      failed: string[];
-      completed: string[];
-    };
-    /** ScheduleRequest */
-    ScheduleRequest: {
+    /**
+     * Task
+     * @description Task data.
+     */
+    Task: {
+      /** Format: uuid */
+      id: string;
       operation: components["schemas"]["Specification"];
       condition: components["schemas"]["Specification"];
       dependencies: {
         [key: string]: string;
       };
     };
-    /** PendingTask */
-    PendingTask: {
-      task: components["schemas"]["Task"];
-      /** Format: date-time */
-      scheduled: string;
-    };
-    /** RunningTask */
-    RunningTask: {
-      task: components["schemas"]["Task"];
-      /** Format: date-time */
-      scheduled: string;
-      /** Format: date-time */
-      started: string;
+    /** TaskIndex */
+    TaskIndex: {
+      /** @description Identifiers of pending tasks. */
+      pending: string[];
+      /** @description Identifiers of running tasks. */
+      running: string[];
+      /** @description Identifiers of cancelled tasks. */
+      cancelled: string[];
+      /** @description Identifiers of failed tasks. */
+      failed: string[];
+      /** @description Identifiers of completed tasks. */
+      completed: string[];
     };
   };
   responses: never;
@@ -206,7 +277,7 @@ export type external = Record<string, never>;
 export interface operations {
   /**
    * Ping
-   * @description Do nothing.
+   * @description Ping.
    */
   PingPing: {
     responses: {
@@ -222,12 +293,30 @@ export interface operations {
     };
   };
   /**
-   * Get task
-   * @description Get task by id.
+   * Ping headers
+   * @description Ping headers.
    */
-  TasksIdGetTask: {
+  PingHeadping: {
+    responses: {
+      /** @description Request fulfilled, nothing follows */
+      204: {
+        headers: {
+          "cache-control"?: string;
+        };
+        content: {
+          "application/json": null;
+        };
+      };
+    };
+  };
+  /**
+   * Get task
+   * @description Get a task.
+   */
+  TasksIdGet: {
     parameters: {
       path: {
+        /** @description Identifier of the task. */
         id: string;
       };
     };
@@ -275,9 +364,10 @@ export interface operations {
    * Cancel task
    * @description Cancel a task.
    */
-  TasksIdCancelTask: {
+  TasksIdCancel: {
     parameters: {
       path: {
+        /** @description Identifier of the task. */
         id: string;
       };
     };
@@ -323,12 +413,12 @@ export interface operations {
   };
   /**
    * Clean tasks
-   * @description Clean stale tasks.
+   * @description Clean tasks.
    */
-  TasksCleanCleanTasks: {
+  TasksCleanClean: {
     requestBody: {
       content: {
-        "application/json": components["schemas"]["CleanRequest"];
+        "application/json": components["schemas"]["CleanRequestModel"];
       };
     };
     responses: {
@@ -339,45 +429,45 @@ export interface operations {
           "application/json": components["schemas"]["CleaningResult"];
         };
       };
-      /** @description Bad request syntax or unsupported method */
+      /** @description Bad Request */
       400: {
         content: {
-          "application/json": {
-            status_code: number;
-            detail: string;
-            extra?:
-              | null
-              | {
-                  [key: string]: unknown;
-                }
-              | unknown[];
-          };
-        };
-      };
-      /** @description Unprocessable Content */
-      422: {
-        content: {
-          "application/json": {
-            status_code: number;
-            detail: string;
-            extra?:
-              | null
-              | {
-                  [key: string]: unknown;
-                }
-              | unknown[];
-          };
+          "application/json": OneOf<
+            [
+              {
+                status_code: number;
+                detail: string;
+                extra?:
+                  | null
+                  | {
+                      [key: string]: unknown;
+                    }
+                  | unknown[];
+              },
+              {
+                status_code: number;
+                detail: string;
+                extra?:
+                  | null
+                  | {
+                      [key: string]: unknown;
+                    }
+                  | unknown[];
+              },
+            ]
+          >;
         };
       };
     };
   };
   /**
    * Get cancelled task
-   * @description Get cancelled task by id.
+   * @description Get a cancelled task.
    */
-  TasksCancelledIdGetCancelledTask: {
+  TasksCancelledIdGetCancelled: {
     parameters: {
       path: {
+        /** @description Identifier of the task. */
         id: string;
       };
     };
@@ -423,11 +513,12 @@ export interface operations {
   };
   /**
    * Get completed task
-   * @description Get completed task by id.
+   * @description Get a completed task.
    */
-  TasksCompletedIdGetCompletedTask: {
+  TasksCompletedIdGetCompleted: {
     parameters: {
       path: {
+        /** @description Identifier of the task. */
         id: string;
       };
     };
@@ -473,11 +564,12 @@ export interface operations {
   };
   /**
    * Get failed task
-   * @description Get failed task by id.
+   * @description Get a failed task.
    */
-  TasksFailedIdGetFailedTask: {
+  TasksFailedIdGetFailed: {
     parameters: {
       path: {
+        /** @description Identifier of the task. */
         id: string;
       };
     };
@@ -522,77 +614,13 @@ export interface operations {
     };
   };
   /**
-   * Get index
-   * @description Get tasks index.
-   */
-  TasksGetIndex: {
-    responses: {
-      /** @description Request fulfilled, document follows */
-      200: {
-        headers: {};
-        content: {
-          "application/json": components["schemas"]["TaskIndex"];
-        };
-      };
-    };
-  };
-  /**
-   * Schedule task
-   * @description Schedule a task.
-   */
-  TasksScheduleTask: {
-    requestBody: {
-      content: {
-        "application/json": components["schemas"]["ScheduleRequest"];
-      };
-    };
-    responses: {
-      /** @description Document created, URL follows */
-      201: {
-        headers: {};
-        content: {
-          "application/json": components["schemas"]["PendingTask"];
-        };
-      };
-      /** @description Bad request syntax or unsupported method */
-      400: {
-        content: {
-          "application/json": {
-            status_code: number;
-            detail: string;
-            extra?:
-              | null
-              | {
-                  [key: string]: unknown;
-                }
-              | unknown[];
-          };
-        };
-      };
-      /** @description Unprocessable Content */
-      422: {
-        content: {
-          "application/json": {
-            status_code: number;
-            detail: string;
-            extra?:
-              | null
-              | {
-                  [key: string]: unknown;
-                }
-              | unknown[];
-          };
-        };
-      };
-    };
-  };
-  /**
    * Get pending task
-   * @description Get pending task by id.
+   * @description Get a pending task.
    */
-  TasksPendingIdGetPendingTask: {
+  TasksPendingIdGetPending: {
     parameters: {
       path: {
+        /** @description Identifier of the task. */
         id: string;
       };
     };
@@ -638,11 +666,12 @@ export interface operations {
   };
   /**
    * Get running task
-   * @description Get running task by id.
+   * @description Get a running task.
    */
-  TasksRunningIdGetRunningTask: {
+  TasksRunningIdGetRunning: {
     parameters: {
       path: {
+        /** @description Identifier of the task. */
         id: string;
       };
     };
@@ -682,6 +711,70 @@ export interface operations {
                 }
               | unknown[];
           };
+        };
+      };
+    };
+  };
+  /**
+   * Get index
+   * @description List tasks.
+   */
+  TasksList: {
+    responses: {
+      /** @description Request fulfilled, document follows */
+      200: {
+        headers: {};
+        content: {
+          "application/json": components["schemas"]["TaskIndex"];
+        };
+      };
+    };
+  };
+  /**
+   * Schedule task
+   * @description Schedule a task.
+   */
+  TasksSchedule: {
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["ScheduleRequestModel"];
+      };
+    };
+    responses: {
+      /** @description Document created, URL follows */
+      201: {
+        headers: {};
+        content: {
+          "application/json": components["schemas"]["PendingTask"];
+        };
+      };
+      /** @description Bad Request */
+      400: {
+        content: {
+          "application/json": OneOf<
+            [
+              {
+                status_code: number;
+                detail: string;
+                extra?:
+                  | null
+                  | {
+                      [key: string]: unknown;
+                    }
+                  | unknown[];
+              },
+              {
+                status_code: number;
+                detail: string;
+                extra?:
+                  | null
+                  | {
+                      [key: string]: unknown;
+                    }
+                  | unknown[];
+              },
+            ]
+          >;
         };
       };
     };
