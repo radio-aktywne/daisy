@@ -1,4 +1,4 @@
-import { components } from "../../api/emischeduler";
+import { components } from "../../api/mantis";
 
 export type Task = components["schemas"]["GenericTask"];
 

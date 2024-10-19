@@ -1,13 +1,13 @@
 "use server";
 
-import { emischeduler } from "../../api";
+import { mantis } from "../../api";
 import { CancelTaskProps } from "./types";
 
 const errorMessage = "Cancelling task failed.";
 
 export async function cancelTask({ id }: CancelTaskProps) {
   try {
-    const { error } = await emischeduler.DELETE("/tasks/{id}", {
+    const { error } = await mantis.DELETE("/tasks/{id}", {
       params: { path: { id } },
     });
 

@@ -3,10 +3,10 @@ slug: /
 title: Index
 ---
 
-# webscheduler
+# daisy
 
 Broadcast scheduling app 📅
 
 ## 💡 About
 
-`webscheduler` is a web app for managing automated scheduled broadcasts.
+`daisy` is a web app for managing automated scheduled broadcasts.
