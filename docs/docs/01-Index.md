@@ -3,10 +3,10 @@ slug: /
 title: Index
 ---
 
-# webscheduler app
+# webscheduler
 
-Emission scheduling web UI 📅
+Broadcast scheduling app 📅
 
 ## 💡 About
 
-`webscheduler` is a web application for managing automated scheduled emissions.
+`webscheduler` is a web app for managing automated scheduled broadcasts.

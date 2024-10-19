@@ -1,13 +1,13 @@
-<h1 align="center">webscheduler app</h1>
+<h1 align="center">webscheduler</h1>
 
 <div align="center">
 
-Emission scheduling web UI 📅
+Broadcast scheduling app 📅
 
-[![Lint](https://github.com/radio-aktywne/app-webscheduler/actions/workflows/lint.yaml/badge.svg)](https://github.com/radio-aktywne/app-webscheduler/actions/workflows/lint.yaml)
-[![Image](https://github.com/radio-aktywne/app-webscheduler/actions/workflows/image.yaml/badge.svg)](https://github.com/radio-aktywne/app-webscheduler/actions/workflows/image.yaml)
-[![Registry](https://github.com/radio-aktywne/app-webscheduler/actions/workflows/registry.yaml/badge.svg)](https://github.com/radio-aktywne/app-webscheduler/actions/workflows/registry.yaml)
-[![Docs](https://github.com/radio-aktywne/app-webscheduler/actions/workflows/docs.yaml/badge.svg)](https://github.com/radio-aktywne/app-webscheduler/actions/workflows/docs.yaml)
+[![Lint](https://github.com/radio-aktywne/webscheduler/actions/workflows/lint.yaml/badge.svg)](https://github.com/radio-aktywne/webscheduler/actions/workflows/lint.yaml)
+[![Image](https://github.com/radio-aktywne/webscheduler/actions/workflows/image.yaml/badge.svg)](https://github.com/radio-aktywne/webscheduler/actions/workflows/image.yaml)
+[![Registry](https://github.com/radio-aktywne/webscheduler/actions/workflows/registry.yaml/badge.svg)](https://github.com/radio-aktywne/webscheduler/actions/workflows/registry.yaml)
+[![Docs](https://github.com/radio-aktywne/webscheduler/actions/workflows/docs.yaml/badge.svg)](https://github.com/radio-aktywne/webscheduler/actions/workflows/docs.yaml)
 
 </div>
 
@@ -15,14 +15,14 @@ Emission scheduling web UI 📅
 
 ## 💡 About
 
-`webscheduler` is a web application for managing automated scheduled emissions.
+`webscheduler` is a web app for managing automated scheduled broadcasts.
 
 ## 📄 Further Reading
 
 More in-depth documentation can be found
-[here](https://radio-aktywne.github.io/app-webscheduler).
+[here](https://radio-aktywne.github.io/webscheduler).
 
 ## 💻 Development
 
 Read more about how to develop the project
-[here](https://github.com/radio-aktywne/app-webscheduler/blob/main/CONTRIBUTING.md).
+[here](https://github.com/radio-aktywne/webscheduler/blob/main/CONTRIBUTING.md).

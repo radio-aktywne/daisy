@@ -2,10 +2,10 @@ import type * as Preset from "@docusaurus/preset-classic";
 import type { Config } from "@docusaurus/types";
 import { themes } from "prism-react-renderer";
 
-const url = new URL("https://radio-aktywne.github.io/app-webscheduler");
+const url = new URL("https://radio-aktywne.github.io/webscheduler");
 
 const config: Config = {
-  title: "webscheduler app docs",
+  title: "webscheduler docs",
   favicon: "favicon.svg?v=1",
 
   url: `${url.protocol}//${url.host}`,
@@ -41,14 +41,14 @@ const config: Config = {
 
   themeConfig: {
     navbar: {
-      title: "webscheduler app docs",
+      title: "webscheduler docs",
       logo: {
-        alt: "webscheduler app docs logo",
+        alt: "webscheduler docs logo",
         src: "logo.svg?v=1",
       },
       items: [
         {
-          href: "https://github.com/radio-aktywne/app-webscheduler",
+          href: "https://github.com/radio-aktywne/webscheduler",
           position: "right",
           className: "header-github-link",
           "aria-label": "GitHub repository",
