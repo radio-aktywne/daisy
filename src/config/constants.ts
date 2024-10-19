@@ -1,3 +1,3 @@
-export const colorSchemeStorageKey = "webscheduler-color-scheme";
+export const colorSchemeStorageKey = "daisy-color-scheme";
 export const defaultColorScheme = "auto";
-export const stateStorageKey = "webscheduler-state";
+export const stateStorageKey = "daisy-state";

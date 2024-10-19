@@ -1,14 +1,14 @@
 {
-  "name": "webscheduler",
+  "name": "daisy",
   "private": true,
   "scripts": {
-    "dev": "next dev --hostname \"${WEBSCHEDULER__SERVER__HOST:-0.0.0.0}\" --port \"${WEBSCHEDULER__SERVER__PORT:-32000}\"",
-    "run": "next start --hostname \"${WEBSCHEDULER__SERVER__HOST:-0.0.0.0}\" --port \"${WEBSCHEDULER__SERVER__PORT:-32000}\"",
+    "dev": "next dev --hostname \"${DAISY__SERVER__HOST:-0.0.0.0}\" --port \"${DAISY__SERVER__PORT:-32000}\"",
+    "run": "next start --hostname \"${DAISY__SERVER__HOST:-0.0.0.0}\" --port \"${DAISY__SERVER__PORT:-32000}\"",
     "build": "next build",
     "clean": "rm --recursive --force build/",
     "update": "ncu --peer --upgrade && npm i --no-audit --no-fund",
-    "generate-api-emischeduler": "openapi-typescript openapi/emischeduler.yaml -o src/api/emischeduler/types.d.ts",
-    "generate-api": "npm run -- generate-api-emischeduler"
+    "generate-api-mantis": "openapi-typescript openapi/mantis.yaml -o src/api/mantis/types.d.ts",
+    "generate-api": "npm run -- generate-api-mantis"
   },
   "dependencies": {
     "@mantine/code-highlight": "^7.7.1",

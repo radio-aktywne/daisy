@@ -1,5 +1,5 @@
 info:
-  title: emischeduler app
+  title: mantis
 openapi: 3.1.0
 paths:
   /ping:

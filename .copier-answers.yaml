@@ -2,15 +2,15 @@
 _commit: 0.2.0
 _src_path: gh:radio-aktywne/template-app-next
 accountname: radio-aktywne
-appname: webscheduler
+appname: daisy
 description: Broadcast scheduling app 📅
 docs: true
-docsurl: https://radio-aktywne.github.io/webscheduler
-envprefix: WEBSCHEDULER
-imagename: apps/webscheduler
-keyprefix: webscheduler
+docsurl: https://radio-aktywne.github.io/daisy
+envprefix: DAISY
+imagename: apps/daisy
+keyprefix: daisy
 port: 32000
 registry: true
 releases: true
-reponame: webscheduler
-repourl: https://github.com/radio-aktywne/webscheduler
+reponame: daisy
+repourl: https://github.com/radio-aktywne/daisy

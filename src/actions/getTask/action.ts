@@ -1,13 +1,13 @@
 "use server";
 
-import { emischeduler } from "../../api";
+import { mantis } from "../../api";
 import { GetTaskProps } from "./types";
 
 const errorMessage = "Getting task failed.";
 
 export async function getTask({ id }: GetTaskProps) {
   try {
-    const { data, error } = await emischeduler.GET("/tasks/{id}", {
+    const { data, error } = await mantis.GET("/tasks/{id}", {
       params: { path: { id } },
     });
 

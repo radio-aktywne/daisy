@@ -9,44 +9,44 @@ export const labels = {
   },
   pages: {
     tasks: {
-      title: "webscheduler",
-      description: "webscheduler",
+      title: "daisy",
+      description: "daisy",
     },
     pending: {
-      title: "Pending tasks • webscheduler",
-      description: "webscheduler",
+      title: "Pending tasks • daisy",
+      description: "daisy",
     },
     running: {
-      title: "Running tasks • webscheduler",
-      description: "webscheduler",
+      title: "Running tasks • daisy",
+      description: "daisy",
     },
     cancelled: {
-      title: "Cancelled tasks • webscheduler",
-      description: "webscheduler",
+      title: "Cancelled tasks • daisy",
+      description: "daisy",
     },
     failed: {
-      title: "Failed tasks • webscheduler",
-      description: "webscheduler",
+      title: "Failed tasks • daisy",
+      description: "daisy",
     },
     completed: {
-      title: "Completed tasks • webscheduler",
-      description: "webscheduler",
+      title: "Completed tasks • daisy",
+      description: "daisy",
     },
     task: {
-      title: (id: string) => `Task ${id} • webscheduler`,
-      description: "webscheduler",
+      title: (id: string) => `Task ${id} • daisy`,
+      description: "daisy",
       notFound: {
         text: "Requested task not found.",
       },
     },
     notFound: {
-      title: "Not Found • webscheduler",
-      description: "webscheduler",
+      title: "Not Found • daisy",
+      description: "daisy",
       text: "Page not found",
     },
     error: {
-      title: "Error • webscheduler",
-      description: "webscheduler",
+      title: "Error • daisy",
+      description: "daisy",
       text: "Something went wrong",
       buttons: {
         retry: {
