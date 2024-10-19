@@ -2,8 +2,8 @@
   "name": "daisy",
   "private": true,
   "scripts": {
-    "dev": "next dev --hostname \"${DAISY__SERVER__HOST:-0.0.0.0}\" --port \"${DAISY__SERVER__PORT:-32000}\"",
-    "run": "next start --hostname \"${DAISY__SERVER__HOST:-0.0.0.0}\" --port \"${DAISY__SERVER__PORT:-32000}\"",
+    "dev": "next dev --hostname \"${DAISY__SERVER__HOST:-0.0.0.0}\" --port \"${DAISY__SERVER__PORT:-10810}\"",
+    "run": "next start --hostname \"${DAISY__SERVER__HOST:-0.0.0.0}\" --port \"${DAISY__SERVER__PORT:-10810}\"",
     "build": "next build",
     "clean": "rm --recursive --force build/",
     "update": "ncu --peer --upgrade && npm i --no-audit --no-fund",
