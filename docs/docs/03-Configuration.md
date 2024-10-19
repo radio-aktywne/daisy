@@ -12,7 +12,7 @@ You can configure the app at runtime using various environment variables:
   (default: `0.0.0.0`)
 - `DAISY__SERVER__PORT` -
   port to run the server on
-  (default: `32000`)
+  (default: `10810`)
 - `DAISY__MANTIS__SCHEME`
   scheme of the HTTP API of the mantis service
   (default: `http`)
@@ -21,7 +21,7 @@ You can configure the app at runtime using various environment variables:
   (default: `localhost`)
 - `DAISY__MANTIS__PORT`
   port of the HTTP API of the mantis service
-  (default: `33000`)
+  (default: `10800`)
 - `DAISY__MANTIS__PATH`
   path of the HTTP API of the mantis service
   (default: ``)

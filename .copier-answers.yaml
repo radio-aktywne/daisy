@@ -9,7 +9,7 @@ docsurl: https://radio-aktywne.github.io/daisy
 envprefix: DAISY
 imagename: apps/daisy
 keyprefix: daisy
-port: 32000
+port: 10810
 registry: true
 releases: true
 reponame: daisy

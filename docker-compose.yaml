@@ -5,9 +5,9 @@ services:
       network: host
     environment:
       - "DAISY__SERVER__HOST=${DAISY__SERVER__HOST:-0.0.0.0}"
-      - "DAISY__SERVER__PORT=${DAISY__SERVER__PORT:-32000}"
+      - "DAISY__SERVER__PORT=${DAISY__SERVER__PORT:-10810}"
       - "DAISY__MANTIS__SCHEME=${DAISY__MANTIS__SCHEME:-http}"
       - "DAISY__MANTIS__HOST=${DAISY__MANTIS__HOST:-localhost}"
-      - "DAISY__MANTIS__PORT=${DAISY__MANTIS__PORT:-33000}"
+      - "DAISY__MANTIS__PORT=${DAISY__MANTIS__PORT:-10800}"
       - "DAISY__MANTIS__PATH=${DAISY__MANTIS__PATH:-}"
     network_mode: host
