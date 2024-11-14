@@ -1,6 +1,12 @@
-import { Title } from "@mantine/core";
-import { labels } from "../../../config/labels";
+import { TaskNotFoundMetadata } from "../../../components/metadata/task/task-not-found-metadata";
+import { TaskNotFoundView } from "../../../components/views/task/task-not-found-view";
+import { TaskNotFoundInput } from "./types";
 
-export default function TaskNotFound() {
-  return <Title>{labels.pages.task.notFound.text}</Title>;
+export default function TaskNotFound({}: TaskNotFoundInput) {
+  return (
+    <>
+      <TaskNotFoundMetadata />
+      <TaskNotFoundView />
+    </>
+  );
 }

@@ -1,1 +1,0 @@
-export { mantis } from "./mantis";
