@@ -16,7 +16,7 @@ const path = (process.env.DAISY__SCORPION__PUBLIC__PATH || "")
   .replace(/\/+$/, "");
 const url = `${scheme}://${host}${port ? `:${port}` : ""}${path}`;
 
-const client = process.env.DAISY__SCORPION__PUBLIC__CLIENT || "client";
+const client = process.env.DAISY__SCORPION__PUBLIC__CLIENT || "daisy";
 const secret = process.env.DAISY__SCORPION__PUBLIC__SECRET || "secret";
 
 export const scorpionCredentials = {
