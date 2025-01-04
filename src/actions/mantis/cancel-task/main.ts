@@ -1,10 +1,11 @@
 "use server";
 
+import { auth } from "../../../auth";
 import {
   cancelTask as internalCancelTask,
-  MantisError,
   TaskNotFoundError,
 } from "../../../lib/mantis/cancel-task";
+import { MantisError } from "../../../lib/mantis/errors";
 import { errors } from "./constants";
 import { inputSchema } from "./schemas";
 import { CancelTaskInput, CancelTaskOutput } from "./types";
@@ -12,6 +13,9 @@ import { CancelTaskInput, CancelTaskOutput } from "./types";
 export async function cancelTask(
   input: CancelTaskInput,
 ): Promise<CancelTaskOutput> {
+  const session = await auth.auth();
+  if (!session) return { error: errors.unauthorized };
+
   const parsed = inputSchema.safeParse(input);
   if (!parsed.success) return { error: errors.invalidInput };
 

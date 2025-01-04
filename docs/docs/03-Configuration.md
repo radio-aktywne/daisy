@@ -13,15 +13,45 @@ You can configure the app at runtime using various environment variables:
 - `DAISY__SERVER__PORT` -
   port to run the server on
   (default: `10810`)
-- `DAISY__MANTIS__SCHEME`
+- `DAISY__COOKIES__DOMAIN` -
+  domain for the cookies
+  (default: ``)
+- `DAISY__SECRETS__AUTH` -
+  secrets for encrypting auth cookies
+  (default: `secret`)
+- `DAISY__URLS__PUBLIC` -
+  public URL of the app
+  (default: `http://localhost:10810`)
+- `DAISY__MANTIS__HTTP__SCHEME` -
   scheme of the HTTP API of the mantis service
   (default: `http`)
-- `DAISY__MANTIS__HOST`
+- `DAISY__MANTIS__HTTP__HOST` -
   host of the HTTP API of the mantis service
   (default: `localhost`)
-- `DAISY__MANTIS__PORT`
+- `DAISY__MANTIS__HTTP__PORT` -
   port of the HTTP API of the mantis service
   (default: `10800`)
-- `DAISY__MANTIS__PATH`
+- `DAISY__MANTIS__HTTP__PATH` -
   path of the HTTP API of the mantis service
   (default: ``)
+- `DAISY__SCORPION__PUBLIC__SCHEME` -
+  scheme of the public API of the scorpion service
+  (default: `http`)
+- `DAISY__SCORPION__PUBLIC__HOST` -
+  host of the public API of the scorpion service
+  (default: `localhost`)
+- `DAISY__SCORPION__PUBLIC__PORT` -
+  port of the public API of the scorpion service
+  (default: `20000`)
+- `DAISY__SCORPION__PUBLIC__PATH` -
+  path of the public API of the scorpion service
+  (default: ``)
+- `DAISY__SCORPION__PUBLIC__CLIENT` -
+  client ID to authenticate with the public API of the scorpion service
+  (default: `client`)
+- `DAISY__SCORPION__PUBLIC__SECRET` -
+  client secret to authenticate with the public API of the scorpion service
+  (default: `secret`)
+- `DAISY__DEBUG` -
+  enable debug mode
+  (default: `true`)

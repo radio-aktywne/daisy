@@ -1,3 +1,3 @@
-export class MantisError extends Error {}
+import { MantisError } from "../errors";
 
 export class TaskNotFoundError extends MantisError {}

@@ -1,19 +1,23 @@
+import createClient, { ClientOptions } from "openapi-fetch";
 import "server-only";
-import createClient from "openapi-fetch";
 
 import { paths } from "./types";
 
-const scheme = process.env.DAISY__MANTIS__SCHEME || "http";
-const host = process.env.DAISY__MANTIS__HOST || "localhost";
+const scheme = process.env.DAISY__MANTIS__HTTP__SCHEME || "http";
+const host = process.env.DAISY__MANTIS__HTTP__HOST || "localhost";
 const port =
-  process.env.DAISY__MANTIS__PORT === undefined
+  process.env.DAISY__MANTIS__HTTP__PORT === undefined
     ? 10800
-    : process.env.DAISY__MANTIS__PORT;
-const path = (process.env.DAISY__MANTIS__PATH || "")
+    : process.env.DAISY__MANTIS__HTTP__PORT;
+const path = (process.env.DAISY__MANTIS__HTTP__PATH || "")
   // Ensure path starts with a slash
   .replace(/^(?!\/)(.*)$/, "/$1")
   // Remove trailing slashes
   .replace(/\/+$/, "");
 const url = `${scheme}://${host}${port ? `:${port}` : ""}${path}`;
 
-export const mantis = createClient<paths>({ baseUrl: url });
+export const mantisConfig = {
+  baseUrl: url,
+} satisfies ClientOptions;
+
+export const mantis = createClient<paths>(mantisConfig);
