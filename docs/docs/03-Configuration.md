@@ -48,7 +48,7 @@ You can configure the app at runtime using various environment variables:
   (default: ``)
 - `DAISY__SCORPION__PUBLIC__CLIENT` -
   client ID to authenticate with the public API of the scorpion service
-  (default: `client`)
+  (default: `daisy`)
 - `DAISY__SCORPION__PUBLIC__SECRET` -
   client secret to authenticate with the public API of the scorpion service
   (default: `secret`)
