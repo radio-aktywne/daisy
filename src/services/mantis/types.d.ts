@@ -3,19 +3,9 @@
  * Do not make direct changes to the file.
  */
 
-/** OneOf type helpers */
-type Without<T, U> = { [P in Exclude<keyof T, keyof U>]?: never };
-type XOR<T, U> = T | U extends object
-  ? (T & Without<U, T>) | (U & Without<T, U>)
-  : T | U;
-type OneOf<T extends unknown[]> = T extends [infer Only]
-  ? Only
-  : T extends [infer A, infer B, ...infer Rest]
-  ? OneOf<[XOR<A, B>, ...Rest]>
-  : never;
-
 export type paths = {
   "/ping": {
+    delete?: never;
     /**
      * Ping
      * @description Ping.
@@ -26,18 +16,41 @@ export type paths = {
      * @description Ping headers.
      */
     head: operations["PingHeadping"];
+    options?: never;
+    parameters: {
+      cookie?: never;
+      header?: never;
+      path?: never;
+      query?: never;
+    };
+    patch?: never;
+    post?: never;
+    put?: never;
+    trace?: never;
   };
   "/tasks": {
+    delete?: never;
     /**
      * Get index
      * @description List tasks.
      */
     get: operations["TasksList"];
+    head?: never;
+    options?: never;
+    parameters: {
+      cookie?: never;
+      header?: never;
+      path?: never;
+      query?: never;
+    };
+    patch?: never;
     /**
      * Schedule task
      * @description Schedule a task.
      */
     post: operations["TasksSchedule"];
+    put?: never;
+    trace?: never;
   };
   "/tasks/{id}": {
     /**
@@ -50,53 +63,141 @@ export type paths = {
      * @description Get a task.
      */
     get: operations["TasksIdGet"];
+    head?: never;
+    options?: never;
+    parameters: {
+      cookie?: never;
+      header?: never;
+      path?: never;
+      query?: never;
+    };
+    patch?: never;
+    post?: never;
+    put?: never;
+    trace?: never;
   };
   "/tasks/cancelled/{id}": {
+    delete?: never;
     /**
      * Get cancelled task
      * @description Get a cancelled task.
      */
     get: operations["TasksCancelledIdGetCancelled"];
+    head?: never;
+    options?: never;
+    parameters: {
+      cookie?: never;
+      header?: never;
+      path?: never;
+      query?: never;
+    };
+    patch?: never;
+    post?: never;
+    put?: never;
+    trace?: never;
   };
   "/tasks/clean": {
+    delete?: never;
+    get?: never;
+    head?: never;
+    options?: never;
+    parameters: {
+      cookie?: never;
+      header?: never;
+      path?: never;
+      query?: never;
+    };
+    patch?: never;
     /**
      * Clean tasks
      * @description Clean tasks.
      */
     post: operations["TasksCleanClean"];
+    put?: never;
+    trace?: never;
   };
   "/tasks/completed/{id}": {
+    delete?: never;
     /**
      * Get completed task
      * @description Get a completed task.
      */
     get: operations["TasksCompletedIdGetCompleted"];
+    head?: never;
+    options?: never;
+    parameters: {
+      cookie?: never;
+      header?: never;
+      path?: never;
+      query?: never;
+    };
+    patch?: never;
+    post?: never;
+    put?: never;
+    trace?: never;
   };
   "/tasks/failed/{id}": {
+    delete?: never;
     /**
      * Get failed task
      * @description Get a failed task.
      */
     get: operations["TasksFailedIdGetFailed"];
+    head?: never;
+    options?: never;
+    parameters: {
+      cookie?: never;
+      header?: never;
+      path?: never;
+      query?: never;
+    };
+    patch?: never;
+    post?: never;
+    put?: never;
+    trace?: never;
   };
   "/tasks/pending/{id}": {
+    delete?: never;
     /**
      * Get pending task
      * @description Get a pending task.
      */
     get: operations["TasksPendingIdGetPending"];
+    head?: never;
+    options?: never;
+    parameters: {
+      cookie?: never;
+      header?: never;
+      path?: never;
+      query?: never;
+    };
+    patch?: never;
+    post?: never;
+    put?: never;
+    trace?: never;
   };
   "/tasks/running/{id}": {
+    delete?: never;
     /**
      * Get running task
      * @description Get a running task.
      */
     get: operations["TasksRunningIdGetRunning"];
+    head?: never;
+    options?: never;
+    parameters: {
+      cookie?: never;
+      header?: never;
+      path?: never;
+      query?: never;
+    };
+    patch?: never;
+    post?: never;
+    put?: never;
+    trace?: never;
   };
 };
-
 export type webhooks = { [key: string]: never };
-
 export type components = {
   headers: never;
   parameters: never;
@@ -269,17 +370,16 @@ export type components = {
     };
   };
 };
-
 export type $defs = { [key: string]: never };
-
-export type external = { [key: string]: never };
-
 export type operations = {
-  /**
-   * Ping headers
-   * @description Ping headers.
-   */
   PingHeadping: {
+    parameters: {
+      cookie?: never;
+      header?: never;
+      path?: never;
+      query?: never;
+    };
+    requestBody?: never;
     responses: {
       /** @description Request fulfilled, nothing follows */
       204: {
@@ -287,16 +387,20 @@ export type operations = {
           "application/json": null;
         };
         headers: {
+          [name: string]: unknown;
           "cache-control"?: string;
         };
       };
     };
   };
-  /**
-   * Ping
-   * @description Ping.
-   */
   PingPing: {
+    parameters: {
+      cookie?: never;
+      header?: never;
+      path?: never;
+      query?: never;
+    };
+    requestBody?: never;
     responses: {
       /** @description Request fulfilled, nothing follows */
       204: {
@@ -304,29 +408,32 @@ export type operations = {
           "application/json": null;
         };
         headers: {
+          [name: string]: unknown;
           "cache-control"?: string;
         };
       };
     };
   };
-  /**
-   * Get cancelled task
-   * @description Get a cancelled task.
-   */
   TasksCancelledIdGetCancelled: {
     parameters: {
+      cookie?: never;
+      header?: never;
       path: {
         /** @description Identifier of the task. */
         id: string;
       };
+      query?: never;
     };
+    requestBody?: never;
     responses: {
       /** @description Request fulfilled, document follows */
       200: {
         content: {
           "application/json": components["schemas"]["CancelledTask"];
         };
-        headers: {};
+        headers: {
+          [name: string]: unknown;
+        };
       };
       /** @description Bad request syntax or unsupported method */
       400: {
@@ -341,6 +448,9 @@ export type operations = {
               | unknown[];
             status_code: number;
           };
+        };
+        headers: {
+          [name: string]: unknown;
         };
       };
       /** @description Not Found */
@@ -357,14 +467,19 @@ export type operations = {
             status_code: number;
           };
         };
+        headers: {
+          [name: string]: unknown;
+        };
       };
     };
   };
-  /**
-   * Clean tasks
-   * @description Clean tasks.
-   */
   TasksCleanClean: {
+    parameters: {
+      cookie?: never;
+      header?: never;
+      path?: never;
+      query?: never;
+    };
     requestBody: {
       content: {
         "application/json": components["schemas"]["CleanRequestModel"];
@@ -376,14 +491,15 @@ export type operations = {
         content: {
           "application/json": components["schemas"]["CleaningResult"];
         };
-        headers: {};
+        headers: {
+          [name: string]: unknown;
+        };
       };
       /** @description Bad Request */
       400: {
         content: {
-          "application/json": OneOf<
-            [
-              {
+          "application/json":
+            | {
                 detail: string;
                 extra?:
                   | {
@@ -392,8 +508,8 @@ export type operations = {
                   | null
                   | unknown[];
                 status_code: number;
-              },
-              {
+              }
+            | {
                 detail: string;
                 extra?:
                   | {
@@ -402,31 +518,34 @@ export type operations = {
                   | null
                   | unknown[];
                 status_code: number;
-              },
-            ]
-          >;
+              };
+        };
+        headers: {
+          [name: string]: unknown;
         };
       };
     };
   };
-  /**
-   * Get completed task
-   * @description Get a completed task.
-   */
   TasksCompletedIdGetCompleted: {
     parameters: {
+      cookie?: never;
+      header?: never;
       path: {
         /** @description Identifier of the task. */
         id: string;
       };
+      query?: never;
     };
+    requestBody?: never;
     responses: {
       /** @description Request fulfilled, document follows */
       200: {
         content: {
           "application/json": components["schemas"]["CompletedTask"];
         };
-        headers: {};
+        headers: {
+          [name: string]: unknown;
+        };
       };
       /** @description Bad request syntax or unsupported method */
       400: {
@@ -441,6 +560,9 @@ export type operations = {
               | unknown[];
             status_code: number;
           };
+        };
+        headers: {
+          [name: string]: unknown;
         };
       };
       /** @description Not Found */
@@ -457,27 +579,32 @@ export type operations = {
             status_code: number;
           };
         };
+        headers: {
+          [name: string]: unknown;
+        };
       };
     };
   };
-  /**
-   * Get failed task
-   * @description Get a failed task.
-   */
   TasksFailedIdGetFailed: {
     parameters: {
+      cookie?: never;
+      header?: never;
       path: {
         /** @description Identifier of the task. */
         id: string;
       };
+      query?: never;
     };
+    requestBody?: never;
     responses: {
       /** @description Request fulfilled, document follows */
       200: {
         content: {
           "application/json": components["schemas"]["FailedTask"];
         };
-        headers: {};
+        headers: {
+          [name: string]: unknown;
+        };
       };
       /** @description Bad request syntax or unsupported method */
       400: {
@@ -492,6 +619,9 @@ export type operations = {
               | unknown[];
             status_code: number;
           };
+        };
+        headers: {
+          [name: string]: unknown;
         };
       };
       /** @description Not Found */
@@ -508,27 +638,32 @@ export type operations = {
             status_code: number;
           };
         };
+        headers: {
+          [name: string]: unknown;
+        };
       };
     };
   };
-  /**
-   * Cancel task
-   * @description Cancel a task.
-   */
   TasksIdCancel: {
     parameters: {
+      cookie?: never;
+      header?: never;
       path: {
         /** @description Identifier of the task. */
         id: string;
       };
+      query?: never;
     };
+    requestBody?: never;
     responses: {
       /** @description Request fulfilled, document follows */
       200: {
         content: {
           "application/json": components["schemas"]["CancelledTask"];
         };
-        headers: {};
+        headers: {
+          [name: string]: unknown;
+        };
       };
       /** @description Bad request syntax or unsupported method */
       400: {
@@ -543,6 +678,9 @@ export type operations = {
               | unknown[];
             status_code: number;
           };
+        };
+        headers: {
+          [name: string]: unknown;
         };
       };
       /** @description Not Found */
@@ -559,27 +697,32 @@ export type operations = {
             status_code: number;
           };
         };
+        headers: {
+          [name: string]: unknown;
+        };
       };
     };
   };
-  /**
-   * Get task
-   * @description Get a task.
-   */
   TasksIdGet: {
     parameters: {
+      cookie?: never;
+      header?: never;
       path: {
         /** @description Identifier of the task. */
         id: string;
       };
+      query?: never;
     };
+    requestBody?: never;
     responses: {
       /** @description Request fulfilled, document follows */
       200: {
         content: {
           "application/json": components["schemas"]["GenericTask"];
         };
-        headers: {};
+        headers: {
+          [name: string]: unknown;
+        };
       };
       /** @description Bad request syntax or unsupported method */
       400: {
@@ -594,6 +737,9 @@ export type operations = {
               | unknown[];
             status_code: number;
           };
+        };
+        headers: {
+          [name: string]: unknown;
         };
       };
       /** @description Not Found */
@@ -610,42 +756,52 @@ export type operations = {
             status_code: number;
           };
         };
+        headers: {
+          [name: string]: unknown;
+        };
       };
     };
   };
-  /**
-   * Get index
-   * @description List tasks.
-   */
   TasksList: {
+    parameters: {
+      cookie?: never;
+      header?: never;
+      path?: never;
+      query?: never;
+    };
+    requestBody?: never;
     responses: {
       /** @description Request fulfilled, document follows */
       200: {
         content: {
           "application/json": components["schemas"]["TaskIndex"];
         };
-        headers: {};
+        headers: {
+          [name: string]: unknown;
+        };
       };
     };
   };
-  /**
-   * Get pending task
-   * @description Get a pending task.
-   */
   TasksPendingIdGetPending: {
     parameters: {
+      cookie?: never;
+      header?: never;
       path: {
         /** @description Identifier of the task. */
         id: string;
       };
+      query?: never;
     };
+    requestBody?: never;
     responses: {
       /** @description Request fulfilled, document follows */
       200: {
         content: {
           "application/json": components["schemas"]["PendingTask"];
         };
-        headers: {};
+        headers: {
+          [name: string]: unknown;
+        };
       };
       /** @description Bad request syntax or unsupported method */
       400: {
@@ -660,6 +816,9 @@ export type operations = {
               | unknown[];
             status_code: number;
           };
+        };
+        headers: {
+          [name: string]: unknown;
         };
       };
       /** @description Not Found */
@@ -676,27 +835,32 @@ export type operations = {
             status_code: number;
           };
         };
+        headers: {
+          [name: string]: unknown;
+        };
       };
     };
   };
-  /**
-   * Get running task
-   * @description Get a running task.
-   */
   TasksRunningIdGetRunning: {
     parameters: {
+      cookie?: never;
+      header?: never;
       path: {
         /** @description Identifier of the task. */
         id: string;
       };
+      query?: never;
     };
+    requestBody?: never;
     responses: {
       /** @description Request fulfilled, document follows */
       200: {
         content: {
           "application/json": components["schemas"]["RunningTask"];
         };
-        headers: {};
+        headers: {
+          [name: string]: unknown;
+        };
       };
       /** @description Bad request syntax or unsupported method */
       400: {
@@ -711,6 +875,9 @@ export type operations = {
               | unknown[];
             status_code: number;
           };
+        };
+        headers: {
+          [name: string]: unknown;
         };
       };
       /** @description Not Found */
@@ -727,14 +894,19 @@ export type operations = {
             status_code: number;
           };
         };
+        headers: {
+          [name: string]: unknown;
+        };
       };
     };
   };
-  /**
-   * Schedule task
-   * @description Schedule a task.
-   */
   TasksSchedule: {
+    parameters: {
+      cookie?: never;
+      header?: never;
+      path?: never;
+      query?: never;
+    };
     requestBody: {
       content: {
         "application/json": components["schemas"]["ScheduleRequestModel"];
@@ -746,14 +918,15 @@ export type operations = {
         content: {
           "application/json": components["schemas"]["PendingTask"];
         };
-        headers: {};
+        headers: {
+          [name: string]: unknown;
+        };
       };
       /** @description Bad Request */
       400: {
         content: {
-          "application/json": OneOf<
-            [
-              {
+          "application/json":
+            | {
                 detail: string;
                 extra?:
                   | {
@@ -762,8 +935,8 @@ export type operations = {
                   | null
                   | unknown[];
                 status_code: number;
-              },
-              {
+              }
+            | {
                 detail: string;
                 extra?:
                   | {
@@ -772,9 +945,10 @@ export type operations = {
                   | null
                   | unknown[];
                 status_code: number;
-              },
-            ]
-          >;
+              };
+        };
+        headers: {
+          [name: string]: unknown;
         };
       };
     };

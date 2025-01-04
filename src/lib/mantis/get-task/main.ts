@@ -1,7 +1,8 @@
 import "server-only";
 
 import { mantis } from "../../../services/mantis";
-import { MantisError, TaskNotFoundError } from "./errors";
+import { MantisError } from "../errors";
+import { TaskNotFoundError } from "./errors";
 import { GetTaskInput, GetTaskOutput } from "./types";
 
 export async function getTask({ id }: GetTaskInput): Promise<GetTaskOutput> {
@@ -9,7 +10,7 @@ export async function getTask({ id }: GetTaskInput): Promise<GetTaskOutput> {
     params: { path: { id } },
   });
 
-  if (error) {
+  if (error || !response.ok) {
     if (response.status === 404) throw new TaskNotFoundError();
     throw new MantisError();
   }
