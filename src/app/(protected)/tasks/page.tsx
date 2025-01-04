@@ -15,8 +15,8 @@ export async function generateMetadata(): Promise<Metadata> {
   await loadLocale({ i18n, language });
 
   return {
-    description: t(i18n)(msg({ message: "Tasks • daisy" })),
-    title: t(i18n)(msg({ message: "daisy" })),
+    description: t(i18n)(msg({ message: "daisy" })),
+    title: t(i18n)(msg({ message: "Tasks • daisy" })),
   };
 }
 
