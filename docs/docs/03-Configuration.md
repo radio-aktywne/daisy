@@ -13,9 +13,6 @@ You can configure the app at runtime using various environment variables:
 - `DAISY__SERVER__PORT` -
   port to run the server on
   (default: `10810`)
-- `DAISY__COOKIES__DOMAIN` -
-  domain for the cookies
-  (default: ``)
 - `DAISY__SECRETS__AUTH` -
   secrets for encrypting auth cookies
   (default: `secret`)
