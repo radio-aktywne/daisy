@@ -6,7 +6,6 @@ services:
     environment:
       - "DAISY__SERVER__HOST=${DAISY__SERVER__HOST:-0.0.0.0}"
       - "DAISY__SERVER__PORT=${DAISY__SERVER__PORT:-10810}"
-      - "DAISY__COOKIES__DOMAIN=${DAISY__COOKIES__DOMAIN:-}"
       - "DAISY__SECRETS__AUTH=${DAISY__SECRETS__AUTH:-secret}"
       - "DAISY__URLS__PUBLIC=${DAISY__URLS__PUBLIC:-http://localhost:10810}"
       - "DAISY__MANTIS__HTTP__SCHEME=${DAISY__MANTIS__HTTP__SCHEME:-http}"

@@ -1,6 +1,6 @@
 "use server";
 
-import { auth } from "../../../auth";
+import { getSession } from "../../../lib/auth/get-session";
 import {
   cancelTask as internalCancelTask,
   TaskNotFoundError,
@@ -13,7 +13,7 @@ import { CancelTaskInput, CancelTaskOutput } from "./types";
 export async function cancelTask(
   input: CancelTaskInput,
 ): Promise<CancelTaskOutput> {
-  const session = await auth.auth();
+  const { session } = await getSession();
   if (!session) return { error: errors.unauthorized };
 
   const parsed = inputSchema.safeParse(input);

@@ -1,6 +1,6 @@
 "use server";
 
-import { auth } from "../../../auth";
+import { getSession } from "../../../lib/auth/get-session";
 import { MantisError } from "../../../lib/mantis/errors";
 import {
   getTask as internalGetTask,
@@ -11,7 +11,7 @@ import { inputSchema } from "./schemas";
 import { GetTaskInput, GetTaskOutput } from "./types";
 
 export async function getTask(input: GetTaskInput): Promise<GetTaskOutput> {
-  const session = await auth.auth();
+  const { session } = await getSession();
   if (!session) return { error: errors.unauthorized };
 
   const parsed = inputSchema.safeParse(input);
