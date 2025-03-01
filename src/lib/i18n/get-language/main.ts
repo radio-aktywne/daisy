@@ -1,6 +1,6 @@
 import "server-only";
 
-import { defaultUserLanguage } from "../../constants";
+import { defaultUserLanguage } from "../../../constants";
 import { GetLanguageInput, GetLanguageOutput } from "./types";
 import { getAcceptLanguageHeader, parseAcceptLanguageHeader } from "./utils";
 

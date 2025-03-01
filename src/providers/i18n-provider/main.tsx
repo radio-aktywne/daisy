@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import { defaultLocale } from "../../constants";
 import { useDocumentMetadata } from "../../hooks/use-document-metadata";
 import { useLanguage } from "../../hooks/use-language";
-import { loadLocale } from "../../lib/load-locale";
+import { loadLocale } from "../../lib/i18n/load-locale";
 import { I18nProviderInput } from "./types";
 
 export function I18nProvider({ children }: I18nProviderInput) {
@@ -16,7 +16,9 @@ export function I18nProvider({ children }: I18nProviderInput) {
   const { language } = useLanguage();
 
   useEffect(() => {
-    loadLocale({ i18n, language }).then(({ locale }) => setLocale(locale));
+    void loadLocale({ i18n, language }).then(({ locale }) => {
+      setLocale(locale);
+    });
   }, [language]);
 
   useDocumentMetadata({ language: locale });

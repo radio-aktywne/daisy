@@ -1,11 +1,11 @@
 import { i18n } from "@lingui/core";
-import { msg, t } from "@lingui/macro";
+import { msg } from "@lingui/core/macro";
 import { Metadata } from "next";
 
 import { AuthErrorPageMetadata } from "../../../components/metadata/auth/auth-error-page-metadata";
 import { AuthErrorPageView } from "../../../components/views/auth/auth-error-page-view";
-import { getLanguage } from "../../../lib/get-language";
-import { loadLocale } from "../../../lib/load-locale";
+import { getLanguage } from "../../../lib/i18n/get-language";
+import { loadLocale } from "../../../lib/i18n/load-locale";
 import { AuthErrorPageInput } from "./types";
 import { parseParams } from "./utils";
 
@@ -14,8 +14,8 @@ export async function generateMetadata(): Promise<Metadata> {
   await loadLocale({ i18n, language });
 
   return {
-    description: t(i18n)(msg({ message: "daisy" })),
-    title: t(i18n)(msg({ message: "Auth error • daisy" })),
+    description: i18n._(msg({ message: "daisy" })),
+    title: i18n._(msg({ message: "Auth error • daisy" })),
   };
 }
 

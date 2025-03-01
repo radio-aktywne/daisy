@@ -1,4 +1,4 @@
-import { defaultLocale } from "../../constants";
+import { defaultLocale } from "../../../constants";
 import { defaultMessages } from "./constants";
 import { LoadLocaleInput, LoadLocaleOutput } from "./types";
 import { activate, getLocale, tryImport } from "./utils";

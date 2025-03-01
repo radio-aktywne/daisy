@@ -498,27 +498,16 @@ export type operations = {
       /** @description Bad Request */
       400: {
         content: {
-          "application/json":
-            | {
-                detail: string;
-                extra?:
-                  | {
-                      [key: string]: unknown;
-                    }
-                  | null
-                  | unknown[];
-                status_code: number;
-              }
-            | {
-                detail: string;
-                extra?:
-                  | {
-                      [key: string]: unknown;
-                    }
-                  | null
-                  | unknown[];
-                status_code: number;
-              };
+          "application/json": {
+            detail: string;
+            extra?:
+              | {
+                  [key: string]: unknown;
+                }
+              | null
+              | unknown[];
+            status_code: number;
+          };
         };
         headers: {
           [name: string]: unknown;
@@ -925,27 +914,16 @@ export type operations = {
       /** @description Bad Request */
       400: {
         content: {
-          "application/json":
-            | {
-                detail: string;
-                extra?:
-                  | {
-                      [key: string]: unknown;
-                    }
-                  | null
-                  | unknown[];
-                status_code: number;
-              }
-            | {
-                detail: string;
-                extra?:
-                  | {
-                      [key: string]: unknown;
-                    }
-                  | null
-                  | unknown[];
-                status_code: number;
-              };
+          "application/json": {
+            detail: string;
+            extra?:
+              | {
+                  [key: string]: unknown;
+                }
+              | null
+              | unknown[];
+            status_code: number;
+          };
         };
         headers: {
           [name: string]: unknown;
