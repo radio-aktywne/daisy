@@ -1,12 +1,12 @@
 import { i18n } from "@lingui/core";
-import { msg, t } from "@lingui/macro";
+import { msg } from "@lingui/core/macro";
 import { ColorSchemeScript } from "@mantine/core";
 import { Metadata } from "next";
 
 import { PageLayout } from "../components/layouts/page-layout";
 import { colorSchemeStorageKey, defaultColorScheme } from "../constants";
-import { getLanguage } from "../lib/get-language";
-import { loadLocale } from "../lib/load-locale";
+import { getLanguage } from "../lib/i18n/get-language";
+import { loadLocale } from "../lib/i18n/load-locale";
 import { I18nProvider } from "../providers/i18n-provider";
 import { ThemeProvider } from "../providers/theme-provider";
 import { RootLayoutInput } from "./types";
@@ -16,8 +16,8 @@ export async function generateMetadata(): Promise<Metadata> {
   await loadLocale({ i18n, language });
 
   return {
-    description: t(i18n)(msg({ message: "daisy" })),
-    title: t(i18n)(msg({ message: "daisy" })),
+    description: i18n._(msg({ message: "daisy" })),
+    title: i18n._(msg({ message: "daisy" })),
   };
 }
 

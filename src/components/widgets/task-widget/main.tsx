@@ -1,6 +1,6 @@
 "use client";
 
-import { msg } from "@lingui/macro";
+import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
 import { CodeHighlight } from "@mantine/code-highlight";
 import { Button, Stack } from "@mantine/core";
