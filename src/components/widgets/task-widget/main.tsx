@@ -38,7 +38,7 @@ export function TaskWidget({ task: prefetchedTask }: TaskWidgetInput) {
   }, [_, error, toasts]);
 
   return (
-    <Stack>
+    <Stack mah="100%" w="100%">
       <CodeHighlight
         className={classes.code}
         code={JSON.stringify(task, null, 2)}

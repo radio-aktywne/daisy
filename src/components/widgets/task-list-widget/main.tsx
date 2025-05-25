@@ -2,34 +2,31 @@
 
 import { msg } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
-import {
-  Center,
-  Pagination,
-  Stack,
-  Title,
-  UnstyledButton,
-} from "@mantine/core";
+import { Center, Stack, Title, UnstyledButton } from "@mantine/core";
+import { List, ListItem } from "@radio-aktywne/ui";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 import { useTaskIndex } from "../../../hooks/mantis/use-task-index";
 import { useToasts } from "../../../hooks/use-toasts";
-import { TaskTile } from "./components/task-tile";
+import { TaskItem } from "./components/task-item";
 import { TaskListWidgetInput } from "./types";
 
 export function TaskListWidget({
   index: prefetchedIndex,
-  perPage = 5,
-  type,
 }: TaskListWidgetInput) {
-  const [page, setPage] = useState(1);
-
   const { _ } = useLingui();
   const toasts = useToasts();
 
   const { data: currentIndex, error } = useTaskIndex();
   const index = currentIndex ?? prefetchedIndex;
-  const tasks = index[type];
+  const tasks = [
+    ...index.pending.map((id) => ({ id, status: "pending" as const })),
+    ...index.running.map((id) => ({ id, status: "running" as const })),
+    ...index.cancelled.map((id) => ({ id, status: "cancelled" as const })),
+    ...index.failed.map((id) => ({ id, status: "failed" as const })),
+    ...index.completed.map((id) => ({ id, status: "completed" as const })),
+  ];
 
   useEffect(() => {
     if (error) toasts.warning(_(error));
@@ -39,23 +36,22 @@ export function TaskListWidget({
     return <Title>{_(msg({ message: "No tasks." }))}</Title>;
   }
 
-  const pages = Math.ceil(tasks.length / perPage);
-  const start = (page - 1) * perPage;
-  const end = start + perPage;
-  const paged = tasks.slice(start, end);
-
   return (
-    <Stack>
-      <Stack>
-        {paged.map((id) => (
+    <Stack mah="100%" w="100%">
+      <Center>
+        <UnstyledButton component={Link} href="/tasks">
+          <Title>{_(msg({ message: "Tasks" }))}</Title>
+        </UnstyledButton>
+      </Center>
+      <List style={{ overflowY: "auto" }}>
+        {tasks.map(({ id, status }) => (
           <UnstyledButton component={Link} href={`/tasks/${id}`} key={id}>
-            <TaskTile id={id} />
+            <ListItem>
+              <TaskItem id={id} status={status} />
+            </ListItem>
           </UnstyledButton>
         ))}
-      </Stack>
-      <Center>
-        <Pagination onChange={setPage} total={pages} value={page} withEdges />
-      </Center>
+      </List>
     </Stack>
   );
 }
