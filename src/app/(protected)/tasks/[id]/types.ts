@@ -1,3 +1,7 @@
+import { PropsWithChildren } from "react";
+
+export type TaskLayoutInput = PropsWithChildren;
+
 export type TaskNotFoundInput = {
   [key: string]: never;
 };

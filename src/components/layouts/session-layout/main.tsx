@@ -1,19 +1,35 @@
 "use client";
 
+import { msg } from "@lingui/core/macro";
+import { useLingui } from "@lingui/react";
 import { Loader } from "@mantine/core";
+import { UserMenu } from "@radio-aktywne/ui";
 
 import { useSession } from "../../../hooks/use-session";
-import { UserMenu } from "./components/user-menu";
+import { getLogoutPath } from "../../../lib/urls/auth/get-logout-path";
 import { SessionLayoutInput } from "./types";
 
 export function SessionLayout({ children }: SessionLayoutInput) {
   const { loading, session } = useSession();
+  const { _ } = useLingui();
 
   if (loading) return <Loader />;
 
+  const { path: logoutPath } = getLogoutPath();
+
   return (
     <>
-      <UserMenu session={session} />
+      <UserMenu
+        items={{
+          logout: {
+            label: _(msg({ message: "Logout" })),
+            url: logoutPath,
+          },
+        }}
+        user={{
+          name: session.custom.user.traits.names.display,
+        }}
+      />
       {children}
     </>
   );
