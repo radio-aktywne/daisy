@@ -2,8 +2,8 @@ import { i18n } from "@lingui/core";
 import { msg } from "@lingui/core/macro";
 import { Metadata } from "next";
 
-import { TaskPageMetadata } from "../../../../components/metadata/task/task-page-metadata";
-import { TaskPageView } from "../../../../components/views/task/task-page-view";
+import { TaskPageMetadata } from "../../../../components/metadata/tasks/task/task-page-metadata";
+import { TaskPageView } from "../../../../components/views/tasks/task/task-page-view";
 import { getLanguage } from "../../../../lib/i18n/get-language";
 import { loadLocale } from "../../../../lib/i18n/load-locale";
 import { TaskPageInput } from "./types";

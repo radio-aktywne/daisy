@@ -1,3 +1,5 @@
 .code {
+  background-color: var(--mantine-color-foreground-alternative);
   border-radius: var(--mantine-radius-default);
+  overflow-y: auto;
 }

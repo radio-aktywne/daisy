@@ -34,44 +34,16 @@ msgstr "Auth error • daisy"
 msgid "Cancel"
 msgstr "Cancel"
 
-#: src/components/widgets/task-index-widget/main.tsx:72
-msgid "Cancelled"
-msgstr "Cancelled"
-
-#: src/components/metadata/tasks/cancelled-tasks-page-metadata/main.tsx:14
-#: src/app/(protected)/tasks/cancelled/page.tsx:19
-msgid "Cancelled tasks • daisy"
-msgstr "Cancelled tasks • daisy"
-
-#: src/components/widgets/task-index-widget/main.tsx:94
-msgid "Completed"
-msgstr "Completed"
-
-#: src/components/metadata/tasks/completed-tasks-page-metadata/main.tsx:14
-#: src/app/(protected)/tasks/completed/page.tsx:19
-msgid "Completed tasks • daisy"
-msgstr "Completed tasks • daisy"
-
-#: src/components/metadata/tasks/tasks-page-metadata/main.tsx:13
-#: src/components/metadata/tasks/running-tasks-page-metadata/main.tsx:13
-#: src/components/metadata/tasks/pending-tasks-page-metadata/main.tsx:13
-#: src/components/metadata/tasks/failed-tasks-page-metadata/main.tsx:13
-#: src/components/metadata/tasks/completed-tasks-page-metadata/main.tsx:13
-#: src/components/metadata/tasks/cancelled-tasks-page-metadata/main.tsx:13
-#: src/components/metadata/task/task-page-metadata/main.tsx:13
-#: src/components/metadata/task/task-not-found-metadata/main.tsx:13
+#: src/components/metadata/tasks/task-list-page-metadata/main.tsx:13
+#: src/components/metadata/tasks/task/task-page-metadata/main.tsx:13
+#: src/components/metadata/tasks/task/task-not-found-metadata/main.tsx:13
 #: src/components/metadata/root/root-not-found-metadata/main.tsx:13
 #: src/components/metadata/root/root-error-metadata/main.tsx:13
 #: src/components/metadata/auth/auth-error-page-metadata/main.tsx:13
 #: src/app/layout.tsx:19
 #: src/app/layout.tsx:20
 #: src/app/auth/error/page.tsx:17
-#: src/app/(protected)/tasks/page.tsx:18
-#: src/app/(protected)/tasks/running/page.tsx:18
-#: src/app/(protected)/tasks/pending/page.tsx:18
-#: src/app/(protected)/tasks/failed/page.tsx:18
-#: src/app/(protected)/tasks/completed/page.tsx:18
-#: src/app/(protected)/tasks/cancelled/page.tsx:18
+#: src/app/(protected)/tasks/page.tsx:17
 #: src/app/(protected)/tasks/[id]/page.tsx:22
 msgid "daisy"
 msgstr "daisy"
@@ -88,15 +60,6 @@ msgstr "Error • daisy"
 msgid "Error in auth flow"
 msgstr "Error in auth flow"
 
-#: src/components/widgets/task-index-widget/main.tsx:82
-msgid "Failed"
-msgstr "Failed"
-
-#: src/components/metadata/tasks/failed-tasks-page-metadata/main.tsx:14
-#: src/app/(protected)/tasks/failed/page.tsx:19
-msgid "Failed tasks • daisy"
-msgstr "Failed tasks • daisy"
-
 #: src/hooks/use-toasts/main.tsx:31
 msgid "Info"
 msgstr "Info"
@@ -106,11 +69,11 @@ msgstr "Info"
 msgid "Invalid input."
 msgstr "Invalid input."
 
-#: src/components/layouts/session-layout/components/user-menu/components/logout-button/main.tsx:23
+#: src/components/layouts/session-layout/main.tsx:30
 msgid "Logout"
 msgstr "Logout"
 
-#: src/components/widgets/task-list-widget/main.tsx:39
+#: src/components/widgets/task-list-widget/main.tsx:36
 msgid "No tasks."
 msgstr "No tasks."
 
@@ -122,27 +85,9 @@ msgstr "Not Found • daisy"
 msgid "Page not found"
 msgstr "Page not found"
 
-#: src/components/widgets/task-index-widget/main.tsx:50
-msgid "Pending"
-msgstr "Pending"
-
-#: src/components/metadata/tasks/pending-tasks-page-metadata/main.tsx:14
-#: src/app/(protected)/tasks/pending/page.tsx:19
-msgid "Pending tasks • daisy"
-msgstr "Pending tasks • daisy"
-
 #: src/components/views/root/root-error-view/main.tsx:22
 msgid "Retry"
 msgstr "Retry"
-
-#: src/components/widgets/task-index-widget/main.tsx:60
-msgid "Running"
-msgstr "Running"
-
-#: src/components/metadata/tasks/running-tasks-page-metadata/main.tsx:14
-#: src/app/(protected)/tasks/running/page.tsx:19
-msgid "Running tasks • daisy"
-msgstr "Running tasks • daisy"
 
 #: src/components/views/root/root-error-view/main.tsx:15
 msgid "Something went wrong"
@@ -152,7 +97,7 @@ msgstr "Something went wrong"
 msgid "Success"
 msgstr "Success"
 
-#: src/components/metadata/task/task-page-metadata/main.tsx:14
+#: src/components/metadata/tasks/task/task-page-metadata/main.tsx:14
 #: src/app/(protected)/tasks/[id]/page.tsx:23
 msgid "Task {id} • daisy"
 msgstr "Task {id} • daisy"
@@ -161,18 +106,22 @@ msgstr "Task {id} • daisy"
 msgid "Task cancelled"
 msgstr "Task cancelled"
 
-#: src/components/metadata/task/task-not-found-metadata/main.tsx:14
+#: src/components/metadata/tasks/task/task-not-found-metadata/main.tsx:14
 msgid "Task not found • daisy"
 msgstr "Task not found • daisy"
 
-#: src/components/views/task/task-not-found-view/main.tsx:12
+#: src/components/views/tasks/task/task-not-found-view/main.tsx:12
 #: src/actions/mantis/get-task/constants.ts:6
 #: src/actions/mantis/cancel-task/constants.ts:6
 msgid "Task not found."
 msgstr "Task not found."
 
-#: src/components/metadata/tasks/tasks-page-metadata/main.tsx:14
-#: src/app/(protected)/tasks/page.tsx:19
+#: src/components/widgets/task-list-widget/main.tsx:43
+msgid "Tasks"
+msgstr "Tasks"
+
+#: src/components/metadata/tasks/task-list-page-metadata/main.tsx:14
+#: src/app/(protected)/tasks/page.tsx:18
 msgid "Tasks • daisy"
 msgstr "Tasks • daisy"
 
