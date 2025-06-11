@@ -5,7 +5,9 @@ import { MantisError } from "../errors";
 import { GetTaskIndexInput, GetTaskIndexOutput } from "./types";
 
 export async function getTaskIndex({}: GetTaskIndexInput = {}): Promise<GetTaskIndexOutput> {
-  const { data, error, response } = await mantis.GET("/tasks");
+  const { data, error, response } = await mantis.GET("/tasks", {
+    cache: "no-store",
+  });
 
   if (error || !response.ok) throw new MantisError();
 

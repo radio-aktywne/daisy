@@ -7,6 +7,7 @@ import { GetTaskInput, GetTaskOutput } from "./types";
 
 export async function getTask({ id }: GetTaskInput): Promise<GetTaskOutput> {
   const { data, error, response } = await mantis.GET("/tasks/{id}", {
+    cache: "no-store",
     params: { path: { id } },
   });
 
