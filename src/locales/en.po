@@ -26,7 +26,7 @@ msgid "An error occurred while fetching the task."
 msgstr "An error occurred while fetching the task."
 
 #: src/components/metadata/auth/auth-error-page-metadata/main.tsx:14
-#: src/app/auth/error/page.tsx:18
+#: src/app/auth/error/page.tsx:20
 msgid "Auth error • daisy"
 msgstr "Auth error • daisy"
 
@@ -34,15 +34,23 @@ msgstr "Auth error • daisy"
 msgid "Cancel"
 msgstr "Cancel"
 
+#: src/components/widgets/task-list-widget/components/filters-panel/main.tsx:41
+msgid "Cancelled"
+msgstr "Cancelled"
+
+#: src/components/widgets/task-list-widget/components/filters-panel/main.tsx:55
+msgid "Completed"
+msgstr "Completed"
+
 #: src/components/metadata/tasks/task-list-page-metadata/main.tsx:13
 #: src/components/metadata/tasks/task/task-page-metadata/main.tsx:13
 #: src/components/metadata/tasks/task/task-not-found-metadata/main.tsx:13
 #: src/components/metadata/root/root-not-found-metadata/main.tsx:13
 #: src/components/metadata/root/root-error-metadata/main.tsx:13
 #: src/components/metadata/auth/auth-error-page-metadata/main.tsx:13
-#: src/app/layout.tsx:19
-#: src/app/layout.tsx:20
-#: src/app/auth/error/page.tsx:17
+#: src/app/layout.tsx:21
+#: src/app/layout.tsx:22
+#: src/app/auth/error/page.tsx:19
 #: src/app/(protected)/tasks/page.tsx:17
 #: src/app/(protected)/tasks/[id]/page.tsx:22
 msgid "daisy"
@@ -60,6 +68,10 @@ msgstr "Error • daisy"
 msgid "Error in auth flow"
 msgstr "Error in auth flow"
 
+#: src/components/widgets/task-list-widget/components/filters-panel/main.tsx:48
+msgid "Failed"
+msgstr "Failed"
+
 #: src/hooks/use-toasts/main.tsx:31
 msgid "Info"
 msgstr "Info"
@@ -73,9 +85,9 @@ msgstr "Invalid input."
 msgid "Logout"
 msgstr "Logout"
 
-#: src/components/widgets/task-list-widget/main.tsx:36
-msgid "No tasks."
-msgstr "No tasks."
+#: src/components/widgets/task-list-widget/main.tsx:70
+msgid "No tasks"
+msgstr "No tasks"
 
 #: src/components/metadata/root/root-not-found-metadata/main.tsx:14
 msgid "Not Found • daisy"
@@ -85,9 +97,17 @@ msgstr "Not Found • daisy"
 msgid "Page not found"
 msgstr "Page not found"
 
+#: src/components/widgets/task-list-widget/components/filters-panel/main.tsx:27
+msgid "Pending"
+msgstr "Pending"
+
 #: src/components/views/root/root-error-view/main.tsx:22
 msgid "Retry"
 msgstr "Retry"
+
+#: src/components/widgets/task-list-widget/components/filters-panel/main.tsx:34
+msgid "Running"
+msgstr "Running"
 
 #: src/components/views/root/root-error-view/main.tsx:15
 msgid "Something went wrong"
@@ -116,7 +136,7 @@ msgstr "Task not found • daisy"
 msgid "Task not found."
 msgstr "Task not found."
 
-#: src/components/widgets/task-list-widget/main.tsx:43
+#: src/components/widgets/task-list-widget/main.tsx:65
 msgid "Tasks"
 msgstr "Tasks"
 
