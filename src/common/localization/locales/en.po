@@ -1,0 +1,141 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: daisy\n"
+"Language: en\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"MIME-Version: 1.0\n"
+"X-Generator: @lingui/cli\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Plural-Forms: \n"
+
+#: src/client/test/components/test-widget/main.tsx:52
+msgid "An unexpected error occurred"
+msgstr "An unexpected error occurred"
+
+#: src/client/core/components/task-widget/main.tsx:69
+msgid "Cancel"
+msgstr "Cancel"
+
+#: src/client/core/components/task-list-widget/components/filters-panel/main.tsx:40
+msgid "Cancelled"
+msgstr "Cancelled"
+
+#: src/client/core/components/task-list-widget/components/filters-panel/main.tsx:54
+msgid "Completed"
+msgstr "Completed"
+
+#: src/app/(root)/layout.tsx:39
+msgid "daisy"
+msgstr "daisy"
+
+#: src/app/(root)/layout.tsx:33
+msgid "daisy is a Next.js app"
+msgstr "daisy is a Next.js app"
+
+#: src/client/test/components/test-widget/components/test-form/main.tsx:25
+msgid "Enter some value"
+msgstr "Enter some value"
+
+#: src/isomorphic/notifications/hooks/use-notifications/main.ts:46
+msgid "Error"
+msgstr "Error"
+
+#: src/app/(root)/(main)/error.tsx:11
+#: src/app/(root)/(tasks)/(master)/(detail)/error.tsx:11
+#: src/app/(root)/(tasks)/error.tsx:11
+msgid "Error • daisy"
+msgstr "Error • daisy"
+
+#: src/client/core/components/task-list-widget/components/filters-panel/main.tsx:47
+msgid "Failed"
+msgstr "Failed"
+
+#: src/client/core/components/task-widget/main.tsx:41
+msgid "Failed to cancel task."
+msgstr "Failed to cancel task."
+
+#: src/isomorphic/notifications/hooks/use-notifications/main.ts:56
+msgid "Info"
+msgstr "Info"
+
+#: src/client/test/components/test-widget/main.tsx:41
+#: src/client/test/components/test-widget/main.tsx:62
+msgid "Invalid input"
+msgstr "Invalid input"
+
+#: src/client/core/components/task-list-widget/main.tsx:59
+msgid "No tasks"
+msgstr "No tasks"
+
+#: src/app/(root)/(main)/not-found.tsx:15
+#: src/app/(root)/(tasks)/(master)/(detail)/not-found.tsx:15
+msgid "Not Found • daisy"
+msgstr "Not Found • daisy"
+
+#: src/app/(root)/(main)/not-found.view.tsx:8
+#: src/app/(root)/(tasks)/(master)/(detail)/not-found.view.tsx:8
+msgid "Page not found"
+msgstr "Page not found"
+
+#: src/client/core/components/task-list-widget/components/filters-panel/main.tsx:26
+msgid "Pending"
+msgstr "Pending"
+
+#: src/isomorphic/core/components/generic/error-widget/main.tsx:21
+msgid "Retry"
+msgstr "Retry"
+
+#: src/client/core/components/task-list-widget/components/filters-panel/main.tsx:33
+msgid "Running"
+msgstr "Running"
+
+#: src/app/(root)/(main)/error.view.tsx:10
+#: src/app/(root)/(tasks)/(master)/(detail)/error.view.tsx:10
+#: src/app/(root)/(tasks)/error.view.tsx:12
+msgid "Something went wrong"
+msgstr "Something went wrong"
+
+#: src/client/test/components/test-widget/components/test-form/main.tsx:30
+msgid "Submit"
+msgstr "Submit"
+
+#: src/isomorphic/notifications/hooks/use-notifications/main.ts:66
+msgid "Success"
+msgstr "Success"
+
+#: src/app/(root)/(tasks)/(master)/(detail)/tasks/[id]/page.tsx:21
+msgid "Task {id} • daisy"
+msgstr "Task {id} • daisy"
+
+#: src/client/core/components/task-widget/main.tsx:46
+msgid "Task cancelled."
+msgstr "Task cancelled."
+
+#: src/app/(root)/(tasks)/(master)/(detail)/tasks/[id]/not-found.view.tsx:8
+msgid "Task not found"
+msgstr "Task not found"
+
+#: src/app/(root)/(tasks)/(master)/(detail)/tasks/[id]/not-found.tsx:15
+msgid "Task not found • daisy"
+msgstr "Task not found • daisy"
+
+#: src/client/core/components/task-list-widget/main.tsx:54
+msgid "Tasks"
+msgstr "Tasks"
+
+#: src/app/(root)/(tasks)/(master)/tasks/page.tsx:20
+msgid "Tasks • daisy"
+msgstr "Tasks • daisy"
+
+#: src/isomorphic/notifications/hooks/use-notifications/main.ts:76
+msgid "Warning"
+msgstr "Warning"
+
+#: src/server/orpc/vars/procedures/vars/test/vars/validate/main.ts:27
+msgid "Why did the chicken cross the road? To get to the other side."
+msgstr "Why did the chicken cross the road? To get to the other side."

@@ -1,0 +1,8 @@
+.code {
+  background-color: var(--mantine-color-foreground-alternative);
+}
+
+.highlight {
+  border-radius: var(--mantine-radius-default);
+  overflow-y: auto;
+}

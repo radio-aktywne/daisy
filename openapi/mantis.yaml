@@ -1,50 +1,48 @@
+openapi: "3.1.0"
 info:
   title: mantis
-openapi: 3.1.0
+  version: "0.18.0"
 paths:
   /ping:
     get:
+      tags:
+        - Ping
       summary: Ping
       description: Ping.
       operationId: PingPing
       responses:
         "204":
-          description: Request fulfilled, nothing follows
-          headers:
-            cache-control:
-              schema:
-                type: string
-              required: false
-              deprecated: false
-              allowEmptyValue: false
-              allowReserved: false
-          content:
-            application/json:
-              schema:
-                type: "null"
+          description: Successful ping.
       deprecated: false
     head:
+      tags:
+        - Ping
       summary: Ping headers
       description: Ping headers.
       operationId: PingHeadping
       responses:
         "204":
-          description: Request fulfilled, nothing follows
-          headers:
-            cache-control:
+          description: Successful ping.
+      deprecated: false
+  /sse:
+    get:
+      tags:
+        - SSE
+      summary: Get SSE stream
+      description: Get a stream of Server-Sent Events.
+      operationId: SseSubscribe
+      responses:
+        "200":
+          description: Stream of Server-Sent Events.
+          content:
+            text/event-stream:
               schema:
                 type: string
-              required: false
-              deprecated: false
-              allowEmptyValue: false
-              allowReserved: false
-          content:
-            application/json:
-              schema:
-                type: "null"
       deprecated: false
   /tasks/{id}:
     get:
+      tags:
+        - Tasks
       summary: Get task
       description: Get a task.
       operationId: TasksIdGet
@@ -52,14 +50,9 @@ paths:
         - name: id
           in: path
           schema:
-            type: string
-            format: uuid
-            description: Identifier of the task.
-          description: Identifier of the task.
+            $ref: "#/components/schemas/GetRequestId"
           required: true
           deprecated: false
-          allowEmptyValue: false
-          allowReserved: false
       responses:
         "200":
           description: Request fulfilled, document follows
@@ -67,7 +60,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/GenericTask"
+                $ref: "#/components/schemas/GetResponseTask"
         "400":
           description: Bad request syntax or unsupported method
           content:
@@ -120,6 +113,8 @@ paths:
                     extra: {}
       deprecated: false
     delete:
+      tags:
+        - Tasks
       summary: Cancel task
       description: Cancel a task.
       operationId: TasksIdCancel
@@ -127,14 +122,9 @@ paths:
         - name: id
           in: path
           schema:
-            type: string
-            format: uuid
-            description: Identifier of the task.
-          description: Identifier of the task.
+            $ref: "#/components/schemas/CancelRequestId"
           required: true
           deprecated: false
-          allowEmptyValue: false
-          allowReserved: false
       responses:
         "200":
           description: Request fulfilled, document follows
@@ -142,7 +132,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/CancelledTask"
+                $ref: "#/components/schemas/CancelResponseTask"
         "400":
           description: Bad request syntax or unsupported method
           content:
@@ -196,6 +186,8 @@ paths:
       deprecated: false
   /tasks/clean:
     post:
+      tags:
+        - Tasks
       summary: Clean tasks
       description: Clean tasks.
       operationId: TasksCleanClean
@@ -203,7 +195,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/CleanRequestModel"
+              $ref: "#/components/schemas/CleanRequestData"
         required: true
       responses:
         "200":
@@ -212,7 +204,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/CleaningResult"
+                $ref: "#/components/schemas/CleanResponseResults"
         "400":
           description: Bad Request
           content:
@@ -262,6 +254,8 @@ paths:
       deprecated: false
   /tasks/cancelled/{id}:
     get:
+      tags:
+        - Tasks
       summary: Get cancelled task
       description: Get a cancelled task.
       operationId: TasksCancelledIdGetCancelled
@@ -269,14 +263,9 @@ paths:
         - name: id
           in: path
           schema:
-            type: string
-            format: uuid
-            description: Identifier of the task.
-          description: Identifier of the task.
+            $ref: "#/components/schemas/GetCancelledRequestId"
           required: true
           deprecated: false
-          allowEmptyValue: false
-          allowReserved: false
       responses:
         "200":
           description: Request fulfilled, document follows
@@ -284,7 +273,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/CancelledTask"
+                $ref: "#/components/schemas/GetCancelledResponseTask"
         "400":
           description: Bad request syntax or unsupported method
           content:
@@ -338,6 +327,8 @@ paths:
       deprecated: false
   /tasks/completed/{id}:
     get:
+      tags:
+        - Tasks
       summary: Get completed task
       description: Get a completed task.
       operationId: TasksCompletedIdGetCompleted
@@ -345,14 +336,9 @@ paths:
         - name: id
           in: path
           schema:
-            type: string
-            format: uuid
-            description: Identifier of the task.
-          description: Identifier of the task.
+            $ref: "#/components/schemas/GetCompletedRequestId"
           required: true
           deprecated: false
-          allowEmptyValue: false
-          allowReserved: false
       responses:
         "200":
           description: Request fulfilled, document follows
@@ -360,7 +346,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/CompletedTask"
+                $ref: "#/components/schemas/GetCompletedResponseTask"
         "400":
           description: Bad request syntax or unsupported method
           content:
@@ -414,6 +400,8 @@ paths:
       deprecated: false
   /tasks/failed/{id}:
     get:
+      tags:
+        - Tasks
       summary: Get failed task
       description: Get a failed task.
       operationId: TasksFailedIdGetFailed
@@ -421,14 +409,9 @@ paths:
         - name: id
           in: path
           schema:
-            type: string
-            format: uuid
-            description: Identifier of the task.
-          description: Identifier of the task.
+            $ref: "#/components/schemas/GetFailedRequestId"
           required: true
           deprecated: false
-          allowEmptyValue: false
-          allowReserved: false
       responses:
         "200":
           description: Request fulfilled, document follows
@@ -436,7 +419,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/FailedTask"
+                $ref: "#/components/schemas/GetFailedResponseTask"
         "400":
           description: Bad request syntax or unsupported method
           content:
@@ -490,6 +473,8 @@ paths:
       deprecated: false
   /tasks/pending/{id}:
     get:
+      tags:
+        - Tasks
       summary: Get pending task
       description: Get a pending task.
       operationId: TasksPendingIdGetPending
@@ -497,14 +482,9 @@ paths:
         - name: id
           in: path
           schema:
-            type: string
-            format: uuid
-            description: Identifier of the task.
-          description: Identifier of the task.
+            $ref: "#/components/schemas/GetPendingRequestId"
           required: true
           deprecated: false
-          allowEmptyValue: false
-          allowReserved: false
       responses:
         "200":
           description: Request fulfilled, document follows
@@ -512,7 +492,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/PendingTask"
+                $ref: "#/components/schemas/GetPendingResponseTask"
         "400":
           description: Bad request syntax or unsupported method
           content:
@@ -566,6 +546,8 @@ paths:
       deprecated: false
   /tasks/running/{id}:
     get:
+      tags:
+        - Tasks
       summary: Get running task
       description: Get a running task.
       operationId: TasksRunningIdGetRunning
@@ -573,14 +555,9 @@ paths:
         - name: id
           in: path
           schema:
-            type: string
-            format: uuid
-            description: Identifier of the task.
-          description: Identifier of the task.
+            $ref: "#/components/schemas/GetRunningRequestId"
           required: true
           deprecated: false
-          allowEmptyValue: false
-          allowReserved: false
       responses:
         "200":
           description: Request fulfilled, document follows
@@ -588,7 +565,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/RunningTask"
+                $ref: "#/components/schemas/GetRunningResponseTask"
         "400":
           description: Bad request syntax or unsupported method
           content:
@@ -642,6 +619,8 @@ paths:
       deprecated: false
   /tasks:
     get:
+      tags:
+        - Tasks
       summary: Get index
       description: List tasks.
       operationId: TasksList
@@ -652,9 +631,11 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/TaskIndex"
+                $ref: "#/components/schemas/ListResponseTasks"
       deprecated: false
     post:
+      tags:
+        - Tasks
       summary: Schedule task
       description: Schedule a task.
       operationId: TasksSchedule
@@ -662,7 +643,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/ScheduleRequestModel"
+              $ref: "#/components/schemas/ScheduleRequestData"
         required: true
       responses:
         "201":
@@ -671,7 +652,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/PendingTask"
+                $ref: "#/components/schemas/ScheduleResponseTask"
         "400":
           description: Bad Request
           content:
@@ -719,33 +700,93 @@ paths:
                         detail: Bad Request
                         extra: {}
       deprecated: false
+  /test:
+    get:
+      tags:
+        - Test
+      summary: Test
+      description: Test.
+      operationId: TestTest
+      parameters:
+        - name: parameters
+          in: query
+          schema:
+            oneOf:
+              - anyOf:
+                  - $ref: "#/components/schemas/TestRequestParameters"
+                  - type: string
+                    contentMediaType: application/json
+                    contentSchema:
+                      $ref: "#/components/schemas/TestRequestParameters"
+                title: TestRequestParameters
+              - type: "null"
+            description: Parameters for testing.
+          description: Parameters for testing.
+          required: false
+          deprecated: false
+          allowEmptyValue: false
+          allowReserved: false
+      responses:
+        "200":
+          description: Request fulfilled, document follows
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TestResponseResult"
+        "400":
+          description: Bad request syntax or unsupported method
+          content:
+            application/json:
+              schema:
+                properties:
+                  status_code:
+                    type: integer
+                  detail:
+                    type: string
+                  extra:
+                    additionalProperties: {}
+                    type:
+                      - "null"
+                      - object
+                      - array
+                type: object
+                required:
+                  - detail
+                  - status_code
+                description: Validation Exception
+                examples:
+                  - status_code: 400
+                    detail: Bad Request
+                    extra: {}
+      deprecated: false
 components:
   schemas:
-    CancelledTask:
+    CancelRequestId:
+      type: string
+      format: uuid
+    CancelResponseTask:
       properties:
         task:
           $ref: "#/components/schemas/Task"
         scheduled:
-          type: string
-          format: date-time
-          description: Date and time when the task was scheduled.
+          $ref: "#/components/schemas/NaiveDatetime"
         started:
-          oneOf:
+          anyOf:
+            - $ref: "#/components/schemas/NaiveDatetime"
             - type: "null"
-            - type: string
-              format: date-time
-          description: Date and time when the task was started.
+          description: Datetime in UTC when the task was started.
         cancelled:
-          type: string
-          format: date-time
-          description: Date and time when the task was cancelled.
+          $ref: "#/components/schemas/NaiveDatetime"
       type: object
       required:
-        - cancelled
-        - scheduled
         - task
+        - scheduled
+        - started
+        - cancelled
       title: CancelledTask
-    CleanRequestModel:
+      description: Data of a cancelled task.
+    CleanRequestData:
       properties:
         strategy:
           $ref: "#/components/schemas/Specification"
@@ -753,39 +794,62 @@ components:
       required:
         - strategy
       title: CleanRequestModel
-      description: Data to clean tasks.
-    CleaningResult:
+      description: Request to clean tasks.
+    CleanResponseResults:
       properties:
         removed:
           items:
             type: string
             format: uuid
           type: array
+          uniqueItems: true
+          title: Removed
           description: Identifiers of removed tasks.
       type: object
       required:
         - removed
       title: CleaningResult
-    CompletedTask:
+      description: Result of cleaning.
+    GetCancelledRequestId:
+      type: string
+      format: uuid
+    GetCancelledResponseTask:
       properties:
         task:
           $ref: "#/components/schemas/Task"
         scheduled:
-          type: string
-          format: date-time
-          description: Date and time when the task was scheduled.
+          $ref: "#/components/schemas/NaiveDatetime"
         started:
-          type: string
-          format: date-time
-          description: Date and time when the task was started.
-        completed:
-          type: string
-          format: date-time
-          description: Date and time when the task was completed.
-        result:
-          oneOf:
+          anyOf:
+            - $ref: "#/components/schemas/NaiveDatetime"
             - type: "null"
-            - additionalProperties: {}
+          description: Datetime in UTC when the task was started.
+        cancelled:
+          $ref: "#/components/schemas/NaiveDatetime"
+      type: object
+      required:
+        - task
+        - scheduled
+        - started
+        - cancelled
+      title: CancelledTask
+      description: Data of a cancelled task.
+    GetCompletedRequestId:
+      type: string
+      format: uuid
+    GetCompletedResponseTask:
+      properties:
+        task:
+          $ref: "#/components/schemas/Task"
+        scheduled:
+          $ref: "#/components/schemas/NaiveDatetime"
+        started:
+          $ref: "#/components/schemas/NaiveDatetime"
+        completed:
+          $ref: "#/components/schemas/NaiveDatetime"
+        result:
+          anyOf:
+            - additionalProperties: true
               type: object
             - items: {}
               type: array
@@ -793,91 +857,161 @@ components:
             - type: integer
             - type: number
             - type: boolean
+            - type: "null"
+          title: Result
           description: Result of the task.
       type: object
       required:
-        - completed
+        - task
         - scheduled
         - started
-        - task
+        - completed
+        - result
       title: CompletedTask
-    FailedTask:
+      description: Data of a completed task.
+    GetFailedRequestId:
+      type: string
+      format: uuid
+    GetFailedResponseTask:
       properties:
         task:
           $ref: "#/components/schemas/Task"
         scheduled:
-          type: string
-          format: date-time
-          description: Date and time when the task was scheduled.
+          $ref: "#/components/schemas/NaiveDatetime"
         started:
-          type: string
-          format: date-time
-          description: Date and time when the task was started.
+          $ref: "#/components/schemas/NaiveDatetime"
         failed:
-          type: string
-          format: date-time
-          description: Date and time when the task failed.
+          $ref: "#/components/schemas/NaiveDatetime"
         error:
           type: string
+          title: Error
           description: Error message.
       type: object
       required:
-        - error
-        - failed
+        - task
         - scheduled
         - started
-        - task
+        - failed
+        - error
       title: FailedTask
-    GenericTask:
+      description: Data of a failed task.
+    GetPendingRequestId:
+      type: string
+      format: uuid
+    GetPendingResponseTask:
+      properties:
+        task:
+          $ref: "#/components/schemas/Task"
+        scheduled:
+          $ref: "#/components/schemas/NaiveDatetime"
+      type: object
+      required:
+        - task
+        - scheduled
+      title: PendingTask
+      description: Data of a pending task.
+    GetRequestId:
+      type: string
+      format: uuid
+    GetResponseTask:
       properties:
         task:
           $ref: "#/components/schemas/Task"
         status:
-          type: string
-          enum:
-            - pending
-            - running
-            - cancelled
-            - failed
-            - completed
-          description: Task status.
+          $ref: "#/components/schemas/Status"
       type: object
       required:
+        - task
         - status
-        - task
       title: GenericTask
-    PendingTask:
+      description: Data of a task of any status.
+    GetRunningRequestId:
+      type: string
+      format: uuid
+    GetRunningResponseTask:
       properties:
         task:
           $ref: "#/components/schemas/Task"
         scheduled:
-          type: string
-          format: date-time
-          description: Date and time when the task was scheduled.
-      type: object
-      required:
-        - scheduled
-        - task
-      title: PendingTask
-    RunningTask:
-      properties:
-        task:
-          $ref: "#/components/schemas/Task"
-        scheduled:
-          type: string
-          format: date-time
-          description: Date and time when the task was scheduled.
+          $ref: "#/components/schemas/NaiveDatetime"
         started:
-          type: string
-          format: date-time
-          description: Date and time when the task was started.
+          $ref: "#/components/schemas/NaiveDatetime"
       type: object
       required:
+        - task
         - scheduled
         - started
-        - task
       title: RunningTask
-    ScheduleRequestModel:
+      description: Data of a running task.
+    ListResponseTasks:
+      properties:
+        pending:
+          items:
+            type: string
+            format: uuid
+          type: array
+          uniqueItems: true
+          title: Pending
+          description: Identifiers of pending tasks.
+        running:
+          items:
+            type: string
+            format: uuid
+          type: array
+          uniqueItems: true
+          title: Running
+          description: Identifiers of running tasks.
+        cancelled:
+          items:
+            type: string
+            format: uuid
+          type: array
+          uniqueItems: true
+          title: Cancelled
+          description: Identifiers of cancelled tasks.
+        failed:
+          items:
+            type: string
+            format: uuid
+          type: array
+          uniqueItems: true
+          title: Failed
+          description: Identifiers of failed tasks.
+        completed:
+          items:
+            type: string
+            format: uuid
+          type: array
+          uniqueItems: true
+          title: Completed
+          description: Identifiers of completed tasks.
+      type: object
+      required:
+        - pending
+        - running
+        - cancelled
+        - failed
+        - completed
+      title: TaskIndex
+      description: Index of tasks by status.
+    NaiveDatetime:
+      type: string
+      format: date-time
+      examples:
+        - 2000-01-01T00:00:00
+    Parameters:
+      properties:
+        message:
+          anyOf:
+            - type: string
+            - type: "null"
+          title: Message
+          description: Optional message to include in the test.
+          default: null
+      type: object
+      title: Parameters
+      description: Parameters for testing.
+    ScheduleRequestData:
       properties:
         operation:
           $ref: "#/components/schemas/Specification"
@@ -888,23 +1022,36 @@ components:
             type: string
             format: uuid
           type: object
+          title: Dependencies
           description: Dependencies of the task.
       type: object
       required:
+        - operation
         - condition
         - dependencies
-        - operation
       title: ScheduleRequestModel
-      description: Data to schedule a task.
+      description: Request to schedule a task.
+    ScheduleResponseTask:
+      properties:
+        task:
+          $ref: "#/components/schemas/Task"
+        scheduled:
+          $ref: "#/components/schemas/NaiveDatetime"
+      type: object
+      required:
+        - task
+        - scheduled
+      title: PendingTask
+      description: Data of a pending task.
     Specification:
       properties:
         type:
           type: string
+          title: Type
         parameters:
           additionalProperties:
-            oneOf:
-              - type: "null"
-              - additionalProperties: {}
+            anyOf:
+              - additionalProperties: true
                 type: object
               - items: {}
                 type: array
@@ -912,17 +1059,30 @@ components:
               - type: integer
               - type: number
               - type: boolean
+              - type: "null"
           type: object
+          title: Parameters
       type: object
       required:
-        - parameters
         - type
+        - parameters
       title: Specification
+    Status:
+      type: string
+      enum:
+        - pending
+        - running
+        - cancelled
+        - failed
+        - completed
+      title: Status
+      description: Status of a task.
     Task:
       properties:
         id:
           type: string
           format: uuid
+          title: Id
         operation:
           $ref: "#/components/schemas/Specification"
         condition:
@@ -932,51 +1092,31 @@ components:
             type: string
             format: uuid
           type: object
+          title: Dependencies
       type: object
       required:
-        - condition
-        - dependencies
         - id
         - operation
+        - condition
+        - dependencies
       title: Task
-      description: Task data.
-    TaskIndex:
+    TestRequestParameters:
+      anyOf:
+        - $ref: "#/components/schemas/Parameters"
+        - type: "null"
+    TestResponseResult:
       properties:
-        pending:
-          items:
-            type: string
-            format: uuid
-          type: array
-          description: Identifiers of pending tasks.
-        running:
-          items:
-            type: string
-            format: uuid
-          type: array
-          description: Identifiers of running tasks.
-        cancelled:
-          items:
-            type: string
-            format: uuid
-          type: array
-          description: Identifiers of cancelled tasks.
-        failed:
-          items:
-            type: string
-            format: uuid
-          type: array
-          description: Identifiers of failed tasks.
-        completed:
-          items:
-            type: string
-            format: uuid
-          type: array
-          description: Identifiers of completed tasks.
+        success:
+          type: boolean
+          title: Success
+          description: Indicates if the test was successful.
+        message:
+          type: string
+          title: Message
+          description: Message returned from the test.
       type: object
       required:
-        - cancelled
-        - completed
-        - failed
-        - pending
-        - running
-      title: TaskIndex
+        - success
+        - message
+      title: Result
+      description: Result of the test.
