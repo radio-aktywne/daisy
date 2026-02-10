@@ -1,0 +1,141 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: daisy\n"
+"Language: pl\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"MIME-Version: 1.0\n"
+"X-Generator: @lingui/cli\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Plural-Forms: \n"
+
+#: src/client/test/components/test-widget/main.tsx:52
+msgid "An unexpected error occurred"
+msgstr "Wystąpił nieoczekiwany błąd"
+
+#: src/client/core/components/task-widget/main.tsx:69
+msgid "Cancel"
+msgstr "Anuluj"
+
+#: src/client/core/components/task-list-widget/components/filters-panel/main.tsx:40
+msgid "Cancelled"
+msgstr "Anulowane"
+
+#: src/client/core/components/task-list-widget/components/filters-panel/main.tsx:54
+msgid "Completed"
+msgstr "Zakończone"
+
+#: src/app/(root)/layout.tsx:39
+msgid "daisy"
+msgstr "daisy"
+
+#: src/app/(root)/layout.tsx:33
+msgid "daisy is a Next.js app"
+msgstr "daisy to aplikacja Next.js"
+
+#: src/client/test/components/test-widget/components/test-form/main.tsx:25
+msgid "Enter some value"
+msgstr "Wprowadź jakąś wartość"
+
+#: src/isomorphic/notifications/hooks/use-notifications/main.ts:46
+msgid "Error"
+msgstr "Błąd"
+
+#: src/app/(root)/(main)/error.tsx:11
+#: src/app/(root)/(tasks)/(master)/(detail)/error.tsx:11
+#: src/app/(root)/(tasks)/error.tsx:11
+msgid "Error • daisy"
+msgstr "Błąd • daisy"
+
+#: src/client/core/components/task-list-widget/components/filters-panel/main.tsx:47
+msgid "Failed"
+msgstr "Nieudane"
+
+#: src/client/core/components/task-widget/main.tsx:41
+msgid "Failed to cancel task."
+msgstr "Nie udało się anulować operacji."
+
+#: src/isomorphic/notifications/hooks/use-notifications/main.ts:56
+msgid "Info"
+msgstr "Informacja"
+
+#: src/client/test/components/test-widget/main.tsx:41
+#: src/client/test/components/test-widget/main.tsx:62
+msgid "Invalid input"
+msgstr "Nieprawidłowe dane wejściowe"
+
+#: src/client/core/components/task-list-widget/main.tsx:59
+msgid "No tasks"
+msgstr "Brak operacji"
+
+#: src/app/(root)/(main)/not-found.tsx:15
+#: src/app/(root)/(tasks)/(master)/(detail)/not-found.tsx:15
+msgid "Not Found • daisy"
+msgstr "Nie znaleziono • daisy"
+
+#: src/app/(root)/(main)/not-found.view.tsx:8
+#: src/app/(root)/(tasks)/(master)/(detail)/not-found.view.tsx:8
+msgid "Page not found"
+msgstr "Nie znaleziono strony"
+
+#: src/client/core/components/task-list-widget/components/filters-panel/main.tsx:26
+msgid "Pending"
+msgstr "Oczekujące"
+
+#: src/isomorphic/core/components/generic/error-widget/main.tsx:21
+msgid "Retry"
+msgstr "Spróbuj ponownie"
+
+#: src/client/core/components/task-list-widget/components/filters-panel/main.tsx:33
+msgid "Running"
+msgstr "Wykonywane"
+
+#: src/app/(root)/(main)/error.view.tsx:10
+#: src/app/(root)/(tasks)/(master)/(detail)/error.view.tsx:10
+#: src/app/(root)/(tasks)/error.view.tsx:12
+msgid "Something went wrong"
+msgstr "Coś poszło nie tak"
+
+#: src/client/test/components/test-widget/components/test-form/main.tsx:30
+msgid "Submit"
+msgstr "Wyślij"
+
+#: src/isomorphic/notifications/hooks/use-notifications/main.ts:66
+msgid "Success"
+msgstr "Sukces"
+
+#: src/app/(root)/(tasks)/(master)/(detail)/tasks/[id]/page.tsx:21
+msgid "Task {id} • daisy"
+msgstr "Operacja {id} • daisy"
+
+#: src/client/core/components/task-widget/main.tsx:46
+msgid "Task cancelled."
+msgstr "Operacja anulowana."
+
+#: src/app/(root)/(tasks)/(master)/(detail)/tasks/[id]/not-found.view.tsx:8
+msgid "Task not found"
+msgstr "Nie znaleziono operacji"
+
+#: src/app/(root)/(tasks)/(master)/(detail)/tasks/[id]/not-found.tsx:15
+msgid "Task not found • daisy"
+msgstr "Nie znaleziono operacji • daisy"
+
+#: src/client/core/components/task-list-widget/main.tsx:54
+msgid "Tasks"
+msgstr "Operacje"
+
+#: src/app/(root)/(tasks)/(master)/tasks/page.tsx:20
+msgid "Tasks • daisy"
+msgstr "Operacje • daisy"
+
+#: src/isomorphic/notifications/hooks/use-notifications/main.ts:76
+msgid "Warning"
+msgstr "Ostrzeżenie"
+
+#: src/server/orpc/vars/procedures/vars/test/vars/validate/main.ts:27
+msgid "Why did the chicken cross the road? To get to the other side."
+msgstr "Dlaczego kura przeszła przez ulicę? Żeby dostać się na drugą stronę."
