@@ -18,7 +18,12 @@ export const ConfigSchemas = {
             .object({
               host: z.string().default("localhost"),
               path: z.string().nullish(),
-              port: z.coerce.number().min(0).max(65535).default(10800),
+              port: z.coerce
+                .number()
+                .min(0)
+                .max(65535)
+                .nullish()
+                .default(10800),
               scheme: z.string().default("http"),
             })
             .prefault({}),
