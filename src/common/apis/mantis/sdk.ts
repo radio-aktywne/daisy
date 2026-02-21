@@ -36,6 +36,7 @@ import type {
   PingHeadpingResponses,
   PingPingRequest,
   PingPingResponses,
+  SseSubscribeErrors,
   SseSubscribeRequest,
   SseSubscribeResponses,
   TasksCancelledIdGetCancelledErrors,
@@ -179,7 +180,7 @@ export class Sdk extends HeyApiClient {
   ) {
     return (options?.client ?? this.client).sse.get<
       SseSubscribeResponses,
-      unknown,
+      SseSubscribeErrors,
       ThrowOnError
     >({
       requestValidator: async (data) =>
