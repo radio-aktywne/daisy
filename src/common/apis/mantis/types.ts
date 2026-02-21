@@ -83,6 +83,15 @@ export type Specification = {
   };
 };
 
+export type SubscribeRequestTypes = string | Array<EventType> | null;
+
+/**
+ * EventType
+ *
+ * Event types.
+ */
+export type EventType = "test";
+
 /**
  * Status
  *
@@ -315,7 +324,7 @@ export type PingPingRequest = {
 
 export type PingPingResponses = {
   /**
-   * Successful ping.
+   * Request fulfilled, nothing follows
    */
   204: void;
 };
@@ -331,7 +340,7 @@ export type PingHeadpingRequest = {
 
 export type PingHeadpingResponses = {
   /**
-   * Successful ping.
+   * Request fulfilled, nothing follows
    */
   204: void;
 };
@@ -342,13 +351,36 @@ export type PingHeadpingResponse =
 export type SseSubscribeRequest = {
   body?: never;
   path?: never;
-  query?: never;
+  query?: {
+    /**
+     * Types of events to subscribe to.
+     */
+    types?: SubscribeRequestTypes | string | null;
+  };
   url: "/sse";
 };
 
+export type SseSubscribeErrors = {
+  /**
+   * Validation Exception
+   */
+  400: {
+    status_code: number;
+    detail: string;
+    extra?:
+      | null
+      | {
+          [key: string]: unknown;
+        }
+      | Array<unknown>;
+  };
+};
+
+export type SseSubscribeError = SseSubscribeErrors[keyof SseSubscribeErrors];
+
 export type SseSubscribeResponses = {
   /**
-   * Stream of Server-Sent Events.
+   * Request fulfilled, stream of Server-Sent Events follows
    */
   200: string;
 };
@@ -464,29 +496,18 @@ export type TasksCleanCleanRequest = {
 
 export type TasksCleanCleanErrors = {
   /**
-   * Bad Request
+   * Validation Exception
    */
-  400:
-    | {
-        status_code: number;
-        detail: string;
-        extra?:
-          | null
-          | {
-              [key: string]: unknown;
-            }
-          | Array<unknown>;
-      }
-    | {
-        status_code: number;
-        detail: string;
-        extra?:
-          | null
-          | {
-              [key: string]: unknown;
-            }
-          | Array<unknown>;
-      };
+  400: {
+    status_code: number;
+    detail: string;
+    extra?:
+      | null
+      | {
+          [key: string]: unknown;
+        }
+      | Array<unknown>;
+  };
 };
 
 export type TasksCleanCleanError =
@@ -782,29 +803,18 @@ export type TasksScheduleRequest = {
 
 export type TasksScheduleErrors = {
   /**
-   * Bad Request
+   * Validation Exception
    */
-  400:
-    | {
-        status_code: number;
-        detail: string;
-        extra?:
-          | null
-          | {
-              [key: string]: unknown;
-            }
-          | Array<unknown>;
-      }
-    | {
-        status_code: number;
-        detail: string;
-        extra?:
-          | null
-          | {
-              [key: string]: unknown;
-            }
-          | Array<unknown>;
-      };
+  400: {
+    status_code: number;
+    detail: string;
+    extra?:
+      | null
+      | {
+          [key: string]: unknown;
+        }
+      | Array<unknown>;
+  };
 };
 
 export type TasksScheduleError = TasksScheduleErrors[keyof TasksScheduleErrors];

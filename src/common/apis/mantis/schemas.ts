@@ -68,6 +68,21 @@ export const TaskSchema = z.object({
 });
 
 /**
+ * EventType
+ *
+ * Event types.
+ */
+export const EventTypeSchema = z.enum(["test"]).register(z.globalRegistry, {
+  description: "Event types.",
+});
+
+export const SubscribeRequestTypesSchema = z.union([
+  z.string(),
+  z.array(EventTypeSchema),
+  z.null(),
+]);
+
+/**
  * Status
  *
  * Status of a task.
@@ -309,10 +324,10 @@ export const PingPingRequestSchema = z.object({
 });
 
 /**
- * Successful ping.
+ * Request fulfilled, nothing follows
  */
 export const PingPingResponseSchema = z.void().register(z.globalRegistry, {
-  description: "Successful ping.",
+  description: "Request fulfilled, nothing follows",
 });
 
 export const PingHeadpingRequestSchema = z.object({
@@ -322,25 +337,31 @@ export const PingHeadpingRequestSchema = z.object({
 });
 
 /**
- * Successful ping.
+ * Request fulfilled, nothing follows
  */
 export const PingHeadpingResponseSchema = z.void().register(z.globalRegistry, {
-  description: "Successful ping.",
+  description: "Request fulfilled, nothing follows",
 });
 
 export const SseSubscribeRequestSchema = z.object({
   body: z.optional(z.never()),
   path: z.optional(z.never()),
-  query: z.optional(z.never()),
+  query: z.optional(
+    z.object({
+      types: z.optional(
+        z.union([SubscribeRequestTypesSchema, z.string(), z.null()]),
+      ),
+    }),
+  ),
 });
 
 /**
- * Stream of Server-Sent Events.
+ * Request fulfilled, stream of Server-Sent Events follows
  */
 export const SseSubscribeResponseSchema = z
   .string()
   .register(z.globalRegistry, {
-    description: "Stream of Server-Sent Events.",
+    description: "Request fulfilled, stream of Server-Sent Events follows",
   });
 
 export const TasksIdCancelRequestSchema = z.object({
