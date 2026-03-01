@@ -27,16 +27,13 @@ export const TestResponseResultSchema = z
  */
 export const ParametersSchema = z
   .object({
-    message: z.optional(z.union([z.string(), z.null()])).default(null),
+    message: z.string().nullish().default(null),
   })
   .register(z.globalRegistry, {
     description: "Parameters for testing.",
   });
 
-export const TestRequestParametersSchema = z.union([
-  ParametersSchema,
-  z.null(),
-]);
+export const TestRequestParametersSchema = ParametersSchema.nullable();
 
 /**
  * Specification
@@ -45,15 +42,16 @@ export const SpecificationSchema = z.object({
   type: z.string(),
   parameters: z.record(
     z.string(),
-    z.union([
-      z.record(z.string(), z.unknown()),
-      z.array(z.unknown()),
-      z.string(),
-      z.int(),
-      z.number(),
-      z.boolean(),
-      z.null(),
-    ]),
+    z
+      .union([
+        z.record(z.string(), z.unknown()),
+        z.array(z.unknown()),
+        z.string(),
+        z.int(),
+        z.number(),
+        z.boolean(),
+      ])
+      .nullable(),
   ),
 });
 
@@ -76,11 +74,9 @@ export const EventTypeSchema = z.enum(["test"]).register(z.globalRegistry, {
   description: "Event types.",
 });
 
-export const SubscribeRequestTypesSchema = z.union([
-  z.string(),
-  z.array(EventTypeSchema),
-  z.null(),
-]);
+export const SubscribeRequestTypesSchema = z
+  .union([z.string(), z.array(EventTypeSchema)])
+  .nullable();
 
 /**
  * Status
@@ -237,15 +233,16 @@ export const GetCompletedResponseTaskSchema = z
     scheduled: NaiveDatetimeSchema,
     started: NaiveDatetimeSchema,
     completed: NaiveDatetimeSchema,
-    result: z.union([
-      z.record(z.string(), z.unknown()),
-      z.array(z.unknown()),
-      z.string(),
-      z.int(),
-      z.number(),
-      z.boolean(),
-      z.null(),
-    ]),
+    result: z
+      .union([
+        z.record(z.string(), z.unknown()),
+        z.array(z.unknown()),
+        z.string(),
+        z.int(),
+        z.number(),
+        z.boolean(),
+      ])
+      .nullable(),
   })
   .register(z.globalRegistry, {
     description: "Data of a completed task.",
@@ -262,7 +259,7 @@ export const GetCancelledResponseTaskSchema = z
   .object({
     task: TaskSchema,
     scheduled: NaiveDatetimeSchema,
-    started: z.union([NaiveDatetimeSchema, z.null()]),
+    started: NaiveDatetimeSchema.nullable(),
     cancelled: NaiveDatetimeSchema,
   })
   .register(z.globalRegistry, {
@@ -308,7 +305,7 @@ export const CancelResponseTaskSchema = z
   .object({
     task: TaskSchema,
     scheduled: NaiveDatetimeSchema,
-    started: z.union([NaiveDatetimeSchema, z.null()]),
+    started: NaiveDatetimeSchema.nullable(),
     cancelled: NaiveDatetimeSchema,
   })
   .register(z.globalRegistry, {
@@ -318,9 +315,9 @@ export const CancelResponseTaskSchema = z
 export const CancelRequestIdSchema = z.uuid();
 
 export const PingPingRequestSchema = z.object({
-  body: z.optional(z.never()),
-  path: z.optional(z.never()),
-  query: z.optional(z.never()),
+  body: z.never().optional(),
+  path: z.never().optional(),
+  query: z.never().optional(),
 });
 
 /**
@@ -331,9 +328,9 @@ export const PingPingResponseSchema = z.void().register(z.globalRegistry, {
 });
 
 export const PingHeadpingRequestSchema = z.object({
-  body: z.optional(z.never()),
-  path: z.optional(z.never()),
-  query: z.optional(z.never()),
+  body: z.never().optional(),
+  path: z.never().optional(),
+  query: z.never().optional(),
 });
 
 /**
@@ -344,15 +341,13 @@ export const PingHeadpingResponseSchema = z.void().register(z.globalRegistry, {
 });
 
 export const SseSubscribeRequestSchema = z.object({
-  body: z.optional(z.never()),
-  path: z.optional(z.never()),
-  query: z.optional(
-    z.object({
-      types: z.optional(
-        z.union([SubscribeRequestTypesSchema, z.string(), z.null()]),
-      ),
-    }),
-  ),
+  body: z.never().optional(),
+  path: z.never().optional(),
+  query: z
+    .object({
+      types: z.union([SubscribeRequestTypesSchema, z.string()]).nullish(),
+    })
+    .optional(),
 });
 
 /**
@@ -365,11 +360,11 @@ export const SseSubscribeResponseSchema = z
   });
 
 export const TasksIdCancelRequestSchema = z.object({
-  body: z.optional(z.never()),
+  body: z.never().optional(),
   path: z.object({
     id: CancelRequestIdSchema,
   }),
-  query: z.optional(z.never()),
+  query: z.never().optional(),
 });
 
 /**
@@ -378,11 +373,11 @@ export const TasksIdCancelRequestSchema = z.object({
 export const TasksIdCancelResponseSchema = CancelResponseTaskSchema;
 
 export const TasksIdGetRequestSchema = z.object({
-  body: z.optional(z.never()),
+  body: z.never().optional(),
   path: z.object({
     id: GetRequestIdSchema,
   }),
-  query: z.optional(z.never()),
+  query: z.never().optional(),
 });
 
 /**
@@ -392,8 +387,8 @@ export const TasksIdGetResponseSchema = GetResponseTaskSchema;
 
 export const TasksCleanCleanRequestSchema = z.object({
   body: CleanRequestDataSchema,
-  path: z.optional(z.never()),
-  query: z.optional(z.never()),
+  path: z.never().optional(),
+  query: z.never().optional(),
 });
 
 /**
@@ -402,11 +397,11 @@ export const TasksCleanCleanRequestSchema = z.object({
 export const TasksCleanCleanResponseSchema = CleanResponseResultsSchema;
 
 export const TasksCancelledIdGetCancelledRequestSchema = z.object({
-  body: z.optional(z.never()),
+  body: z.never().optional(),
   path: z.object({
     id: GetCancelledRequestIdSchema,
   }),
-  query: z.optional(z.never()),
+  query: z.never().optional(),
 });
 
 /**
@@ -416,11 +411,11 @@ export const TasksCancelledIdGetCancelledResponseSchema =
   GetCancelledResponseTaskSchema;
 
 export const TasksCompletedIdGetCompletedRequestSchema = z.object({
-  body: z.optional(z.never()),
+  body: z.never().optional(),
   path: z.object({
     id: GetCompletedRequestIdSchema,
   }),
-  query: z.optional(z.never()),
+  query: z.never().optional(),
 });
 
 /**
@@ -430,11 +425,11 @@ export const TasksCompletedIdGetCompletedResponseSchema =
   GetCompletedResponseTaskSchema;
 
 export const TasksFailedIdGetFailedRequestSchema = z.object({
-  body: z.optional(z.never()),
+  body: z.never().optional(),
   path: z.object({
     id: GetFailedRequestIdSchema,
   }),
-  query: z.optional(z.never()),
+  query: z.never().optional(),
 });
 
 /**
@@ -443,11 +438,11 @@ export const TasksFailedIdGetFailedRequestSchema = z.object({
 export const TasksFailedIdGetFailedResponseSchema = GetFailedResponseTaskSchema;
 
 export const TasksPendingIdGetPendingRequestSchema = z.object({
-  body: z.optional(z.never()),
+  body: z.never().optional(),
   path: z.object({
     id: GetPendingRequestIdSchema,
   }),
-  query: z.optional(z.never()),
+  query: z.never().optional(),
 });
 
 /**
@@ -457,11 +452,11 @@ export const TasksPendingIdGetPendingResponseSchema =
   GetPendingResponseTaskSchema;
 
 export const TasksRunningIdGetRunningRequestSchema = z.object({
-  body: z.optional(z.never()),
+  body: z.never().optional(),
   path: z.object({
     id: GetRunningRequestIdSchema,
   }),
-  query: z.optional(z.never()),
+  query: z.never().optional(),
 });
 
 /**
@@ -471,9 +466,9 @@ export const TasksRunningIdGetRunningResponseSchema =
   GetRunningResponseTaskSchema;
 
 export const TasksListRequestSchema = z.object({
-  body: z.optional(z.never()),
-  path: z.optional(z.never()),
-  query: z.optional(z.never()),
+  body: z.never().optional(),
+  path: z.never().optional(),
+  query: z.never().optional(),
 });
 
 /**
@@ -483,8 +478,8 @@ export const TasksListResponseSchema = ListResponseTasksSchema;
 
 export const TasksScheduleRequestSchema = z.object({
   body: ScheduleRequestDataSchema,
-  path: z.optional(z.never()),
-  query: z.optional(z.never()),
+  path: z.never().optional(),
+  query: z.never().optional(),
 });
 
 /**
@@ -493,15 +488,13 @@ export const TasksScheduleRequestSchema = z.object({
 export const TasksScheduleResponseSchema = ScheduleResponseTaskSchema;
 
 export const TestTestRequestSchema = z.object({
-  body: z.optional(z.never()),
-  path: z.optional(z.never()),
-  query: z.optional(
-    z.object({
-      parameters: z.optional(
-        z.union([TestRequestParametersSchema, z.string(), z.null()]),
-      ),
-    }),
-  ),
+  body: z.never().optional(),
+  path: z.never().optional(),
+  query: z
+    .object({
+      parameters: z.union([TestRequestParametersSchema, z.string()]).nullish(),
+    })
+    .optional(),
 });
 
 /**
