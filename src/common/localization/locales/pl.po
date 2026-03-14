@@ -108,9 +108,9 @@ msgstr "Wyślij"
 msgid "Success"
 msgstr "Sukces"
 
-#: src/app/(root)/(tasks)/(master)/(detail)/tasks/[id]/page.tsx:21
-msgid "Task {id} • daisy"
-msgstr "Operacja {id} • daisy"
+#: src/app/(root)/(tasks)/(master)/(detail)/tasks/[id]/page.tsx:40
+msgid "Task {taskId} • daisy"
+msgstr "Operacja {taskId} • daisy"
 
 #: src/client/core/components/task-widget/main.tsx:46
 msgid "Task cancelled."
