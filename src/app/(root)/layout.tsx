@@ -30,7 +30,7 @@ import { RootLayoutView } from "./layout.view";
 async function getDescription({}: LayoutMetadataUtilityInput<
   typeof Schemas.Path
 > = {}) {
-  return msg({ message: "daisy is a Next.js app" });
+  return msg({ message: "Broadcast scheduling app 📅" });
 }
 
 async function getTitle({}: LayoutMetadataUtilityInput<

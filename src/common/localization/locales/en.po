@@ -17,6 +17,10 @@ msgstr ""
 msgid "An unexpected error occurred"
 msgstr "An unexpected error occurred"
 
+#: src/app/(root)/layout.tsx:33
+msgid "Broadcast scheduling app 📅"
+msgstr "Broadcast scheduling app 📅"
+
 #: src/client/core/components/task-widget/main.tsx:69
 msgid "Cancel"
 msgstr "Cancel"
@@ -32,10 +36,6 @@ msgstr "Completed"
 #: src/app/(root)/layout.tsx:39
 msgid "daisy"
 msgstr "daisy"
-
-#: src/app/(root)/layout.tsx:33
-msgid "daisy is a Next.js app"
-msgstr "daisy is a Next.js app"
 
 #: src/client/test/components/test-widget/components/test-form/main.tsx:25
 msgid "Enter some value"
