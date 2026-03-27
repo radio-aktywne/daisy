@@ -3,15 +3,16 @@
 import type { Entries } from "type-fest";
 
 import { msg } from "@lingui/core/macro";
-import { Stack, Text, Title, UnstyledButton } from "@mantine/core";
-import { Center, List, ListItem } from "@radio-aktywne/ui";
-import { useSuspenseQuery } from "@tanstack/react-query";
+import { Button, Stack, Text, Title, UnstyledButton } from "@mantine/core";
+import { List, ListItem } from "@radio-aktywne/ui";
+import { useMutation, useSuspenseQuery } from "@tanstack/react-query";
 import Link from "next/link";
 import { useCallback, useState } from "react";
 
 import type { TaskListWidgetInput } from "./types";
 
 import { useLocalization } from "../../../../isomorphic/localization/hooks/use-localization";
+import { useNotifications } from "../../../../isomorphic/notifications/hooks/use-notifications";
 import { orpcClientSideQueryClient } from "../../../orpc/vars/clients";
 import { FiltersPanel } from "./components/filters-panel";
 import { TaskItem } from "./components/task-item";
@@ -26,18 +27,17 @@ export function TaskListWidget({}: TaskListWidgetInput) {
   });
 
   const { localization } = useLocalization();
+  const { notifications } = useNotifications();
 
   const getTaskIndexQuery = useSuspenseQuery(
     orpcClientSideQueryClient.core.getTaskIndex.queryOptions(),
   );
 
-  const tasks = (
-    Object.entries(getTaskIndexQuery.data) as Entries<
-      typeof getTaskIndexQuery.data
-    >
-  )
-    .flatMap(([status, ids]) => ids.map((id) => ({ id: id, status: status })))
-    .filter(({ status }) => filters[status]);
+  const cleanTasksMutation = useMutation(
+    orpcClientSideQueryClient.core.cleanTasks.mutationOptions({
+      meta: { awaits: [orpcClientSideQueryClient.core.getTaskIndex.key()] },
+    }),
+  );
 
   const handleToggleFilter = useCallback(
     (status: keyof typeof filters) => {
@@ -47,20 +47,42 @@ export function TaskListWidget({}: TaskListWidgetInput) {
     [getTaskIndexQuery.refetch, setFilters],
   );
 
+  const handleClean = useCallback(async () => {
+    try {
+      await cleanTasksMutation.mutateAsync({
+        strategy: { parameters: {}, type: "all" },
+      });
+    } catch {
+      notifications.error({
+        message: msg({ message: "Failed to clean tasks" }),
+      });
+    }
+  }, [cleanTasksMutation.mutateAsync, notifications]);
+
+  const tasks = getTaskIndexQuery.data;
+
+  const filteredTasks = (
+    Object.entries(getTaskIndexQuery.data) as Entries<
+      typeof getTaskIndexQuery.data
+    >
+  )
+    .flatMap(([status, ids]) => ids.map((id) => ({ id: id, status: status })))
+    .filter(({ status }) => filters[status]);
+
   return (
-    <Stack mah="100%" w="100%">
-      <Center style={{ height: "auto", overflow: "unset" }}>
-        <UnstyledButton component={Link} href="/tasks">
-          <Title>{localization.localize(msg({ message: "Tasks" }))}</Title>
-        </UnstyledButton>
-      </Center>
-      {tasks.length === 0 ? (
-        <Center style={{ height: "auto", overflow: "unset" }}>
-          <Text>{localization.localize(msg({ message: "No tasks" }))}</Text>
-        </Center>
+    <Stack h="100%" w="100%">
+      <UnstyledButton component={Link} href="/tasks">
+        <Title ta="center">
+          {localization.localize(msg({ message: "Tasks" }))}
+        </Title>
+      </UnstyledButton>
+      {filteredTasks.length === 0 ? (
+        <Text py="sm" size="xs" ta="center">
+          {localization.localize(msg({ message: "No tasks" }))}
+        </Text>
       ) : (
         <List style={{ overflowY: "auto" }}>
-          {tasks.map(({ id, status }) => (
+          {filteredTasks.map(({ id, status }) => (
             <UnstyledButton component={Link} href={`/tasks/${id}`} key={id}>
               <ListItem>
                 <TaskItem id={id} status={status} />
@@ -70,6 +92,18 @@ export function TaskListWidget({}: TaskListWidgetInput) {
         </List>
       )}
       <FiltersPanel filters={filters} onToggleFilter={handleToggleFilter} />
+      <Button
+        disabled={
+          tasks.cancelled.length === 0 &&
+          tasks.completed.length === 0 &&
+          tasks.failed.length === 0
+        }
+        loading={cleanTasksMutation.isPending}
+        onClick={handleClean}
+        style={{ flexShrink: 0 }}
+      >
+        {localization.localize(msg({ message: "Clean" }))}
+      </Button>
     </Stack>
   );
 }

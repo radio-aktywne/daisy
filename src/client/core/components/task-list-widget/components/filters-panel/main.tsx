@@ -17,7 +17,7 @@ export function FiltersPanel({ filters, onToggleFilter }: FiltersPanelInput) {
   const { localization } = useLocalization();
 
   return (
-    <ActionIcon.Group w="100%">
+    <ActionIcon.Group mt="auto" w="100%">
       <FilterButton
         color="gray"
         enabled={filters.pending}

@@ -19,6 +19,7 @@ export function FilterButton({
         color={color}
         flex={1}
         onClick={onClick}
+        size="input-sm"
         variant={enabled ? "filled" : "subtle"}
       >
         <Icon />

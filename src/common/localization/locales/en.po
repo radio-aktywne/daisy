@@ -21,13 +21,17 @@ msgstr "An unexpected error occurred"
 msgid "Broadcast scheduling app 📅"
 msgstr "Broadcast scheduling app 📅"
 
-#: src/client/core/components/task-widget/main.tsx:69
+#: src/client/core/components/task-widget/main.tsx:74
 msgid "Cancel"
 msgstr "Cancel"
 
 #: src/client/core/components/task-list-widget/components/filters-panel/main.tsx:40
 msgid "Cancelled"
 msgstr "Cancelled"
+
+#: src/client/core/components/task-list-widget/main.tsx:105
+msgid "Clean"
+msgstr "Clean"
 
 #: src/client/core/components/task-list-widget/components/filters-panel/main.tsx:54
 msgid "Completed"
@@ -56,8 +60,12 @@ msgid "Failed"
 msgstr "Failed"
 
 #: src/client/core/components/task-widget/main.tsx:41
-msgid "Failed to cancel task."
-msgstr "Failed to cancel task."
+msgid "Failed to cancel task"
+msgstr "Failed to cancel task"
+
+#: src/client/core/components/task-list-widget/main.tsx:57
+msgid "Failed to clean tasks"
+msgstr "Failed to clean tasks"
 
 #: src/isomorphic/notifications/hooks/use-notifications/main.ts:56
 msgid "Info"
@@ -68,7 +76,7 @@ msgstr "Info"
 msgid "Invalid input"
 msgstr "Invalid input"
 
-#: src/client/core/components/task-list-widget/main.tsx:59
+#: src/client/core/components/task-list-widget/main.tsx:81
 msgid "No tasks"
 msgstr "No tasks"
 
@@ -113,8 +121,12 @@ msgid "Task {taskId} • daisy"
 msgstr "Task {taskId} • daisy"
 
 #: src/client/core/components/task-widget/main.tsx:46
-msgid "Task cancelled."
-msgstr "Task cancelled."
+msgid "Task cancelled"
+msgstr "Task cancelled"
+
+#: src/client/core/components/task-widget/main.tsx:59
+msgid "Task Details"
+msgstr "Task Details"
 
 #: src/app/(root)/(tasks)/(master)/(detail)/tasks/[id]/not-found.view.tsx:8
 msgid "Task not found"
@@ -124,7 +136,7 @@ msgstr "Task not found"
 msgid "Task not found • daisy"
 msgstr "Task not found • daisy"
 
-#: src/client/core/components/task-list-widget/main.tsx:54
+#: src/client/core/components/task-list-widget/main.tsx:76
 msgid "Tasks"
 msgstr "Tasks"
 
