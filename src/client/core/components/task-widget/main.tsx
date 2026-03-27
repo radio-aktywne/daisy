@@ -2,7 +2,7 @@
 
 import { msg } from "@lingui/core/macro";
 import { CodeHighlight } from "@mantine/code-highlight";
-import { Button, Stack } from "@mantine/core";
+import { Button, Stack, Title } from "@mantine/core";
 import { useMutation, useSuspenseQuery } from "@tanstack/react-query";
 import { useCallback } from "react";
 
@@ -38,12 +38,12 @@ export function TaskWidget({ id }: TaskWidgetInput) {
       await cancelTaskMutation.mutateAsync({ id: id });
     } catch {
       notifications.error({
-        message: msg({ message: "Failed to cancel task." }),
+        message: msg({ message: "Failed to cancel task" }),
       });
       return;
     }
 
-    notifications.success({ message: msg({ message: "Task cancelled." }) });
+    notifications.success({ message: msg({ message: "Task cancelled" }) });
   }, [
     cancelTaskMutation.mutateAsync,
     id,
@@ -51,20 +51,25 @@ export function TaskWidget({ id }: TaskWidgetInput) {
     notifications.success,
   ]);
 
+  const task = getTaskQuery.data;
+
   return (
-    <Stack mah="100%" w="100%">
+    <Stack h="100%" w="100%">
+      <Title ta="center">
+        {localization.localize(msg({ message: "Task Details" }))}
+      </Title>
       <CodeHighlight
         classNames={{ code: classes.code, codeHighlight: classes.highlight }}
-        code={JSON.stringify(getTaskQuery.data, null, 2)}
+        code={JSON.stringify(task, null, 2)}
         language="json"
         withCopyButton={false}
       />
       <Button
-        disabled={["cancelled", "completed", "failed"].includes(
-          getTaskQuery.data.status,
-        )}
+        disabled={["cancelled", "completed", "failed"].includes(task.status)}
         loading={cancelTaskMutation.isPending}
+        mt="auto"
         onClick={handleCancel}
+        style={{ flexShrink: 0 }}
       >
         {localization.localize(msg({ message: "Cancel" }))}
       </Button>
