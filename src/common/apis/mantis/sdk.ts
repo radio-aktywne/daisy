@@ -22,12 +22,16 @@ import {
   TasksIdGetResponseSchema,
   TasksListRequestSchema,
   TasksListResponseSchema,
-  TasksPendingIdGetPendingRequestSchema,
-  TasksPendingIdGetPendingResponseSchema,
+  TasksQueuedIdGetQueuedRequestSchema,
+  TasksQueuedIdGetQueuedResponseSchema,
   TasksRunningIdGetRunningRequestSchema,
   TasksRunningIdGetRunningResponseSchema,
   TasksScheduleRequestSchema,
   TasksScheduleResponseSchema,
+  TasksSleepingIdGetSleepingRequestSchema,
+  TasksSleepingIdGetSleepingResponseSchema,
+  TasksWaitingIdGetWaitingRequestSchema,
+  TasksWaitingIdGetWaitingResponseSchema,
   TestTestRequestSchema,
   TestTestResponseSchema,
 } from "./schemas";
@@ -59,15 +63,21 @@ import type {
   TasksIdGetResponses,
   TasksListRequest,
   TasksListResponses,
-  TasksPendingIdGetPendingErrors,
-  TasksPendingIdGetPendingRequest,
-  TasksPendingIdGetPendingResponses,
+  TasksQueuedIdGetQueuedErrors,
+  TasksQueuedIdGetQueuedRequest,
+  TasksQueuedIdGetQueuedResponses,
   TasksRunningIdGetRunningErrors,
   TasksRunningIdGetRunningRequest,
   TasksRunningIdGetRunningResponses,
   TasksScheduleErrors,
   TasksScheduleRequest,
   TasksScheduleResponses,
+  TasksSleepingIdGetSleepingErrors,
+  TasksSleepingIdGetSleepingRequest,
+  TasksSleepingIdGetSleepingResponses,
+  TasksWaitingIdGetWaitingErrors,
+  TasksWaitingIdGetWaitingRequest,
+  TasksWaitingIdGetWaitingResponses,
   TestTestErrors,
   TestTestRequest,
   TestTestResponses,
@@ -329,23 +339,23 @@ export class Sdk extends HeyApiClient {
   }
 
   /**
-   * Get pending task
+   * Get queued task
    *
-   * Get a pending task.
+   * Get a queued task.
    */
-  public tasksPendingIdGetPending<ThrowOnError extends boolean = false>(
-    options: Options<TasksPendingIdGetPendingRequest, ThrowOnError>,
+  public tasksQueuedIdGetQueued<ThrowOnError extends boolean = false>(
+    options: Options<TasksQueuedIdGetQueuedRequest, ThrowOnError>,
   ) {
     return (options.client ?? this.client).get<
-      TasksPendingIdGetPendingResponses,
-      TasksPendingIdGetPendingErrors,
+      TasksQueuedIdGetQueuedResponses,
+      TasksQueuedIdGetQueuedErrors,
       ThrowOnError
     >({
       requestValidator: async (data) =>
-        await TasksPendingIdGetPendingRequestSchema.parseAsync(data),
+        await TasksQueuedIdGetQueuedRequestSchema.parseAsync(data),
       responseValidator: async (data) =>
-        await TasksPendingIdGetPendingResponseSchema.parseAsync(data),
-      url: "/tasks/pending/{id}",
+        await TasksQueuedIdGetQueuedResponseSchema.parseAsync(data),
+      url: "/tasks/queued/{id}",
       ...options,
     });
   }
@@ -368,6 +378,50 @@ export class Sdk extends HeyApiClient {
       responseValidator: async (data) =>
         await TasksRunningIdGetRunningResponseSchema.parseAsync(data),
       url: "/tasks/running/{id}",
+      ...options,
+    });
+  }
+
+  /**
+   * Get sleeping task
+   *
+   * Get a sleeping task.
+   */
+  public tasksSleepingIdGetSleeping<ThrowOnError extends boolean = false>(
+    options: Options<TasksSleepingIdGetSleepingRequest, ThrowOnError>,
+  ) {
+    return (options.client ?? this.client).get<
+      TasksSleepingIdGetSleepingResponses,
+      TasksSleepingIdGetSleepingErrors,
+      ThrowOnError
+    >({
+      requestValidator: async (data) =>
+        await TasksSleepingIdGetSleepingRequestSchema.parseAsync(data),
+      responseValidator: async (data) =>
+        await TasksSleepingIdGetSleepingResponseSchema.parseAsync(data),
+      url: "/tasks/sleeping/{id}",
+      ...options,
+    });
+  }
+
+  /**
+   * Get waiting task
+   *
+   * Get a waiting task.
+   */
+  public tasksWaitingIdGetWaiting<ThrowOnError extends boolean = false>(
+    options: Options<TasksWaitingIdGetWaitingRequest, ThrowOnError>,
+  ) {
+    return (options.client ?? this.client).get<
+      TasksWaitingIdGetWaitingResponses,
+      TasksWaitingIdGetWaitingErrors,
+      ThrowOnError
+    >({
+      requestValidator: async (data) =>
+        await TasksWaitingIdGetWaitingRequestSchema.parseAsync(data),
+      responseValidator: async (data) =>
+        await TasksWaitingIdGetWaitingResponseSchema.parseAsync(data),
+      url: "/tasks/waiting/{id}",
       ...options,
     });
   }

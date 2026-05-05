@@ -1,9 +1,16 @@
-import type { Mutation, Query, QueryClient } from "@tanstack/react-query";
+import type {
+  DefaultError,
+  Mutation,
+  Query,
+  QueryClient,
+} from "@tanstack/react-query";
 
 import { defaultShouldDehydrateQuery, matchQuery } from "@tanstack/react-query";
 
 import type { SerializedData } from "./types";
 
+import { isOrpcDefinedError } from "../../../orpc/lib/is-orpc-defined-error";
+import { constants } from "./constants";
 import { serializer } from "./vars";
 
 export function serialize(data: unknown) {
@@ -30,6 +37,12 @@ export function shouldDehydrateQuery(query: Query) {
 
 export function shouldRedactErrors() {
   return false;
+}
+
+export function shouldRetry(failureCount: number, error: DefaultError) {
+  return isOrpcDefinedError(error) && error.status < 500
+    ? false
+    : failureCount < constants.retries;
 }
 
 export async function invalidateQueriesForMutation(

@@ -21,19 +21,19 @@ msgstr "Wystąpił nieoczekiwany błąd"
 msgid "Broadcast scheduling app 📅"
 msgstr "Broadcast scheduling app 📅"
 
-#: src/client/core/components/task-widget/main.tsx:74
+#: src/client/core/components/task-widget/main.tsx:82
 msgid "Cancel"
 msgstr "Anuluj"
 
-#: src/client/core/components/task-list-widget/components/filters-panel/main.tsx:40
+#: src/client/core/components/task-list-widget/components/filters-panel/main.tsx:56
 msgid "Cancelled"
 msgstr "Anulowane"
 
-#: src/client/core/components/task-list-widget/main.tsx:105
+#: src/client/core/components/task-list-widget/main.tsx:107
 msgid "Clean"
 msgstr "Wyczyść"
 
-#: src/client/core/components/task-list-widget/components/filters-panel/main.tsx:54
+#: src/client/core/components/task-list-widget/components/filters-panel/main.tsx:70
 msgid "Completed"
 msgstr "Zakończone"
 
@@ -55,15 +55,15 @@ msgstr "Błąd"
 msgid "Error • daisy"
 msgstr "Błąd • daisy"
 
-#: src/client/core/components/task-list-widget/components/filters-panel/main.tsx:47
+#: src/client/core/components/task-list-widget/components/filters-panel/main.tsx:63
 msgid "Failed"
 msgstr "Nieudane"
 
-#: src/client/core/components/task-widget/main.tsx:41
+#: src/client/core/components/task-widget/main.tsx:49
 msgid "Failed to cancel task"
 msgstr "Nie udało się anulować operacji"
 
-#: src/client/core/components/task-list-widget/main.tsx:57
+#: src/client/core/components/task-list-widget/main.tsx:59
 msgid "Failed to clean tasks"
 msgstr "Nie udało się wyczyścić operacji"
 
@@ -76,7 +76,7 @@ msgstr "Informacja"
 msgid "Invalid input"
 msgstr "Nieprawidłowe dane wejściowe"
 
-#: src/client/core/components/task-list-widget/main.tsx:81
+#: src/client/core/components/task-list-widget/main.tsx:83
 msgid "No tasks"
 msgstr "Brak operacji"
 
@@ -90,17 +90,21 @@ msgstr "Nie znaleziono • daisy"
 msgid "Page not found"
 msgstr "Nie znaleziono strony"
 
-#: src/client/core/components/task-list-widget/components/filters-panel/main.tsx:26
-msgid "Pending"
-msgstr "Oczekujące"
+#: src/client/core/components/task-list-widget/components/filters-panel/main.tsx:28
+msgid "Queued"
+msgstr "Zakolejkowane"
 
 #: src/isomorphic/core/components/generic/error-widget/main.tsx:21
 msgid "Retry"
 msgstr "Spróbuj ponownie"
 
-#: src/client/core/components/task-list-widget/components/filters-panel/main.tsx:33
+#: src/client/core/components/task-list-widget/components/filters-panel/main.tsx:49
 msgid "Running"
 msgstr "Wykonywane"
+
+#: src/client/core/components/task-list-widget/components/filters-panel/main.tsx:42
+msgid "Sleeping"
+msgstr "Uśpione"
 
 #: src/app/(root)/(main)/error.view.tsx:10
 #: src/app/(root)/(tasks)/(master)/(detail)/error.view.tsx:10
@@ -120,11 +124,11 @@ msgstr "Sukces"
 msgid "Task {taskId} • daisy"
 msgstr "Operacja {taskId} • daisy"
 
-#: src/client/core/components/task-widget/main.tsx:46
+#: src/client/core/components/task-widget/main.tsx:54
 msgid "Task cancelled"
 msgstr "Anulowano operację"
 
-#: src/client/core/components/task-widget/main.tsx:59
+#: src/client/core/components/task-widget/main.tsx:67
 msgid "Task Details"
 msgstr "Szczegóły operacji"
 
@@ -136,13 +140,17 @@ msgstr "Nie znaleziono operacji"
 msgid "Task not found • daisy"
 msgstr "Nie znaleziono operacji • daisy"
 
-#: src/client/core/components/task-list-widget/main.tsx:76
+#: src/client/core/components/task-list-widget/main.tsx:78
 msgid "Tasks"
 msgstr "Operacje"
 
 #: src/app/(root)/(tasks)/(master)/tasks/page.tsx:20
 msgid "Tasks • daisy"
 msgstr "Operacje • daisy"
+
+#: src/client/core/components/task-list-widget/components/filters-panel/main.tsx:35
+msgid "Waiting"
+msgstr "Oczekujące"
 
 #: src/isomorphic/notifications/hooks/use-notifications/main.ts:76
 msgid "Warning"
