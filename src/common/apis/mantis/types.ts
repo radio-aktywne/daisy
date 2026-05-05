@@ -98,20 +98,22 @@ export type EventType = "test";
  * Status of a task.
  */
 export type Status =
-  | "pending"
+  | "queued"
+  | "waiting"
+  | "sleeping"
   | "running"
   | "cancelled"
   | "failed"
   | "completed";
 
 /**
- * PendingTask
+ * QueuedTask
  *
- * Data of a pending task.
+ * Data of a queued task.
  */
 export type ScheduleResponseTask = {
   task: Task;
-  scheduled: NaiveDatetime;
+  enqueued: NaiveDatetime;
 };
 
 export type NaiveDatetime = string;
@@ -141,11 +143,23 @@ export type ScheduleRequestData = {
  */
 export type ListResponseTasks = {
   /**
-   * Pending
+   * Queued
    *
-   * Identifiers of pending tasks.
+   * Identifiers of queued tasks.
    */
-  pending: Array<string>;
+  queued: Array<string>;
+  /**
+   * Waiting
+   *
+   * Identifiers of waiting tasks.
+   */
+  waiting: Array<string>;
+  /**
+   * Sleeping
+   *
+   * Identifiers of sleeping tasks.
+   */
+  sleeping: Array<string>;
   /**
    * Running
    *
@@ -173,13 +187,44 @@ export type ListResponseTasks = {
 };
 
 /**
+ * WaitingTask
+ *
+ * Data of a waiting task.
+ */
+export type GetWaitingResponseTask = {
+  task: Task;
+  enqueued: NaiveDatetime;
+  dequeued: NaiveDatetime;
+};
+
+export type GetWaitingRequestId = string;
+
+/**
+ * SleepingTask
+ *
+ * Data of a sleeping task.
+ */
+export type GetSleepingResponseTask = {
+  task: Task;
+  enqueued: NaiveDatetime;
+  /**
+   * Datetime in UTC when the task was dequeued.
+   */
+  dequeued: NaiveDatetime | null;
+  slept: NaiveDatetime;
+};
+
+export type GetSleepingRequestId = string;
+
+/**
  * RunningTask
  *
  * Data of a running task.
  */
 export type GetRunningResponseTask = {
   task: Task;
-  scheduled: NaiveDatetime;
+  enqueued: NaiveDatetime;
+  dequeued: NaiveDatetime;
   started: NaiveDatetime;
 };
 
@@ -198,16 +243,16 @@ export type GetResponseTask = {
 export type GetRequestId = string;
 
 /**
- * PendingTask
+ * QueuedTask
  *
- * Data of a pending task.
+ * Data of a queued task.
  */
-export type GetPendingResponseTask = {
+export type GetQueuedResponseTask = {
   task: Task;
-  scheduled: NaiveDatetime;
+  enqueued: NaiveDatetime;
 };
 
-export type GetPendingRequestId = string;
+export type GetQueuedRequestId = string;
 
 /**
  * FailedTask
@@ -216,8 +261,12 @@ export type GetPendingRequestId = string;
  */
 export type GetFailedResponseTask = {
   task: Task;
-  scheduled: NaiveDatetime;
-  started: NaiveDatetime;
+  enqueued: NaiveDatetime;
+  dequeued: NaiveDatetime;
+  /**
+   * Datetime in UTC when the task was started.
+   */
+  started: NaiveDatetime | null;
   failed: NaiveDatetime;
   /**
    * Error
@@ -236,7 +285,8 @@ export type GetFailedRequestId = string;
  */
 export type GetCompletedResponseTask = {
   task: Task;
-  scheduled: NaiveDatetime;
+  enqueued: NaiveDatetime;
+  dequeued: NaiveDatetime;
   started: NaiveDatetime;
   completed: NaiveDatetime;
   /**
@@ -265,7 +315,8 @@ export type GetCompletedRequestId = string;
  */
 export type GetCancelledResponseTask = {
   task: Task;
-  scheduled: NaiveDatetime;
+  enqueued: NaiveDatetime;
+  dequeued: NaiveDatetime;
   /**
    * Datetime in UTC when the task was started.
    */
@@ -305,7 +356,8 @@ export type CleanRequestData = {
  */
 export type CancelResponseTask = {
   task: Task;
-  scheduled: NaiveDatetime;
+  enqueued: NaiveDatetime;
+  dequeued: NaiveDatetime;
   /**
    * Datetime in UTC when the task was started.
    */
@@ -676,16 +728,16 @@ export type TasksFailedIdGetFailedResponses = {
 export type TasksFailedIdGetFailedResponse =
   TasksFailedIdGetFailedResponses[keyof TasksFailedIdGetFailedResponses];
 
-export type TasksPendingIdGetPendingRequest = {
+export type TasksQueuedIdGetQueuedRequest = {
   body?: never;
   path: {
-    id: GetPendingRequestId;
+    id: GetQueuedRequestId;
   };
   query?: never;
-  url: "/tasks/pending/{id}";
+  url: "/tasks/queued/{id}";
 };
 
-export type TasksPendingIdGetPendingErrors = {
+export type TasksQueuedIdGetQueuedErrors = {
   /**
    * Validation Exception
    */
@@ -714,18 +766,18 @@ export type TasksPendingIdGetPendingErrors = {
   };
 };
 
-export type TasksPendingIdGetPendingError =
-  TasksPendingIdGetPendingErrors[keyof TasksPendingIdGetPendingErrors];
+export type TasksQueuedIdGetQueuedError =
+  TasksQueuedIdGetQueuedErrors[keyof TasksQueuedIdGetQueuedErrors];
 
-export type TasksPendingIdGetPendingResponses = {
+export type TasksQueuedIdGetQueuedResponses = {
   /**
    * Request fulfilled, document follows
    */
-  200: GetPendingResponseTask;
+  200: GetQueuedResponseTask;
 };
 
-export type TasksPendingIdGetPendingResponse =
-  TasksPendingIdGetPendingResponses[keyof TasksPendingIdGetPendingResponses];
+export type TasksQueuedIdGetQueuedResponse =
+  TasksQueuedIdGetQueuedResponses[keyof TasksQueuedIdGetQueuedResponses];
 
 export type TasksRunningIdGetRunningRequest = {
   body?: never;
@@ -777,6 +829,108 @@ export type TasksRunningIdGetRunningResponses = {
 
 export type TasksRunningIdGetRunningResponse =
   TasksRunningIdGetRunningResponses[keyof TasksRunningIdGetRunningResponses];
+
+export type TasksSleepingIdGetSleepingRequest = {
+  body?: never;
+  path: {
+    id: GetSleepingRequestId;
+  };
+  query?: never;
+  url: "/tasks/sleeping/{id}";
+};
+
+export type TasksSleepingIdGetSleepingErrors = {
+  /**
+   * Validation Exception
+   */
+  400: {
+    status_code: number;
+    detail: string;
+    extra?:
+      | null
+      | {
+          [key: string]: unknown;
+        }
+      | Array<unknown>;
+  };
+  /**
+   * Not Found Exception
+   */
+  404: {
+    status_code: number;
+    detail: string;
+    extra?:
+      | null
+      | {
+          [key: string]: unknown;
+        }
+      | Array<unknown>;
+  };
+};
+
+export type TasksSleepingIdGetSleepingError =
+  TasksSleepingIdGetSleepingErrors[keyof TasksSleepingIdGetSleepingErrors];
+
+export type TasksSleepingIdGetSleepingResponses = {
+  /**
+   * Request fulfilled, document follows
+   */
+  200: GetSleepingResponseTask;
+};
+
+export type TasksSleepingIdGetSleepingResponse =
+  TasksSleepingIdGetSleepingResponses[keyof TasksSleepingIdGetSleepingResponses];
+
+export type TasksWaitingIdGetWaitingRequest = {
+  body?: never;
+  path: {
+    id: GetWaitingRequestId;
+  };
+  query?: never;
+  url: "/tasks/waiting/{id}";
+};
+
+export type TasksWaitingIdGetWaitingErrors = {
+  /**
+   * Validation Exception
+   */
+  400: {
+    status_code: number;
+    detail: string;
+    extra?:
+      | null
+      | {
+          [key: string]: unknown;
+        }
+      | Array<unknown>;
+  };
+  /**
+   * Not Found Exception
+   */
+  404: {
+    status_code: number;
+    detail: string;
+    extra?:
+      | null
+      | {
+          [key: string]: unknown;
+        }
+      | Array<unknown>;
+  };
+};
+
+export type TasksWaitingIdGetWaitingError =
+  TasksWaitingIdGetWaitingErrors[keyof TasksWaitingIdGetWaitingErrors];
+
+export type TasksWaitingIdGetWaitingResponses = {
+  /**
+   * Request fulfilled, document follows
+   */
+  200: GetWaitingResponseTask;
+};
+
+export type TasksWaitingIdGetWaitingResponse =
+  TasksWaitingIdGetWaitingResponses[keyof TasksWaitingIdGetWaitingResponses];
 
 export type TasksListRequest = {
   body?: never;

@@ -22,8 +22,10 @@ export function TaskListWidget({}: TaskListWidgetInput) {
     cancelled: true,
     completed: true,
     failed: true,
-    pending: true,
+    queued: true,
     running: true,
+    sleeping: true,
+    waiting: true,
   });
 
   const { localization } = useLocalization();

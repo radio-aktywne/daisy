@@ -2,9 +2,11 @@ import { msg } from "@lingui/core/macro";
 import { ActionIcon } from "@mantine/core";
 import {
   MdOutlineArrowCircleRight,
+  MdOutlineBedtime,
   MdOutlineBlock,
   MdOutlineCancel,
   MdOutlineCheckCircle,
+  MdOutlinePending,
   MdOutlineSchedule,
 } from "react-icons/md";
 
@@ -19,11 +21,25 @@ export function FiltersPanel({ filters, onToggleFilter }: FiltersPanelInput) {
   return (
     <ActionIcon.Group mt="auto" w="100%">
       <FilterButton
-        color="gray"
-        enabled={filters.pending}
+        color="dark.1"
+        enabled={filters.queued}
+        icon={MdOutlinePending}
+        onClick={() => onToggleFilter?.("queued")}
+        tooltip={localization.localize(msg({ message: "Queued" }))}
+      />
+      <FilterButton
+        color="dark.2"
+        enabled={filters.waiting}
         icon={MdOutlineSchedule}
-        onClick={() => onToggleFilter?.("pending")}
-        tooltip={localization.localize(msg({ message: "Pending" }))}
+        onClick={() => onToggleFilter?.("waiting")}
+        tooltip={localization.localize(msg({ message: "Waiting" }))}
+      />
+      <FilterButton
+        color="dark.3"
+        enabled={filters.sleeping}
+        icon={MdOutlineBedtime}
+        onClick={() => onToggleFilter?.("sleeping")}
+        tooltip={localization.localize(msg({ message: "Sleeping" }))}
       />
       <FilterButton
         color="ra-blue"

@@ -16,6 +16,8 @@ export function FilterButton({
       transitionProps={{ transition: "scale" }}
     >
       <ActionIcon
+        autoContrast={false}
+        c={enabled ? "black" : "white"}
         color={color}
         flex={1}
         onClick={onClick}

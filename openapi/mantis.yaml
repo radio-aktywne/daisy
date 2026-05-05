@@ -1,7 +1,7 @@
 openapi: "3.1.0"
 info:
   title: mantis
-  version: "0.19.0"
+  version: "0.21.0"
 paths:
   /ping:
     get:
@@ -517,18 +517,18 @@ paths:
                     detail: Not Found
                     extra: {}
       deprecated: false
-  /tasks/pending/{id}:
+  /tasks/queued/{id}:
     get:
       tags:
         - Tasks
-      summary: Get pending task
-      description: Get a pending task.
-      operationId: TasksPendingIdGetPending
+      summary: Get queued task
+      description: Get a queued task.
+      operationId: TasksQueuedIdGetQueued
       parameters:
         - name: id
           in: path
           schema:
-            $ref: "#/components/schemas/GetPendingRequestId"
+            $ref: "#/components/schemas/GetQueuedRequestId"
           required: true
           deprecated: false
       responses:
@@ -538,7 +538,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/GetPendingResponseTask"
+                $ref: "#/components/schemas/GetQueuedResponseTask"
         "400":
           description: Bad request syntax or unsupported method
           content:
@@ -612,6 +612,152 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/GetRunningResponseTask"
+        "400":
+          description: Bad request syntax or unsupported method
+          content:
+            application/json:
+              schema:
+                properties:
+                  status_code:
+                    type: integer
+                  detail:
+                    type: string
+                  extra:
+                    additionalProperties: {}
+                    type:
+                      - "null"
+                      - object
+                      - array
+                type: object
+                required:
+                  - detail
+                  - status_code
+                description: Validation Exception
+                examples:
+                  - status_code: 400
+                    detail: Bad Request
+                    extra: {}
+        "404":
+          description: Nothing matches the given URI
+          content:
+            application/json:
+              schema:
+                properties:
+                  status_code:
+                    type: integer
+                  detail:
+                    type: string
+                  extra:
+                    additionalProperties: {}
+                    type:
+                      - "null"
+                      - object
+                      - array
+                type: object
+                required:
+                  - detail
+                  - status_code
+                description: Not Found Exception
+                examples:
+                  - status_code: 404
+                    detail: Not Found
+                    extra: {}
+      deprecated: false
+  /tasks/sleeping/{id}:
+    get:
+      tags:
+        - Tasks
+      summary: Get sleeping task
+      description: Get a sleeping task.
+      operationId: TasksSleepingIdGetSleeping
+      parameters:
+        - name: id
+          in: path
+          schema:
+            $ref: "#/components/schemas/GetSleepingRequestId"
+          required: true
+          deprecated: false
+      responses:
+        "200":
+          description: Request fulfilled, document follows
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GetSleepingResponseTask"
+        "400":
+          description: Bad request syntax or unsupported method
+          content:
+            application/json:
+              schema:
+                properties:
+                  status_code:
+                    type: integer
+                  detail:
+                    type: string
+                  extra:
+                    additionalProperties: {}
+                    type:
+                      - "null"
+                      - object
+                      - array
+                type: object
+                required:
+                  - detail
+                  - status_code
+                description: Validation Exception
+                examples:
+                  - status_code: 400
+                    detail: Bad Request
+                    extra: {}
+        "404":
+          description: Nothing matches the given URI
+          content:
+            application/json:
+              schema:
+                properties:
+                  status_code:
+                    type: integer
+                  detail:
+                    type: string
+                  extra:
+                    additionalProperties: {}
+                    type:
+                      - "null"
+                      - object
+                      - array
+                type: object
+                required:
+                  - detail
+                  - status_code
+                description: Not Found Exception
+                examples:
+                  - status_code: 404
+                    detail: Not Found
+                    extra: {}
+      deprecated: false
+  /tasks/waiting/{id}:
+    get:
+      tags:
+        - Tasks
+      summary: Get waiting task
+      description: Get a waiting task.
+      operationId: TasksWaitingIdGetWaiting
+      parameters:
+        - name: id
+          in: path
+          schema:
+            $ref: "#/components/schemas/GetWaitingRequestId"
+          required: true
+          deprecated: false
+      responses:
+        "200":
+          description: Request fulfilled, document follows
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GetWaitingResponseTask"
         "400":
           description: Bad request syntax or unsupported method
           content:
@@ -794,7 +940,9 @@ components:
       properties:
         task:
           $ref: "#/components/schemas/Task"
-        scheduled:
+        enqueued:
+          $ref: "#/components/schemas/NaiveDatetime"
+        dequeued:
           $ref: "#/components/schemas/NaiveDatetime"
         started:
           anyOf:
@@ -806,7 +954,8 @@ components:
       type: object
       required:
         - task
-        - scheduled
+        - enqueued
+        - dequeued
         - started
         - cancelled
       title: CancelledTask
@@ -848,7 +997,9 @@ components:
       properties:
         task:
           $ref: "#/components/schemas/Task"
-        scheduled:
+        enqueued:
+          $ref: "#/components/schemas/NaiveDatetime"
+        dequeued:
           $ref: "#/components/schemas/NaiveDatetime"
         started:
           anyOf:
@@ -860,7 +1011,8 @@ components:
       type: object
       required:
         - task
-        - scheduled
+        - enqueued
+        - dequeued
         - started
         - cancelled
       title: CancelledTask
@@ -872,7 +1024,9 @@ components:
       properties:
         task:
           $ref: "#/components/schemas/Task"
-        scheduled:
+        enqueued:
+          $ref: "#/components/schemas/NaiveDatetime"
+        dequeued:
           $ref: "#/components/schemas/NaiveDatetime"
         started:
           $ref: "#/components/schemas/NaiveDatetime"
@@ -894,7 +1048,8 @@ components:
       type: object
       required:
         - task
-        - scheduled
+        - enqueued
+        - dequeued
         - started
         - completed
         - result
@@ -907,10 +1062,15 @@ components:
       properties:
         task:
           $ref: "#/components/schemas/Task"
-        scheduled:
+        enqueued:
+          $ref: "#/components/schemas/NaiveDatetime"
+        dequeued:
           $ref: "#/components/schemas/NaiveDatetime"
         started:
-          $ref: "#/components/schemas/NaiveDatetime"
+          anyOf:
+            - $ref: "#/components/schemas/NaiveDatetime"
+            - type: "null"
+          description: Datetime in UTC when the task was started.
         failed:
           $ref: "#/components/schemas/NaiveDatetime"
         error:
@@ -920,27 +1080,28 @@ components:
       type: object
       required:
         - task
-        - scheduled
+        - enqueued
+        - dequeued
         - started
         - failed
         - error
       title: FailedTask
       description: Data of a failed task.
-    GetPendingRequestId:
+    GetQueuedRequestId:
       type: string
       format: uuid
-    GetPendingResponseTask:
+    GetQueuedResponseTask:
       properties:
         task:
           $ref: "#/components/schemas/Task"
-        scheduled:
+        enqueued:
           $ref: "#/components/schemas/NaiveDatetime"
       type: object
       required:
         - task
-        - scheduled
-      title: PendingTask
-      description: Data of a pending task.
+        - enqueued
+      title: QueuedTask
+      description: Data of a queued task.
     GetRequestId:
       type: string
       format: uuid
@@ -963,27 +1124,88 @@ components:
       properties:
         task:
           $ref: "#/components/schemas/Task"
-        scheduled:
+        enqueued:
+          $ref: "#/components/schemas/NaiveDatetime"
+        dequeued:
           $ref: "#/components/schemas/NaiveDatetime"
         started:
           $ref: "#/components/schemas/NaiveDatetime"
       type: object
       required:
         - task
-        - scheduled
+        - enqueued
+        - dequeued
         - started
       title: RunningTask
       description: Data of a running task.
+    GetSleepingRequestId:
+      type: string
+      format: uuid
+    GetSleepingResponseTask:
+      properties:
+        task:
+          $ref: "#/components/schemas/Task"
+        enqueued:
+          $ref: "#/components/schemas/NaiveDatetime"
+        dequeued:
+          anyOf:
+            - $ref: "#/components/schemas/NaiveDatetime"
+            - type: "null"
+          description: Datetime in UTC when the task was dequeued.
+        slept:
+          $ref: "#/components/schemas/NaiveDatetime"
+      type: object
+      required:
+        - task
+        - enqueued
+        - dequeued
+        - slept
+      title: SleepingTask
+      description: Data of a sleeping task.
+    GetWaitingRequestId:
+      type: string
+      format: uuid
+    GetWaitingResponseTask:
+      properties:
+        task:
+          $ref: "#/components/schemas/Task"
+        enqueued:
+          $ref: "#/components/schemas/NaiveDatetime"
+        dequeued:
+          $ref: "#/components/schemas/NaiveDatetime"
+      type: object
+      required:
+        - task
+        - enqueued
+        - dequeued
+      title: WaitingTask
+      description: Data of a waiting task.
     ListResponseTasks:
       properties:
-        pending:
+        queued:
           items:
             type: string
             format: uuid
           type: array
           uniqueItems: true
-          title: Pending
-          description: Identifiers of pending tasks.
+          title: Queued
+          description: Identifiers of queued tasks.
+        waiting:
+          items:
+            type: string
+            format: uuid
+          type: array
+          uniqueItems: true
+          title: Waiting
+          description: Identifiers of waiting tasks.
+        sleeping:
+          items:
+            type: string
+            format: uuid
+          type: array
+          uniqueItems: true
+          title: Sleeping
+          description: Identifiers of sleeping tasks.
         running:
           items:
             type: string
@@ -1018,7 +1240,9 @@ components:
           description: Identifiers of completed tasks.
       type: object
       required:
-        - pending
+        - queued
+        - waiting
+        - sleeping
         - running
         - cancelled
         - failed
@@ -1066,14 +1290,14 @@ components:
       properties:
         task:
           $ref: "#/components/schemas/Task"
-        scheduled:
+        enqueued:
           $ref: "#/components/schemas/NaiveDatetime"
       type: object
       required:
         - task
-        - scheduled
-      title: PendingTask
-      description: Data of a pending task.
+        - enqueued
+      title: QueuedTask
+      description: Data of a queued task.
     Specification:
       properties:
         type:
@@ -1101,7 +1325,9 @@ components:
     Status:
       type: string
       enum:
-        - pending
+        - queued
+        - waiting
+        - sleeping
         - running
         - cancelled
         - failed
