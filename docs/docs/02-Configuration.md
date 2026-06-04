@@ -34,6 +34,18 @@ You can configure the app at runtime using various environment variables:
 - `DAISY__DEBUG` -
   enable debug mode
   (default: `true`)
+- `DAISY__IDENTITY__USERS__DEBUG__ID` -
+  identifier of the debug user
+  (default: `debug`)
+- `DAISY__IDENTITY__USERS__DEBUG__TRAITS__LOCALES__PREFERRED` -
+  preferred locale of the debug user
+  (default: ``)
+- `DAISY__IDENTITY__USERS__DEBUG__TRAITS__NAMES__DISPLAY` -
+  display name of the debug user
+  (default: `Debug User`)
+- `DAISY__IDENTITY__USERS__DEBUG__TRAITS__PICTURES__PROFILE__URL` -
+  profile picture URL of the debug user
+  (default: ``)
 - `DAISY__SERVER__HOST` -
   host to run the server on
   (default: `0.0.0.0`)
