@@ -17,7 +17,7 @@ msgstr ""
 msgid "An unexpected error occurred"
 msgstr "Wystąpił nieoczekiwany błąd"
 
-#: src/app/(root)/layout.tsx:34
+#: src/app/(root)/layout.tsx:36
 msgid "Broadcast scheduling app 📅"
 msgstr "Broadcast scheduling app 📅"
 
@@ -37,7 +37,7 @@ msgstr "Wyczyść"
 msgid "Completed"
 msgstr "Zakończone"
 
-#: src/app/(root)/layout.tsx:40
+#: src/app/(root)/layout.tsx:42
 msgid "daisy"
 msgstr "daisy"
 
@@ -66,6 +66,10 @@ msgstr "Nie udało się anulować operacji"
 msgid "Failed to clean tasks"
 msgstr "Nie udało się wyczyścić operacji"
 
+#: src/app/(root)/forbidden.tsx:11
+msgid "Forbidden • daisy"
+msgstr "Brak dostępu • daisy"
+
 #: src/isomorphic/notifications/hooks/use-notifications/main.ts:51
 msgid "Info"
 msgstr "Informacja"
@@ -74,6 +78,10 @@ msgstr "Informacja"
 #: src/client/test/components/test-widget/main.tsx:62
 msgid "Invalid input"
 msgstr "Nieprawidłowe dane wejściowe"
+
+#: src/isomorphic/identity/components/identity-widget/main.tsx:19
+msgid "Logout"
+msgstr "Wyloguj się"
 
 #: src/client/core/components/task-list-widget/main.tsx:83
 msgid "No tasks"
@@ -116,7 +124,7 @@ msgstr "Wyślij"
 msgid "Success"
 msgstr "Sukces"
 
-#: src/app/(root)/(tasks)/(master)/(detail)/tasks/[id]/page.tsx:40
+#: src/app/(root)/(tasks)/(master)/(detail)/tasks/[id]/page.tsx:42
 msgid "Task {taskId} • daisy"
 msgstr "Operacja {taskId} • daisy"
 
@@ -140,7 +148,7 @@ msgstr "Nie znaleziono operacji • daisy"
 msgid "Tasks"
 msgstr "Operacje"
 
-#: src/app/(root)/(tasks)/(master)/tasks/page.tsx:20
+#: src/app/(root)/(tasks)/(master)/tasks/page.tsx:21
 msgid "Tasks • daisy"
 msgstr "Operacje • daisy"
 
@@ -152,6 +160,14 @@ msgstr "Oczekujące"
 msgid "Warning"
 msgstr "Ostrzeżenie"
 
-#: src/server/orpc/vars/procedures/vars/test/vars/validate/main.ts:27
+#: src/server/orpc/vars/procedures/vars/test/vars/validate/main.ts:29
 msgid "Why did the chicken cross the road? To get to the other side."
 msgstr "Dlaczego kura przeszła przez ulicę? Żeby dostać się na drugą stronę."
+
+#: src/isomorphic/access/components/forbidden-widget/main.tsx:16
+msgid "You are not allowed to access this page"
+msgstr "Nie masz dostępu do tej strony"
+
+#: src/isomorphic/identity/components/identity-provider/components/user-synchronizer/main.tsx:56
+msgid "You are not authenticated. Reload the page to authenticate again."
+msgstr "Nie jesteś uwierzytelniony. Odśwież stronę, aby ponownie się uwierzytelnić."

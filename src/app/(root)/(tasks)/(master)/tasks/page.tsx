@@ -10,6 +10,7 @@ import type { Schemas } from "./schemas";
 import type { Keys } from "./types";
 
 import { Metadata } from "../../../../../isomorphic/metadata/components/metadata";
+import { Authenticated } from "../../../../../server/access/components/authenticated";
 import { createMetadata } from "../../../../../server/metadata/lib/create-metadata";
 import { TasksPageView } from "./page.view";
 
@@ -33,9 +34,9 @@ export default async function TasksPage({}: PageInput<Keys.Path, Keys.Query>) {
   await connection();
 
   return (
-    <>
+    <Authenticated>
       <Metadata title={await getTitle({})} />
       <TasksPageView />
-    </>
+    </Authenticated>
   );
 }
