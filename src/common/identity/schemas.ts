@@ -1,6 +1,6 @@
 import * as z from "zod";
 
-export const Schemas = {
+export const IdentitySchemas = {
   UserTraits: z.object({
     locales: z
       .object({

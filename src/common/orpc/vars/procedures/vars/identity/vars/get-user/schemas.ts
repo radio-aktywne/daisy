@@ -1,6 +1,6 @@
 import * as z from "zod";
 
-import { Schemas as IdentitySchemas } from "../../../../../../../identity/schemas";
+import { IdentitySchemas } from "../../../../../../../identity/schemas";
 
 export const Schemas = {
   Input: z.undefined(),

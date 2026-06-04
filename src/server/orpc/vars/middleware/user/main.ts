@@ -2,6 +2,7 @@ import type { UserMiddlewareOutputContext } from "./types";
 
 import { getUserId } from "../../../../../common/identity/lib/get-user-id";
 import { getUserTraits } from "../../../../../common/identity/lib/get-user-traits";
+import { state } from "../../../../state/vars/state";
 import { headersMiddleware } from "../headers";
 import { isExecuted } from "./utils";
 
@@ -23,7 +24,11 @@ export const userMiddleware = headersMiddleware.concat(
     const { traits } = getUserTraits({ headers: headers });
 
     const user =
-      id === null || traits === null ? null : { id: id, traits: traits };
+      id && traits
+        ? { id: id, traits: traits }
+        : state.current.config.debug
+          ? state.current.config.identity.users.debug
+          : null;
 
     return next({
       context: {
