@@ -17,7 +17,7 @@ msgstr ""
 msgid "An unexpected error occurred"
 msgstr "Wystąpił nieoczekiwany błąd"
 
-#: src/app/(root)/layout.tsx:33
+#: src/app/(root)/layout.tsx:34
 msgid "Broadcast scheduling app 📅"
 msgstr "Broadcast scheduling app 📅"
 
@@ -37,7 +37,7 @@ msgstr "Wyczyść"
 msgid "Completed"
 msgstr "Zakończone"
 
-#: src/app/(root)/layout.tsx:39
+#: src/app/(root)/layout.tsx:40
 msgid "daisy"
 msgstr "daisy"
 
@@ -45,13 +45,12 @@ msgstr "daisy"
 msgid "Enter some value"
 msgstr "Wprowadź jakąś wartość"
 
-#: src/isomorphic/notifications/hooks/use-notifications/main.ts:46
+#: src/isomorphic/notifications/hooks/use-notifications/main.ts:40
 msgid "Error"
 msgstr "Błąd"
 
-#: src/app/(root)/(main)/error.tsx:11
 #: src/app/(root)/(tasks)/(master)/(detail)/error.tsx:11
-#: src/app/(root)/(tasks)/error.tsx:11
+#: src/app/(root)/error.tsx:11
 msgid "Error • daisy"
 msgstr "Błąd • daisy"
 
@@ -67,7 +66,7 @@ msgstr "Nie udało się anulować operacji"
 msgid "Failed to clean tasks"
 msgstr "Nie udało się wyczyścić operacji"
 
-#: src/isomorphic/notifications/hooks/use-notifications/main.ts:56
+#: src/isomorphic/notifications/hooks/use-notifications/main.ts:51
 msgid "Info"
 msgstr "Informacja"
 
@@ -80,13 +79,12 @@ msgstr "Nieprawidłowe dane wejściowe"
 msgid "No tasks"
 msgstr "Brak operacji"
 
-#: src/app/(root)/(main)/not-found.tsx:15
 #: src/app/(root)/(tasks)/(master)/(detail)/not-found.tsx:15
+#: src/app/(root)/not-found.tsx:15
 msgid "Not Found • daisy"
 msgstr "Nie znaleziono • daisy"
 
-#: src/app/(root)/(main)/not-found.view.tsx:8
-#: src/app/(root)/(tasks)/(master)/(detail)/not-found.view.tsx:8
+#: src/isomorphic/core/components/generic/not-found-widget/main.tsx:15
 msgid "Page not found"
 msgstr "Nie znaleziono strony"
 
@@ -94,7 +92,7 @@ msgstr "Nie znaleziono strony"
 msgid "Queued"
 msgstr "Zakolejkowane"
 
-#: src/isomorphic/core/components/generic/error-widget/main.tsx:21
+#: src/isomorphic/core/components/generic/error-widget/main.tsx:25
 msgid "Retry"
 msgstr "Spróbuj ponownie"
 
@@ -106,9 +104,7 @@ msgstr "Wykonywane"
 msgid "Sleeping"
 msgstr "Uśpione"
 
-#: src/app/(root)/(main)/error.view.tsx:10
-#: src/app/(root)/(tasks)/(master)/(detail)/error.view.tsx:10
-#: src/app/(root)/(tasks)/error.view.tsx:12
+#: src/isomorphic/core/components/generic/error-widget/main.tsx:16
 msgid "Something went wrong"
 msgstr "Coś poszło nie tak"
 
@@ -116,7 +112,7 @@ msgstr "Coś poszło nie tak"
 msgid "Submit"
 msgstr "Wyślij"
 
-#: src/isomorphic/notifications/hooks/use-notifications/main.ts:66
+#: src/isomorphic/notifications/hooks/use-notifications/main.ts:62
 msgid "Success"
 msgstr "Sukces"
 
@@ -152,7 +148,7 @@ msgstr "Operacje • daisy"
 msgid "Waiting"
 msgstr "Oczekujące"
 
-#: src/isomorphic/notifications/hooks/use-notifications/main.ts:76
+#: src/isomorphic/notifications/hooks/use-notifications/main.ts:73
 msgid "Warning"
 msgstr "Ostrzeżenie"
 

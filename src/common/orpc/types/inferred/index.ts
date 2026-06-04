@@ -1,1 +1,6 @@
-export type { ORPCDefinedError, ORPCInputs, ORPCOutputs } from "./types";
+export type {
+  ORPCDefinedError,
+  ORPCDefinedErrors,
+  ORPCInputs,
+  ORPCOutputs,
+} from "./types";
