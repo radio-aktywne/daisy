@@ -17,7 +17,7 @@ msgstr ""
 msgid "An unexpected error occurred"
 msgstr "An unexpected error occurred"
 
-#: src/app/(root)/layout.tsx:34
+#: src/app/(root)/layout.tsx:36
 msgid "Broadcast scheduling app 📅"
 msgstr "Broadcast scheduling app 📅"
 
@@ -37,7 +37,7 @@ msgstr "Clean"
 msgid "Completed"
 msgstr "Completed"
 
-#: src/app/(root)/layout.tsx:40
+#: src/app/(root)/layout.tsx:42
 msgid "daisy"
 msgstr "daisy"
 
@@ -66,6 +66,10 @@ msgstr "Failed to cancel task"
 msgid "Failed to clean tasks"
 msgstr "Failed to clean tasks"
 
+#: src/app/(root)/forbidden.tsx:11
+msgid "Forbidden • daisy"
+msgstr "Forbidden • daisy"
+
 #: src/isomorphic/notifications/hooks/use-notifications/main.ts:51
 msgid "Info"
 msgstr "Info"
@@ -74,6 +78,10 @@ msgstr "Info"
 #: src/client/test/components/test-widget/main.tsx:62
 msgid "Invalid input"
 msgstr "Invalid input"
+
+#: src/isomorphic/identity/components/identity-widget/main.tsx:19
+msgid "Logout"
+msgstr "Logout"
 
 #: src/client/core/components/task-list-widget/main.tsx:83
 msgid "No tasks"
@@ -116,7 +124,7 @@ msgstr "Submit"
 msgid "Success"
 msgstr "Success"
 
-#: src/app/(root)/(tasks)/(master)/(detail)/tasks/[id]/page.tsx:40
+#: src/app/(root)/(tasks)/(master)/(detail)/tasks/[id]/page.tsx:42
 msgid "Task {taskId} • daisy"
 msgstr "Task {taskId} • daisy"
 
@@ -140,7 +148,7 @@ msgstr "Task not found • daisy"
 msgid "Tasks"
 msgstr "Tasks"
 
-#: src/app/(root)/(tasks)/(master)/tasks/page.tsx:20
+#: src/app/(root)/(tasks)/(master)/tasks/page.tsx:21
 msgid "Tasks • daisy"
 msgstr "Tasks • daisy"
 
@@ -152,6 +160,14 @@ msgstr "Waiting"
 msgid "Warning"
 msgstr "Warning"
 
-#: src/server/orpc/vars/procedures/vars/test/vars/validate/main.ts:27
+#: src/server/orpc/vars/procedures/vars/test/vars/validate/main.ts:29
 msgid "Why did the chicken cross the road? To get to the other side."
 msgstr "Why did the chicken cross the road? To get to the other side."
+
+#: src/isomorphic/access/components/forbidden-widget/main.tsx:16
+msgid "You are not allowed to access this page"
+msgstr "You are not allowed to access this page"
+
+#: src/isomorphic/identity/components/identity-provider/components/user-synchronizer/main.tsx:56
+msgid "You are not authenticated. Reload the page to authenticate again."
+msgstr "You are not authenticated. Reload the page to authenticate again."

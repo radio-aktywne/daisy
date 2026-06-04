@@ -1,8 +1,10 @@
 import { state } from "../../../../../../../state/vars/state";
 import { orpcServerRootBase } from "../../../../../bases/root";
+import { authenticatedMiddleware } from "../../../../../middleware/authenticated";
 
-export const cancelTask = orpcServerRootBase.core.cancelTask.handler(
-  async ({ errors, input }) => {
+export const cancelTask = orpcServerRootBase.core.cancelTask
+  .use(authenticatedMiddleware)
+  .handler(async ({ errors, input }) => {
     const { data: tasksIdCancelData, response: tasksIdCancelResponse } =
       await state.current.apis.mantis.tasksIdCancel({ path: input });
 
@@ -12,5 +14,4 @@ export const cancelTask = orpcServerRootBase.core.cancelTask.handler(
     }
 
     return tasksIdCancelData;
-  },
-);
+  });
