@@ -4,6 +4,7 @@ import type {
   InferContractRouterInputs,
   InferContractRouterOutputs,
 } from "@orpc/contract";
+import type { ORPCErrorConstructorMap } from "@orpc/server";
 
 import type { ExcludeExact } from "../../../generic/types";
 import type { orpcContractRouter } from "../../vars/router";
@@ -11,6 +12,10 @@ import type { orpcContractRouter } from "../../vars/router";
 export type ORPCInputs = InferContractRouterInputs<typeof orpcContractRouter>;
 
 export type ORPCOutputs = InferContractRouterOutputs<typeof orpcContractRouter>;
+
+export type ORPCDefinedErrors = ORPCErrorConstructorMap<
+  InferContractRouterErrorMap<typeof orpcContractRouter>
+>;
 
 export type ORPCDefinedError = ExcludeExact<
   ErrorFromErrorMap<InferContractRouterErrorMap<typeof orpcContractRouter>>,

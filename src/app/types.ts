@@ -71,11 +71,11 @@ export type PageInput<
   searchParams: Promise<QueryParameters<QueryParametersKeysType>>;
 };
 
-export type TemplateInput = Simplify<PropsWithChildren<object>>;
-
 export type RouteInput<PathParametersKeysType extends string = never> = {
   params: Promise<PathParameters<PathParametersKeysType>>;
 };
+
+export type TemplateInput = Simplify<PropsWithChildren<object>>;
 
 export type ErrorMetadataUtilityInput = object;
 
