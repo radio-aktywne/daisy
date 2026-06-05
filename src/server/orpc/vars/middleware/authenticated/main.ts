@@ -1,4 +1,4 @@
-import type { ORPCDefinedErrors } from "../../../../../common/orpc/types/inferred";
+import type { ORPCDefinedErrors } from "../../../types/inferred";
 import type { AuthenticatedMiddlewareOutputContext } from "./types";
 
 import { isAuthenticated } from "../../../../../common/access/lib/is-authenticated";
