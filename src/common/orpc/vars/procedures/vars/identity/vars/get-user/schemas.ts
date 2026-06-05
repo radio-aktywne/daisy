@@ -5,11 +5,6 @@ import { IdentitySchemas } from "../../../../../../../identity/schemas";
 export const Schemas = {
   Input: z.undefined(),
   Output: z.object({
-    user: z
-      .object({
-        id: z.string(),
-        traits: IdentitySchemas.UserTraits,
-      })
-      .nullable(),
+    user: IdentitySchemas.User.nullable(),
   }),
 };
