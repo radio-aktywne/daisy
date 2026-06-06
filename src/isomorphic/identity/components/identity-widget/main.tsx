@@ -12,7 +12,9 @@ export function IdentityWidget({}: IdentityWidgetInput) {
   const { identity } = useIdentity();
   const { localization } = useLocalization();
 
-  return identity.user === null ? null : (
+  if (identity.user === null) return null;
+
+  return (
     <UserMenu
       items={{
         logout: {
