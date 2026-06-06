@@ -79,7 +79,7 @@ msgstr "Info"
 msgid "Invalid input"
 msgstr "Invalid input"
 
-#: src/isomorphic/identity/components/identity-widget/main.tsx:19
+#: src/isomorphic/identity/components/identity-widget/main.tsx:21
 msgid "Logout"
 msgstr "Logout"
 
