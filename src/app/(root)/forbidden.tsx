@@ -1,20 +1,21 @@
-"use client";
-
 import { msg } from "@lingui/core/macro";
+import { connection } from "next/server";
 
 import type { ForbiddenInput, ForbiddenMetadataUtilityInput } from "../types";
 
 import { Metadata } from "../../isomorphic/metadata/components/metadata";
 import { RootForbiddenView } from "./forbidden.view";
 
-function getTitle({}: ForbiddenMetadataUtilityInput = {}) {
+async function getTitle({}: ForbiddenMetadataUtilityInput = {}) {
   return msg({ message: "Forbidden • daisy" });
 }
 
-export default function RootForbidden({}: ForbiddenInput) {
+export default async function RootForbidden({}: ForbiddenInput) {
+  await connection();
+
   return (
     <>
-      <Metadata title={getTitle()} />
+      <Metadata title={await getTitle()} />
       <RootForbiddenView />
     </>
   );

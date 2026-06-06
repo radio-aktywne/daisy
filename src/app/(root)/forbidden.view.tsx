@@ -4,7 +4,7 @@ import type { ForbiddenViewInput } from "../types";
 
 import { ForbiddenWidget } from "../../isomorphic/access/components/forbidden-widget";
 
-export function RootForbiddenView({}: ForbiddenViewInput) {
+export async function RootForbiddenView({}: ForbiddenViewInput) {
   return (
     <MainLayout>
       <ForbiddenWidget />

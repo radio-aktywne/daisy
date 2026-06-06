@@ -66,7 +66,7 @@ msgstr "Failed to cancel task"
 msgid "Failed to clean tasks"
 msgstr "Failed to clean tasks"
 
-#: src/app/(root)/forbidden.tsx:11
+#: src/app/(root)/forbidden.tsx:10
 msgid "Forbidden • daisy"
 msgstr "Forbidden • daisy"
 

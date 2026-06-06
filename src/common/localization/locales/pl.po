@@ -66,7 +66,7 @@ msgstr "Nie udało się anulować operacji"
 msgid "Failed to clean tasks"
 msgstr "Nie udało się wyczyścić operacji"
 
-#: src/app/(root)/forbidden.tsx:11
+#: src/app/(root)/forbidden.tsx:10
 msgid "Forbidden • daisy"
 msgstr "Brak dostępu • daisy"
 
