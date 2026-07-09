@@ -427,7 +427,7 @@ export class Sdk extends HeyApiClient {
   }
 
   /**
-   * Get index
+   * List tasks
    *
    * List tasks.
    */

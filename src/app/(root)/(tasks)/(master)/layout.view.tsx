@@ -20,7 +20,7 @@ export async function TasksMasterLayoutView({
   const { queryClient } = getQueryClient();
 
   void queryClient.prefetchQuery(
-    orpcServerSideQueryClient.core.getTaskIndex.queryOptions(),
+    orpcServerSideQueryClient.core.listTasks.queryOptions(),
   );
 
   return (

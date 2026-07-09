@@ -29,7 +29,7 @@ msgstr "Anuluj"
 msgid "Cancelled"
 msgstr "Anulowane"
 
-#: src/client/core/components/task-list-widget/main.tsx:107
+#: src/client/core/components/task-list-widget/main.tsx:105
 msgid "Clean"
 msgstr "Wyczyść"
 
@@ -83,7 +83,7 @@ msgstr "Nieprawidłowe dane wejściowe"
 msgid "Logout"
 msgstr "Wyloguj się"
 
-#: src/client/core/components/task-list-widget/main.tsx:83
+#: src/client/core/components/task-list-widget/main.tsx:81
 msgid "No tasks"
 msgstr "Brak operacji"
 
@@ -144,7 +144,7 @@ msgstr "Nie znaleziono operacji"
 msgid "Task not found • daisy"
 msgstr "Nie znaleziono operacji • daisy"
 
-#: src/client/core/components/task-list-widget/main.tsx:78
+#: src/client/core/components/task-list-widget/main.tsx:76
 msgid "Tasks"
 msgstr "Operacje"
 

@@ -1,6 +1,6 @@
 import type { ORPCOutputs } from "../../../../../../common/orpc/types/inferred";
 
-type TaskStatus = keyof ORPCOutputs["core"]["getTaskIndex"];
+type TaskStatus = keyof ORPCOutputs["core"]["listTasks"];
 
 export type FiltersPanelFilters = {
   [status in TaskStatus]: boolean;

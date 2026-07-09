@@ -1,8 +1,8 @@
 import type { ORPCOutputs } from "../../../../../../common/orpc/types/inferred";
 
-type GetTaskIndexOutput = ORPCOutputs["core"]["getTaskIndex"];
+type ListTasksOutput = ORPCOutputs["core"]["listTasks"];
 
 export type TaskItemInput = {
-  id: GetTaskIndexOutput[keyof GetTaskIndexOutput][number];
-  status: keyof GetTaskIndexOutput;
+  id: ListTasksOutput[keyof ListTasksOutput][number];
+  status: keyof ListTasksOutput;
 };

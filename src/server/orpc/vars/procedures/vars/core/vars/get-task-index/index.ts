@@ -1,1 +1,0 @@
-export { getTaskIndex } from "./main";
