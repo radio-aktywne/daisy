@@ -1,7 +1,7 @@
 openapi: "3.1.0"
 info:
   title: mantis
-  version: "0.21.0"
+  version: "0.22.0"
 paths:
   /ping:
     get:
@@ -813,7 +813,7 @@ paths:
     get:
       tags:
         - Tasks
-      summary: Get index
+      summary: List tasks
       description: List tasks.
       operationId: TasksList
       responses:
@@ -941,16 +941,16 @@ components:
         task:
           $ref: "#/components/schemas/Task"
         enqueued:
-          $ref: "#/components/schemas/NaiveDatetime"
+          $ref: "#/components/schemas/UTCDatetime"
         dequeued:
-          $ref: "#/components/schemas/NaiveDatetime"
+          $ref: "#/components/schemas/UTCDatetime"
         started:
           anyOf:
-            - $ref: "#/components/schemas/NaiveDatetime"
+            - $ref: "#/components/schemas/UTCDatetime"
             - type: "null"
           description: Datetime in UTC when the task was started.
         cancelled:
-          $ref: "#/components/schemas/NaiveDatetime"
+          $ref: "#/components/schemas/UTCDatetime"
       type: object
       required:
         - task
@@ -998,16 +998,16 @@ components:
         task:
           $ref: "#/components/schemas/Task"
         enqueued:
-          $ref: "#/components/schemas/NaiveDatetime"
+          $ref: "#/components/schemas/UTCDatetime"
         dequeued:
-          $ref: "#/components/schemas/NaiveDatetime"
+          $ref: "#/components/schemas/UTCDatetime"
         started:
           anyOf:
-            - $ref: "#/components/schemas/NaiveDatetime"
+            - $ref: "#/components/schemas/UTCDatetime"
             - type: "null"
           description: Datetime in UTC when the task was started.
         cancelled:
-          $ref: "#/components/schemas/NaiveDatetime"
+          $ref: "#/components/schemas/UTCDatetime"
       type: object
       required:
         - task
@@ -1025,13 +1025,13 @@ components:
         task:
           $ref: "#/components/schemas/Task"
         enqueued:
-          $ref: "#/components/schemas/NaiveDatetime"
+          $ref: "#/components/schemas/UTCDatetime"
         dequeued:
-          $ref: "#/components/schemas/NaiveDatetime"
+          $ref: "#/components/schemas/UTCDatetime"
         started:
-          $ref: "#/components/schemas/NaiveDatetime"
+          $ref: "#/components/schemas/UTCDatetime"
         completed:
-          $ref: "#/components/schemas/NaiveDatetime"
+          $ref: "#/components/schemas/UTCDatetime"
         result:
           anyOf:
             - additionalProperties: true
@@ -1063,16 +1063,16 @@ components:
         task:
           $ref: "#/components/schemas/Task"
         enqueued:
-          $ref: "#/components/schemas/NaiveDatetime"
+          $ref: "#/components/schemas/UTCDatetime"
         dequeued:
-          $ref: "#/components/schemas/NaiveDatetime"
+          $ref: "#/components/schemas/UTCDatetime"
         started:
           anyOf:
-            - $ref: "#/components/schemas/NaiveDatetime"
+            - $ref: "#/components/schemas/UTCDatetime"
             - type: "null"
           description: Datetime in UTC when the task was started.
         failed:
-          $ref: "#/components/schemas/NaiveDatetime"
+          $ref: "#/components/schemas/UTCDatetime"
         error:
           type: string
           title: Error
@@ -1095,7 +1095,7 @@ components:
         task:
           $ref: "#/components/schemas/Task"
         enqueued:
-          $ref: "#/components/schemas/NaiveDatetime"
+          $ref: "#/components/schemas/UTCDatetime"
       type: object
       required:
         - task
@@ -1125,11 +1125,11 @@ components:
         task:
           $ref: "#/components/schemas/Task"
         enqueued:
-          $ref: "#/components/schemas/NaiveDatetime"
+          $ref: "#/components/schemas/UTCDatetime"
         dequeued:
-          $ref: "#/components/schemas/NaiveDatetime"
+          $ref: "#/components/schemas/UTCDatetime"
         started:
-          $ref: "#/components/schemas/NaiveDatetime"
+          $ref: "#/components/schemas/UTCDatetime"
       type: object
       required:
         - task
@@ -1146,14 +1146,14 @@ components:
         task:
           $ref: "#/components/schemas/Task"
         enqueued:
-          $ref: "#/components/schemas/NaiveDatetime"
+          $ref: "#/components/schemas/UTCDatetime"
         dequeued:
           anyOf:
-            - $ref: "#/components/schemas/NaiveDatetime"
+            - $ref: "#/components/schemas/UTCDatetime"
             - type: "null"
           description: Datetime in UTC when the task was dequeued.
         slept:
-          $ref: "#/components/schemas/NaiveDatetime"
+          $ref: "#/components/schemas/UTCDatetime"
       type: object
       required:
         - task
@@ -1170,9 +1170,9 @@ components:
         task:
           $ref: "#/components/schemas/Task"
         enqueued:
-          $ref: "#/components/schemas/NaiveDatetime"
+          $ref: "#/components/schemas/UTCDatetime"
         dequeued:
-          $ref: "#/components/schemas/NaiveDatetime"
+          $ref: "#/components/schemas/UTCDatetime"
       type: object
       required:
         - task
@@ -1249,11 +1249,6 @@ components:
         - completed
       title: TaskIndex
       description: Index of tasks by status.
-    NaiveDatetime:
-      type: string
-      format: date-time
-      examples:
-        - 2000-01-01T00:00:00
     Parameters:
       properties:
         message:
@@ -1283,7 +1278,6 @@ components:
       required:
         - operation
         - condition
-        - dependencies
       title: ScheduleRequestModel
       description: Request to schedule a task.
     ScheduleResponseTask:
@@ -1291,7 +1285,7 @@ components:
         task:
           $ref: "#/components/schemas/Task"
         enqueued:
-          $ref: "#/components/schemas/NaiveDatetime"
+          $ref: "#/components/schemas/UTCDatetime"
       type: object
       required:
         - task
@@ -1385,3 +1379,9 @@ components:
         - message
       title: Result
       description: Result of the test.
+    UTCDatetime:
+      type: string
+      format: date-time
+      description: Datetime in UTC.
+      examples:
+        - 2000-01-01T00:00:00Z

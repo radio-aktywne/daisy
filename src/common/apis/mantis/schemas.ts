@@ -3,6 +3,15 @@
 import * as z from "zod";
 
 /**
+ * Datetime in UTC.
+ */
+export const UtcDatetimeSchema = z.iso
+  .datetime({ offset: true, local: true })
+  .register(z.globalRegistry, {
+    description: "Datetime in UTC.",
+  });
+
+/**
  * Result
  *
  * Result of the test.
@@ -97,11 +106,6 @@ export const StatusSchema = z
     description: "Status of a task.",
   });
 
-export const NaiveDatetimeSchema = z.iso.datetime({
-  offset: true,
-  local: true,
-});
-
 /**
  * QueuedTask
  *
@@ -110,7 +114,7 @@ export const NaiveDatetimeSchema = z.iso.datetime({
 export const ScheduleResponseTaskSchema = z
   .object({
     task: TaskSchema,
-    enqueued: NaiveDatetimeSchema,
+    enqueued: UtcDatetimeSchema,
   })
   .register(z.globalRegistry, {
     description: "Data of a queued task.",
@@ -125,9 +129,12 @@ export const ScheduleRequestDataSchema = z
   .object({
     operation: SpecificationSchema,
     condition: SpecificationSchema,
-    dependencies: z.record(z.string(), z.uuid()).register(z.globalRegistry, {
-      description: "Dependencies of the task.",
-    }),
+    dependencies: z
+      .record(z.string(), z.uuid())
+      .register(z.globalRegistry, {
+        description: "Dependencies of the task.",
+      })
+      .optional(),
   })
   .register(z.globalRegistry, {
     description: "Request to schedule a task.",
@@ -174,8 +181,8 @@ export const ListResponseTasksSchema = z
 export const GetWaitingResponseTaskSchema = z
   .object({
     task: TaskSchema,
-    enqueued: NaiveDatetimeSchema,
-    dequeued: NaiveDatetimeSchema,
+    enqueued: UtcDatetimeSchema,
+    dequeued: UtcDatetimeSchema,
   })
   .register(z.globalRegistry, {
     description: "Data of a waiting task.",
@@ -191,9 +198,9 @@ export const GetWaitingRequestIdSchema = z.uuid();
 export const GetSleepingResponseTaskSchema = z
   .object({
     task: TaskSchema,
-    enqueued: NaiveDatetimeSchema,
-    dequeued: NaiveDatetimeSchema.nullable(),
-    slept: NaiveDatetimeSchema,
+    enqueued: UtcDatetimeSchema,
+    dequeued: UtcDatetimeSchema.nullable(),
+    slept: UtcDatetimeSchema,
   })
   .register(z.globalRegistry, {
     description: "Data of a sleeping task.",
@@ -209,9 +216,9 @@ export const GetSleepingRequestIdSchema = z.uuid();
 export const GetRunningResponseTaskSchema = z
   .object({
     task: TaskSchema,
-    enqueued: NaiveDatetimeSchema,
-    dequeued: NaiveDatetimeSchema,
-    started: NaiveDatetimeSchema,
+    enqueued: UtcDatetimeSchema,
+    dequeued: UtcDatetimeSchema,
+    started: UtcDatetimeSchema,
   })
   .register(z.globalRegistry, {
     description: "Data of a running task.",
@@ -243,7 +250,7 @@ export const GetRequestIdSchema = z.uuid();
 export const GetQueuedResponseTaskSchema = z
   .object({
     task: TaskSchema,
-    enqueued: NaiveDatetimeSchema,
+    enqueued: UtcDatetimeSchema,
   })
   .register(z.globalRegistry, {
     description: "Data of a queued task.",
@@ -259,10 +266,10 @@ export const GetQueuedRequestIdSchema = z.uuid();
 export const GetFailedResponseTaskSchema = z
   .object({
     task: TaskSchema,
-    enqueued: NaiveDatetimeSchema,
-    dequeued: NaiveDatetimeSchema,
-    started: NaiveDatetimeSchema.nullable(),
-    failed: NaiveDatetimeSchema,
+    enqueued: UtcDatetimeSchema,
+    dequeued: UtcDatetimeSchema,
+    started: UtcDatetimeSchema.nullable(),
+    failed: UtcDatetimeSchema,
     error: z.string().register(z.globalRegistry, {
       description: "Error message.",
     }),
@@ -281,10 +288,10 @@ export const GetFailedRequestIdSchema = z.uuid();
 export const GetCompletedResponseTaskSchema = z
   .object({
     task: TaskSchema,
-    enqueued: NaiveDatetimeSchema,
-    dequeued: NaiveDatetimeSchema,
-    started: NaiveDatetimeSchema,
-    completed: NaiveDatetimeSchema,
+    enqueued: UtcDatetimeSchema,
+    dequeued: UtcDatetimeSchema,
+    started: UtcDatetimeSchema,
+    completed: UtcDatetimeSchema,
     result: z
       .union([
         z.record(z.string(), z.unknown()),
@@ -310,10 +317,10 @@ export const GetCompletedRequestIdSchema = z.uuid();
 export const GetCancelledResponseTaskSchema = z
   .object({
     task: TaskSchema,
-    enqueued: NaiveDatetimeSchema,
-    dequeued: NaiveDatetimeSchema,
-    started: NaiveDatetimeSchema.nullable(),
-    cancelled: NaiveDatetimeSchema,
+    enqueued: UtcDatetimeSchema,
+    dequeued: UtcDatetimeSchema,
+    started: UtcDatetimeSchema.nullable(),
+    cancelled: UtcDatetimeSchema,
   })
   .register(z.globalRegistry, {
     description: "Data of a cancelled task.",
@@ -357,10 +364,10 @@ export const CleanRequestDataSchema = z
 export const CancelResponseTaskSchema = z
   .object({
     task: TaskSchema,
-    enqueued: NaiveDatetimeSchema,
-    dequeued: NaiveDatetimeSchema,
-    started: NaiveDatetimeSchema.nullable(),
-    cancelled: NaiveDatetimeSchema,
+    enqueued: UtcDatetimeSchema,
+    dequeued: UtcDatetimeSchema,
+    started: UtcDatetimeSchema.nullable(),
+    cancelled: UtcDatetimeSchema,
   })
   .register(z.globalRegistry, {
     description: "Data of a cancelled task.",

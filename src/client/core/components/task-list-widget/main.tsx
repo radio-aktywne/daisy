@@ -31,22 +31,22 @@ export function TaskListWidget({}: TaskListWidgetInput) {
   const { localization } = useLocalization();
   const { notifications } = useNotifications();
 
-  const getTaskIndexQuery = useSuspenseQuery(
-    orpcClientSideQueryClient.core.getTaskIndex.queryOptions(),
+  const listTasksQuery = useSuspenseQuery(
+    orpcClientSideQueryClient.core.listTasks.queryOptions(),
   );
 
   const cleanTasksMutation = useMutation(
     orpcClientSideQueryClient.core.cleanTasks.mutationOptions({
-      meta: { awaits: [orpcClientSideQueryClient.core.getTaskIndex.key()] },
+      meta: { awaits: [orpcClientSideQueryClient.core.listTasks.key()] },
     }),
   );
 
   const handleToggleFilter = useCallback(
     (status: keyof typeof filters) => {
       setFilters((previous) => ({ ...previous, [status]: !previous[status] }));
-      void getTaskIndexQuery.refetch();
+      void listTasksQuery.refetch();
     },
-    [getTaskIndexQuery.refetch, setFilters],
+    [listTasksQuery.refetch, setFilters],
   );
 
   const handleClean = useCallback(async () => {
@@ -61,12 +61,10 @@ export function TaskListWidget({}: TaskListWidgetInput) {
     }
   }, [cleanTasksMutation.mutateAsync, notifications]);
 
-  const tasks = getTaskIndexQuery.data;
+  const tasks = listTasksQuery.data;
 
   const filteredTasks = (
-    Object.entries(getTaskIndexQuery.data) as Entries<
-      typeof getTaskIndexQuery.data
-    >
+    Object.entries(listTasksQuery.data) as Entries<typeof listTasksQuery.data>
   )
     .flatMap(([status, ids]) => ids.map((id) => ({ id: id, status: status })))
     .filter(({ status }) => filters[status]);

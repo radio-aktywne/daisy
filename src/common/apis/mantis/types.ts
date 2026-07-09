@@ -5,6 +5,11 @@ export type ClientOptions = {
 };
 
 /**
+ * Datetime in UTC.
+ */
+export type UtcDatetime = string;
+
+/**
  * Result
  *
  * Result of the test.
@@ -113,10 +118,8 @@ export type Status =
  */
 export type ScheduleResponseTask = {
   task: Task;
-  enqueued: NaiveDatetime;
+  enqueued: UtcDatetime;
 };
-
-export type NaiveDatetime = string;
 
 /**
  * ScheduleRequestModel
@@ -131,7 +134,7 @@ export type ScheduleRequestData = {
    *
    * Dependencies of the task.
    */
-  dependencies: {
+  dependencies?: {
     [key: string]: string;
   };
 };
@@ -193,8 +196,8 @@ export type ListResponseTasks = {
  */
 export type GetWaitingResponseTask = {
   task: Task;
-  enqueued: NaiveDatetime;
-  dequeued: NaiveDatetime;
+  enqueued: UtcDatetime;
+  dequeued: UtcDatetime;
 };
 
 export type GetWaitingRequestId = string;
@@ -206,12 +209,12 @@ export type GetWaitingRequestId = string;
  */
 export type GetSleepingResponseTask = {
   task: Task;
-  enqueued: NaiveDatetime;
+  enqueued: UtcDatetime;
   /**
    * Datetime in UTC when the task was dequeued.
    */
-  dequeued: NaiveDatetime | null;
-  slept: NaiveDatetime;
+  dequeued: UtcDatetime | null;
+  slept: UtcDatetime;
 };
 
 export type GetSleepingRequestId = string;
@@ -223,9 +226,9 @@ export type GetSleepingRequestId = string;
  */
 export type GetRunningResponseTask = {
   task: Task;
-  enqueued: NaiveDatetime;
-  dequeued: NaiveDatetime;
-  started: NaiveDatetime;
+  enqueued: UtcDatetime;
+  dequeued: UtcDatetime;
+  started: UtcDatetime;
 };
 
 export type GetRunningRequestId = string;
@@ -249,7 +252,7 @@ export type GetRequestId = string;
  */
 export type GetQueuedResponseTask = {
   task: Task;
-  enqueued: NaiveDatetime;
+  enqueued: UtcDatetime;
 };
 
 export type GetQueuedRequestId = string;
@@ -261,13 +264,13 @@ export type GetQueuedRequestId = string;
  */
 export type GetFailedResponseTask = {
   task: Task;
-  enqueued: NaiveDatetime;
-  dequeued: NaiveDatetime;
+  enqueued: UtcDatetime;
+  dequeued: UtcDatetime;
   /**
    * Datetime in UTC when the task was started.
    */
-  started: NaiveDatetime | null;
-  failed: NaiveDatetime;
+  started: UtcDatetime | null;
+  failed: UtcDatetime;
   /**
    * Error
    *
@@ -285,10 +288,10 @@ export type GetFailedRequestId = string;
  */
 export type GetCompletedResponseTask = {
   task: Task;
-  enqueued: NaiveDatetime;
-  dequeued: NaiveDatetime;
-  started: NaiveDatetime;
-  completed: NaiveDatetime;
+  enqueued: UtcDatetime;
+  dequeued: UtcDatetime;
+  started: UtcDatetime;
+  completed: UtcDatetime;
   /**
    * Result
    *
@@ -315,13 +318,13 @@ export type GetCompletedRequestId = string;
  */
 export type GetCancelledResponseTask = {
   task: Task;
-  enqueued: NaiveDatetime;
-  dequeued: NaiveDatetime;
+  enqueued: UtcDatetime;
+  dequeued: UtcDatetime;
   /**
    * Datetime in UTC when the task was started.
    */
-  started: NaiveDatetime | null;
-  cancelled: NaiveDatetime;
+  started: UtcDatetime | null;
+  cancelled: UtcDatetime;
 };
 
 export type GetCancelledRequestId = string;
@@ -356,13 +359,13 @@ export type CleanRequestData = {
  */
 export type CancelResponseTask = {
   task: Task;
-  enqueued: NaiveDatetime;
-  dequeued: NaiveDatetime;
+  enqueued: UtcDatetime;
+  dequeued: UtcDatetime;
   /**
    * Datetime in UTC when the task was started.
    */
-  started: NaiveDatetime | null;
-  cancelled: NaiveDatetime;
+  started: UtcDatetime | null;
+  cancelled: UtcDatetime;
 };
 
 export type CancelRequestId = string;

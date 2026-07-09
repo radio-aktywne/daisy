@@ -29,7 +29,7 @@ msgstr "Cancel"
 msgid "Cancelled"
 msgstr "Cancelled"
 
-#: src/client/core/components/task-list-widget/main.tsx:107
+#: src/client/core/components/task-list-widget/main.tsx:105
 msgid "Clean"
 msgstr "Clean"
 
@@ -83,7 +83,7 @@ msgstr "Invalid input"
 msgid "Logout"
 msgstr "Logout"
 
-#: src/client/core/components/task-list-widget/main.tsx:83
+#: src/client/core/components/task-list-widget/main.tsx:81
 msgid "No tasks"
 msgstr "No tasks"
 
@@ -144,7 +144,7 @@ msgstr "Task not found"
 msgid "Task not found • daisy"
 msgstr "Task not found • daisy"
 
-#: src/client/core/components/task-list-widget/main.tsx:78
+#: src/client/core/components/task-list-widget/main.tsx:76
 msgid "Tasks"
 msgstr "Tasks"
 
