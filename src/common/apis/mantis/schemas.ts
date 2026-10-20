@@ -2,77 +2,22 @@
 
 import * as z from "zod";
 
-/**
- * Datetime in UTC.
- */
-export const UtcDatetimeSchema = z.iso
-  .datetime({ offset: true, local: true })
-  .register(z.globalRegistry, {
-    description: "Datetime in UTC.",
-  });
+export const CancelRequestIdSchema = z.uuid();
 
 /**
- * Result
+ * CleaningResult
  *
- * Result of the test.
+ * Result of cleaning.
  */
-export const TestResponseResultSchema = z
+export const CleanResponseResultsSchema = z
   .object({
-    success: z.boolean().register(z.globalRegistry, {
-      description: "Indicates if the test was successful.",
-    }),
-    message: z.string().register(z.globalRegistry, {
-      description: "Message returned from the test.",
+    removed: z.array(z.uuid()).register(z.globalRegistry, {
+      description: "Identifiers of removed tasks.",
     }),
   })
   .register(z.globalRegistry, {
-    description: "Result of the test.",
+    description: "Result of cleaning.",
   });
-
-/**
- * Parameters
- *
- * Parameters for testing.
- */
-export const ParametersSchema = z
-  .object({
-    message: z.string().nullish().default(null),
-  })
-  .register(z.globalRegistry, {
-    description: "Parameters for testing.",
-  });
-
-export const TestRequestParametersSchema = ParametersSchema.nullable();
-
-/**
- * Specification
- */
-export const SpecificationSchema = z.object({
-  type: z.string(),
-  parameters: z.record(
-    z.string(),
-    z
-      .union([
-        z.record(z.string(), z.unknown()),
-        z.array(z.unknown()),
-        z.string(),
-        z.int(),
-        z.number(),
-        z.boolean(),
-      ])
-      .nullable(),
-  ),
-});
-
-/**
- * Task
- */
-export const TaskSchema = z.object({
-  id: z.uuid(),
-  operation: SpecificationSchema,
-  condition: SpecificationSchema,
-  dependencies: z.record(z.string(), z.uuid()),
-});
 
 /**
  * EventType
@@ -83,62 +28,21 @@ export const EventTypeSchema = z.enum(["test"]).register(z.globalRegistry, {
   description: "Event types.",
 });
 
-export const SubscribeRequestTypesSchema = z
-  .union([z.string(), z.array(EventTypeSchema)])
-  .nullable();
+export const GetCancelledRequestIdSchema = z.uuid();
 
-/**
- * Status
- *
- * Status of a task.
- */
-export const StatusSchema = z
-  .enum([
-    "queued",
-    "waiting",
-    "sleeping",
-    "running",
-    "cancelled",
-    "failed",
-    "completed",
-  ])
-  .register(z.globalRegistry, {
-    description: "Status of a task.",
-  });
+export const GetCompletedRequestIdSchema = z.uuid();
 
-/**
- * QueuedTask
- *
- * Data of a queued task.
- */
-export const ScheduleResponseTaskSchema = z
-  .object({
-    task: TaskSchema,
-    enqueued: UtcDatetimeSchema,
-  })
-  .register(z.globalRegistry, {
-    description: "Data of a queued task.",
-  });
+export const GetFailedRequestIdSchema = z.uuid();
 
-/**
- * ScheduleRequestModel
- *
- * Request to schedule a task.
- */
-export const ScheduleRequestDataSchema = z
-  .object({
-    operation: SpecificationSchema,
-    condition: SpecificationSchema,
-    dependencies: z
-      .record(z.string(), z.uuid())
-      .register(z.globalRegistry, {
-        description: "Dependencies of the task.",
-      })
-      .optional(),
-  })
-  .register(z.globalRegistry, {
-    description: "Request to schedule a task.",
-  });
+export const GetQueuedRequestIdSchema = z.uuid();
+
+export const GetRequestIdSchema = z.uuid();
+
+export const GetRunningRequestIdSchema = z.uuid();
+
+export const GetSleepingRequestIdSchema = z.uuid();
+
+export const GetWaitingRequestIdSchema = z.uuid();
 
 /**
  * TaskIndex
@@ -174,57 +78,115 @@ export const ListResponseTasksSchema = z
   });
 
 /**
- * WaitingTask
+ * Parameters
  *
- * Data of a waiting task.
+ * Parameters for testing.
  */
-export const GetWaitingResponseTaskSchema = z
+export const ParametersSchema = z
   .object({
-    task: TaskSchema,
-    enqueued: UtcDatetimeSchema,
-    dequeued: UtcDatetimeSchema,
+    message: z.string().nullish().default(null),
   })
   .register(z.globalRegistry, {
-    description: "Data of a waiting task.",
+    description: "Parameters for testing.",
   });
-
-export const GetWaitingRequestIdSchema = z.uuid();
 
 /**
- * SleepingTask
+ * Specification
  *
- * Data of a sleeping task.
+ * Generic specification for type-based implementation.
  */
-export const GetSleepingResponseTaskSchema = z
+export const SpecificationSchema = z
   .object({
-    task: TaskSchema,
-    enqueued: UtcDatetimeSchema,
-    dequeued: UtcDatetimeSchema.nullable(),
-    slept: UtcDatetimeSchema,
+    type: z.string(),
+    parameters: z.record(
+      z.string(),
+      z
+        .union([
+          z.record(z.string(), z.unknown()),
+          z.array(z.unknown()),
+          z.string(),
+          z.int(),
+          z.number(),
+          z.boolean(),
+        ])
+        .nullable(),
+    ),
   })
   .register(z.globalRegistry, {
-    description: "Data of a sleeping task.",
+    description: "Generic specification for type-based implementation.",
   });
-
-export const GetSleepingRequestIdSchema = z.uuid();
 
 /**
- * RunningTask
+ * CleanRequestModel
  *
- * Data of a running task.
+ * Request to clean tasks.
  */
-export const GetRunningResponseTaskSchema = z
+export const CleanRequestDataSchema = z
   .object({
-    task: TaskSchema,
-    enqueued: UtcDatetimeSchema,
-    dequeued: UtcDatetimeSchema,
-    started: UtcDatetimeSchema,
+    strategy: SpecificationSchema,
   })
   .register(z.globalRegistry, {
-    description: "Data of a running task.",
+    description: "Request to clean tasks.",
   });
 
-export const GetRunningRequestIdSchema = z.uuid();
+/**
+ * ScheduleRequestModel
+ *
+ * Request to schedule a task.
+ */
+export const ScheduleRequestDataSchema = z
+  .object({
+    operation: SpecificationSchema,
+    condition: SpecificationSchema,
+    dependencies: z
+      .record(z.string(), z.uuid())
+      .register(z.globalRegistry, {
+        description: "Dependencies of the task.",
+      })
+      .optional(),
+  })
+  .register(z.globalRegistry, {
+    description: "Request to schedule a task.",
+  });
+
+/**
+ * Status
+ *
+ * Status of a task.
+ */
+export const StatusSchema = z
+  .enum([
+    "queued",
+    "waiting",
+    "sleeping",
+    "running",
+    "cancelled",
+    "failed",
+    "completed",
+  ])
+  .register(z.globalRegistry, {
+    description: "Status of a task.",
+  });
+
+export const SubscribeRequestTypesSchema = z
+  .union([z.string(), z.array(EventTypeSchema)])
+  .nullable();
+
+/**
+ * Task
+ *
+ * Core task data.
+ */
+export const TaskSchema = z
+  .object({
+    id: z.uuid(),
+    operation: SpecificationSchema,
+    condition: SpecificationSchema,
+    dependencies: z.record(z.string(), z.uuid()),
+  })
+  .register(z.globalRegistry, {
+    description: "Core task data.",
+  });
 
 /**
  * GenericTask
@@ -240,45 +202,68 @@ export const GetResponseTaskSchema = z
     description: "Data of a task of any status.",
   });
 
-export const GetRequestIdSchema = z.uuid();
+export const TestRequestParametersSchema = ParametersSchema.nullable();
 
 /**
- * QueuedTask
+ * Result
  *
- * Data of a queued task.
+ * Result of the test.
  */
-export const GetQueuedResponseTaskSchema = z
+export const TestResponseResultSchema = z
   .object({
-    task: TaskSchema,
-    enqueued: UtcDatetimeSchema,
+    success: z.boolean().register(z.globalRegistry, {
+      description: "Indicates if the test was successful.",
+    }),
+    message: z.string().register(z.globalRegistry, {
+      description: "Message returned from the test.",
+    }),
   })
   .register(z.globalRegistry, {
-    description: "Data of a queued task.",
+    description: "Result of the test.",
   });
 
-export const GetQueuedRequestIdSchema = z.uuid();
+/**
+ * Datetime in UTC.
+ */
+export const UtcDatetimeSchema = z.iso
+  .datetime({ offset: true, local: true })
+  .register(z.globalRegistry, {
+    description: "Datetime in UTC.",
+  });
 
 /**
- * FailedTask
+ * CancelledTask
  *
- * Data of a failed task.
+ * Data of a cancelled task.
  */
-export const GetFailedResponseTaskSchema = z
+export const CancelResponseTaskSchema = z
   .object({
     task: TaskSchema,
     enqueued: UtcDatetimeSchema,
     dequeued: UtcDatetimeSchema,
     started: UtcDatetimeSchema.nullable(),
-    failed: UtcDatetimeSchema,
-    error: z.string().register(z.globalRegistry, {
-      description: "Error message.",
-    }),
+    cancelled: UtcDatetimeSchema,
   })
   .register(z.globalRegistry, {
-    description: "Data of a failed task.",
+    description: "Data of a cancelled task.",
   });
 
-export const GetFailedRequestIdSchema = z.uuid();
+/**
+ * CancelledTask
+ *
+ * Data of a cancelled task.
+ */
+export const GetCancelledResponseTaskSchema = z
+  .object({
+    task: TaskSchema,
+    enqueued: UtcDatetimeSchema,
+    dequeued: UtcDatetimeSchema,
+    started: UtcDatetimeSchema.nullable(),
+    cancelled: UtcDatetimeSchema,
+  })
+  .register(z.globalRegistry, {
+    description: "Data of a cancelled task.",
+  });
 
 /**
  * CompletedTask
@@ -307,91 +292,106 @@ export const GetCompletedResponseTaskSchema = z
     description: "Data of a completed task.",
   });
 
-export const GetCompletedRequestIdSchema = z.uuid();
-
 /**
- * CancelledTask
+ * FailedTask
  *
- * Data of a cancelled task.
+ * Data of a failed task.
  */
-export const GetCancelledResponseTaskSchema = z
+export const GetFailedResponseTaskSchema = z
   .object({
     task: TaskSchema,
     enqueued: UtcDatetimeSchema,
     dequeued: UtcDatetimeSchema,
     started: UtcDatetimeSchema.nullable(),
-    cancelled: UtcDatetimeSchema,
-  })
-  .register(z.globalRegistry, {
-    description: "Data of a cancelled task.",
-  });
-
-export const GetCancelledRequestIdSchema = z.uuid();
-
-/**
- * CleaningResult
- *
- * Result of cleaning.
- */
-export const CleanResponseResultsSchema = z
-  .object({
-    removed: z.array(z.uuid()).register(z.globalRegistry, {
-      description: "Identifiers of removed tasks.",
+    failed: UtcDatetimeSchema,
+    error: z.string().register(z.globalRegistry, {
+      description: "Error message.",
     }),
   })
   .register(z.globalRegistry, {
-    description: "Result of cleaning.",
+    description: "Data of a failed task.",
   });
 
 /**
- * CleanRequestModel
+ * QueuedTask
  *
- * Request to clean tasks.
+ * Data of a queued task.
  */
-export const CleanRequestDataSchema = z
+export const GetQueuedResponseTaskSchema = z
   .object({
-    strategy: SpecificationSchema,
+    task: TaskSchema,
+    enqueued: UtcDatetimeSchema,
   })
   .register(z.globalRegistry, {
-    description: "Request to clean tasks.",
+    description: "Data of a queued task.",
   });
 
 /**
- * CancelledTask
+ * RunningTask
  *
- * Data of a cancelled task.
+ * Data of a running task.
  */
-export const CancelResponseTaskSchema = z
+export const GetRunningResponseTaskSchema = z
   .object({
     task: TaskSchema,
     enqueued: UtcDatetimeSchema,
     dequeued: UtcDatetimeSchema,
-    started: UtcDatetimeSchema.nullable(),
-    cancelled: UtcDatetimeSchema,
+    started: UtcDatetimeSchema,
   })
   .register(z.globalRegistry, {
-    description: "Data of a cancelled task.",
+    description: "Data of a running task.",
   });
 
-export const CancelRequestIdSchema = z.uuid();
+/**
+ * SleepingTask
+ *
+ * Data of a sleeping task.
+ */
+export const GetSleepingResponseTaskSchema = z
+  .object({
+    task: TaskSchema,
+    enqueued: UtcDatetimeSchema,
+    dequeued: UtcDatetimeSchema.nullable(),
+    slept: UtcDatetimeSchema,
+  })
+  .register(z.globalRegistry, {
+    description: "Data of a sleeping task.",
+  });
 
-export const PingPingRequestSchema = z.object({
-  body: z.never().optional(),
-  path: z.never().optional(),
-  query: z.never().optional(),
-});
+/**
+ * WaitingTask
+ *
+ * Data of a waiting task.
+ */
+export const GetWaitingResponseTaskSchema = z
+  .object({
+    task: TaskSchema,
+    enqueued: UtcDatetimeSchema,
+    dequeued: UtcDatetimeSchema,
+  })
+  .register(z.globalRegistry, {
+    description: "Data of a waiting task.",
+  });
+
+/**
+ * QueuedTask
+ *
+ * Data of a queued task.
+ */
+export const ScheduleResponseTaskSchema = z
+  .object({
+    task: TaskSchema,
+    enqueued: UtcDatetimeSchema,
+  })
+  .register(z.globalRegistry, {
+    description: "Data of a queued task.",
+  });
 
 /**
  * Request fulfilled, nothing follows
  */
 export const PingPingResponseSchema = z.void().register(z.globalRegistry, {
   description: "Request fulfilled, nothing follows",
-});
-
-export const PingHeadpingRequestSchema = z.object({
-  body: z.never().optional(),
-  path: z.never().optional(),
-  query: z.never().optional(),
 });
 
 /**
@@ -401,14 +401,8 @@ export const PingHeadpingResponseSchema = z.void().register(z.globalRegistry, {
   description: "Request fulfilled, nothing follows",
 });
 
-export const SseSubscribeRequestSchema = z.object({
-  body: z.never().optional(),
-  path: z.never().optional(),
-  query: z
-    .object({
-      types: z.union([SubscribeRequestTypesSchema, z.string()]).nullish(),
-    })
-    .optional(),
+export const ZSseSubscribeQuery = z.object({
+  types: z.union([SubscribeRequestTypesSchema, z.string()]).nullish(),
 });
 
 /**
@@ -420,12 +414,8 @@ export const SseSubscribeResponseSchema = z
     description: "Request fulfilled, stream of Server-Sent Events follows",
   });
 
-export const TasksIdCancelRequestSchema = z.object({
-  body: z.never().optional(),
-  path: z.object({
-    id: CancelRequestIdSchema,
-  }),
-  query: z.never().optional(),
+export const ZTasksIdCancelPath = z.object({
+  id: CancelRequestIdSchema,
 });
 
 /**
@@ -433,12 +423,8 @@ export const TasksIdCancelRequestSchema = z.object({
  */
 export const TasksIdCancelResponseSchema = CancelResponseTaskSchema;
 
-export const TasksIdGetRequestSchema = z.object({
-  body: z.never().optional(),
-  path: z.object({
-    id: GetRequestIdSchema,
-  }),
-  query: z.never().optional(),
+export const ZTasksIdGetPath = z.object({
+  id: GetRequestIdSchema,
 });
 
 /**
@@ -446,23 +432,15 @@ export const TasksIdGetRequestSchema = z.object({
  */
 export const TasksIdGetResponseSchema = GetResponseTaskSchema;
 
-export const TasksCleanCleanRequestSchema = z.object({
-  body: CleanRequestDataSchema,
-  path: z.never().optional(),
-  query: z.never().optional(),
-});
+export const ZTasksCleanCleanBody = CleanRequestDataSchema;
 
 /**
  * Request fulfilled, document follows
  */
 export const TasksCleanCleanResponseSchema = CleanResponseResultsSchema;
 
-export const TasksCancelledIdGetCancelledRequestSchema = z.object({
-  body: z.never().optional(),
-  path: z.object({
-    id: GetCancelledRequestIdSchema,
-  }),
-  query: z.never().optional(),
+export const ZTasksCancelledIdGetCancelledPath = z.object({
+  id: GetCancelledRequestIdSchema,
 });
 
 /**
@@ -471,12 +449,8 @@ export const TasksCancelledIdGetCancelledRequestSchema = z.object({
 export const TasksCancelledIdGetCancelledResponseSchema =
   GetCancelledResponseTaskSchema;
 
-export const TasksCompletedIdGetCompletedRequestSchema = z.object({
-  body: z.never().optional(),
-  path: z.object({
-    id: GetCompletedRequestIdSchema,
-  }),
-  query: z.never().optional(),
+export const ZTasksCompletedIdGetCompletedPath = z.object({
+  id: GetCompletedRequestIdSchema,
 });
 
 /**
@@ -485,12 +459,8 @@ export const TasksCompletedIdGetCompletedRequestSchema = z.object({
 export const TasksCompletedIdGetCompletedResponseSchema =
   GetCompletedResponseTaskSchema;
 
-export const TasksFailedIdGetFailedRequestSchema = z.object({
-  body: z.never().optional(),
-  path: z.object({
-    id: GetFailedRequestIdSchema,
-  }),
-  query: z.never().optional(),
+export const ZTasksFailedIdGetFailedPath = z.object({
+  id: GetFailedRequestIdSchema,
 });
 
 /**
@@ -498,12 +468,8 @@ export const TasksFailedIdGetFailedRequestSchema = z.object({
  */
 export const TasksFailedIdGetFailedResponseSchema = GetFailedResponseTaskSchema;
 
-export const TasksQueuedIdGetQueuedRequestSchema = z.object({
-  body: z.never().optional(),
-  path: z.object({
-    id: GetQueuedRequestIdSchema,
-  }),
-  query: z.never().optional(),
+export const ZTasksQueuedIdGetQueuedPath = z.object({
+  id: GetQueuedRequestIdSchema,
 });
 
 /**
@@ -511,12 +477,8 @@ export const TasksQueuedIdGetQueuedRequestSchema = z.object({
  */
 export const TasksQueuedIdGetQueuedResponseSchema = GetQueuedResponseTaskSchema;
 
-export const TasksRunningIdGetRunningRequestSchema = z.object({
-  body: z.never().optional(),
-  path: z.object({
-    id: GetRunningRequestIdSchema,
-  }),
-  query: z.never().optional(),
+export const ZTasksRunningIdGetRunningPath = z.object({
+  id: GetRunningRequestIdSchema,
 });
 
 /**
@@ -525,12 +487,8 @@ export const TasksRunningIdGetRunningRequestSchema = z.object({
 export const TasksRunningIdGetRunningResponseSchema =
   GetRunningResponseTaskSchema;
 
-export const TasksSleepingIdGetSleepingRequestSchema = z.object({
-  body: z.never().optional(),
-  path: z.object({
-    id: GetSleepingRequestIdSchema,
-  }),
-  query: z.never().optional(),
+export const ZTasksSleepingIdGetSleepingPath = z.object({
+  id: GetSleepingRequestIdSchema,
 });
 
 /**
@@ -539,12 +497,8 @@ export const TasksSleepingIdGetSleepingRequestSchema = z.object({
 export const TasksSleepingIdGetSleepingResponseSchema =
   GetSleepingResponseTaskSchema;
 
-export const TasksWaitingIdGetWaitingRequestSchema = z.object({
-  body: z.never().optional(),
-  path: z.object({
-    id: GetWaitingRequestIdSchema,
-  }),
-  query: z.never().optional(),
+export const ZTasksWaitingIdGetWaitingPath = z.object({
+  id: GetWaitingRequestIdSchema,
 });
 
 /**
@@ -553,39 +507,119 @@ export const TasksWaitingIdGetWaitingRequestSchema = z.object({
 export const TasksWaitingIdGetWaitingResponseSchema =
   GetWaitingResponseTaskSchema;
 
-export const TasksListRequestSchema = z.object({
-  body: z.never().optional(),
-  path: z.never().optional(),
-  query: z.never().optional(),
-});
-
 /**
  * Request fulfilled, document follows
  */
 export const TasksListResponseSchema = ListResponseTasksSchema;
 
-export const TasksScheduleRequestSchema = z.object({
-  body: ScheduleRequestDataSchema,
-  path: z.never().optional(),
-  query: z.never().optional(),
-});
+export const ZTasksScheduleBody = ScheduleRequestDataSchema;
 
 /**
  * Document created, URL follows
  */
 export const TasksScheduleResponseSchema = ScheduleResponseTaskSchema;
 
-export const TestTestRequestSchema = z.object({
-  body: z.never().optional(),
-  path: z.never().optional(),
-  query: z
-    .object({
-      parameters: z.union([TestRequestParametersSchema, z.string()]).nullish(),
-    })
-    .optional(),
+export const ZTestTestQuery = z.object({
+  parameters: z.union([TestRequestParametersSchema, z.string()]).nullish(),
 });
 
 /**
  * Request fulfilled, document follows
  */
 export const TestTestResponseSchema = TestResponseResultSchema;
+
+export const PingPingRequestSchema = z.object({
+  body: z.never().optional(),
+  path: z.never().optional(),
+  query: z.never().optional(),
+});
+
+export const PingHeadpingRequestSchema = z.object({
+  body: z.never().optional(),
+  path: z.never().optional(),
+  query: z.never().optional(),
+});
+
+export const SseSubscribeRequestSchema = z.object({
+  body: z.never().optional(),
+  path: z.never().optional(),
+  query: ZSseSubscribeQuery.optional(),
+});
+
+export const TasksIdCancelRequestSchema = z.object({
+  body: z.never().optional(),
+  path: ZTasksIdCancelPath,
+  query: z.never().optional(),
+});
+
+export const TasksIdGetRequestSchema = z.object({
+  body: z.never().optional(),
+  path: ZTasksIdGetPath,
+  query: z.never().optional(),
+});
+
+export const TasksCleanCleanRequestSchema = z.object({
+  body: ZTasksCleanCleanBody,
+  path: z.never().optional(),
+  query: z.never().optional(),
+});
+
+export const TasksCancelledIdGetCancelledRequestSchema = z.object({
+  body: z.never().optional(),
+  path: ZTasksCancelledIdGetCancelledPath,
+  query: z.never().optional(),
+});
+
+export const TasksCompletedIdGetCompletedRequestSchema = z.object({
+  body: z.never().optional(),
+  path: ZTasksCompletedIdGetCompletedPath,
+  query: z.never().optional(),
+});
+
+export const TasksFailedIdGetFailedRequestSchema = z.object({
+  body: z.never().optional(),
+  path: ZTasksFailedIdGetFailedPath,
+  query: z.never().optional(),
+});
+
+export const TasksQueuedIdGetQueuedRequestSchema = z.object({
+  body: z.never().optional(),
+  path: ZTasksQueuedIdGetQueuedPath,
+  query: z.never().optional(),
+});
+
+export const TasksRunningIdGetRunningRequestSchema = z.object({
+  body: z.never().optional(),
+  path: ZTasksRunningIdGetRunningPath,
+  query: z.never().optional(),
+});
+
+export const TasksSleepingIdGetSleepingRequestSchema = z.object({
+  body: z.never().optional(),
+  path: ZTasksSleepingIdGetSleepingPath,
+  query: z.never().optional(),
+});
+
+export const TasksWaitingIdGetWaitingRequestSchema = z.object({
+  body: z.never().optional(),
+  path: ZTasksWaitingIdGetWaitingPath,
+  query: z.never().optional(),
+});
+
+export const TasksListRequestSchema = z.object({
+  body: z.never().optional(),
+  path: z.never().optional(),
+  query: z.never().optional(),
+});
+
+export const TasksScheduleRequestSchema = z.object({
+  body: ZTasksScheduleBody,
+  path: z.never().optional(),
+  query: z.never().optional(),
+});
+
+export const TestTestRequestSchema = z.object({
+  body: z.never().optional(),
+  path: z.never().optional(),
+  query: ZTestTestQuery.optional(),
+});
