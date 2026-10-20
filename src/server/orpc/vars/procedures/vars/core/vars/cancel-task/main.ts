@@ -9,7 +9,7 @@ export const cancelTask = orpcServerRootBase.core.cancelTask
       await state.current.apis.mantis.tasksIdCancel({ path: input });
 
     if (tasksIdCancelData === undefined) {
-      if (tasksIdCancelResponse.status === 404) throw errors.NOT_FOUND();
+      if (tasksIdCancelResponse?.status === 404) throw errors.NOT_FOUND();
       throw errors.INTERNAL_SERVER_ERROR();
     }
 

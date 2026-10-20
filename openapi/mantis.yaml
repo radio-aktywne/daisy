@@ -1,7 +1,7 @@
 openapi: "3.1.0"
 info:
   title: mantis
-  version: "0.22.0"
+  version: "0.23.0"
 paths:
   /ping:
     get:
@@ -1316,6 +1316,7 @@ components:
         - type
         - parameters
       title: Specification
+      description: Generic specification for type-based implementation.
     Status:
       type: string
       enum:
@@ -1359,6 +1360,7 @@ components:
         - condition
         - dependencies
       title: Task
+      description: Core task data.
     TestRequestParameters:
       anyOf:
         - $ref: "#/components/schemas/Parameters"

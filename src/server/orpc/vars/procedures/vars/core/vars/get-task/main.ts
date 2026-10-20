@@ -9,7 +9,7 @@ export const getTask = orpcServerRootBase.core.getTask
       await state.current.apis.mantis.tasksIdGet({ path: input });
 
     if (tasksIdGetData === undefined) {
-      if (tasksIdGetResponse.status === 404) throw errors.NOT_FOUND();
+      if (tasksIdGetResponse?.status === 404) throw errors.NOT_FOUND();
       throw errors.INTERNAL_SERVER_ERROR();
     }
 

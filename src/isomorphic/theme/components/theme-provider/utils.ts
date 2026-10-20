@@ -35,9 +35,9 @@ export class ForceColorSchemeManager implements MantineColorSchemeManager {
   }
 }
 
-export class ShikiCodeHighlightAdapter<T = unknown>
-  implements CodeHighlightAdapter
-{
+export class ShikiCodeHighlightAdapter<
+  T = unknown,
+> implements CodeHighlightAdapter {
   protected readonly adapter: CodeHighlightAdapter;
 
   constructor(protected readonly colorScheme: MantineColorScheme) {

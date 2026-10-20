@@ -4,91 +4,46 @@ export type ClientOptions = {
   baseUrl: `${string}://${string}` | (string & {});
 };
 
-/**
- * Datetime in UTC.
- */
-export type UtcDatetime = string;
+export type CancelRequestId = string;
 
 /**
- * Result
+ * CancelledTask
  *
- * Result of the test.
+ * Data of a cancelled task.
  */
-export type TestResponseResult = {
+export type CancelResponseTask = {
+  task: Task;
+  enqueued: UtcDatetime;
+  dequeued: UtcDatetime;
   /**
-   * Success
-   *
-   * Indicates if the test was successful.
+   * Datetime in UTC when the task was started.
    */
-  success: boolean;
-  /**
-   * Message
-   *
-   * Message returned from the test.
-   */
-  message: string;
+  started: UtcDatetime | null;
+  cancelled: UtcDatetime;
 };
 
-export type TestRequestParameters = Parameters | null;
-
 /**
- * Parameters
+ * CleanRequestModel
  *
- * Parameters for testing.
+ * Request to clean tasks.
  */
-export type Parameters = {
+export type CleanRequestData = {
+  strategy: Specification;
+};
+
+/**
+ * CleaningResult
+ *
+ * Result of cleaning.
+ */
+export type CleanResponseResults = {
   /**
-   * Message
+   * Removed
    *
-   * Optional message to include in the test.
+   * Identifiers of removed tasks.
    */
-  message?: string | null;
+  removed: Array<string>;
 };
-
-/**
- * Task
- */
-export type Task = {
-  /**
-   * Id
-   */
-  id: string;
-  operation: Specification;
-  condition: Specification;
-  /**
-   * Dependencies
-   */
-  dependencies: {
-    [key: string]: string;
-  };
-};
-
-/**
- * Specification
- */
-export type Specification = {
-  /**
-   * Type
-   */
-  type: string;
-  /**
-   * Parameters
-   */
-  parameters: {
-    [key: string]:
-      | {
-          [key: string]: unknown;
-        }
-      | Array<unknown>
-      | string
-      | number
-      | number
-      | boolean
-      | null;
-  };
-};
-
-export type SubscribeRequestTypes = string | Array<EventType> | null;
 
 /**
  * EventType
@@ -97,46 +52,144 @@ export type SubscribeRequestTypes = string | Array<EventType> | null;
  */
 export type EventType = "test";
 
+export type GetCancelledRequestId = string;
+
 /**
- * Status
+ * CancelledTask
  *
- * Status of a task.
+ * Data of a cancelled task.
  */
-export type Status =
-  | "queued"
-  | "waiting"
-  | "sleeping"
-  | "running"
-  | "cancelled"
-  | "failed"
-  | "completed";
+export type GetCancelledResponseTask = {
+  task: Task;
+  enqueued: UtcDatetime;
+  dequeued: UtcDatetime;
+  /**
+   * Datetime in UTC when the task was started.
+   */
+  started: UtcDatetime | null;
+  cancelled: UtcDatetime;
+};
+
+export type GetCompletedRequestId = string;
+
+/**
+ * CompletedTask
+ *
+ * Data of a completed task.
+ */
+export type GetCompletedResponseTask = {
+  task: Task;
+  enqueued: UtcDatetime;
+  dequeued: UtcDatetime;
+  started: UtcDatetime;
+  completed: UtcDatetime;
+  /**
+   * Result
+   *
+   * Result of the task.
+   */
+  result:
+    | {
+        [key: string]: unknown;
+      }
+    | Array<unknown>
+    | string
+    | number
+    | number
+    | boolean
+    | null;
+};
+
+export type GetFailedRequestId = string;
+
+/**
+ * FailedTask
+ *
+ * Data of a failed task.
+ */
+export type GetFailedResponseTask = {
+  task: Task;
+  enqueued: UtcDatetime;
+  dequeued: UtcDatetime;
+  /**
+   * Datetime in UTC when the task was started.
+   */
+  started: UtcDatetime | null;
+  failed: UtcDatetime;
+  /**
+   * Error
+   *
+   * Error message.
+   */
+  error: string;
+};
+
+export type GetQueuedRequestId = string;
 
 /**
  * QueuedTask
  *
  * Data of a queued task.
  */
-export type ScheduleResponseTask = {
+export type GetQueuedResponseTask = {
   task: Task;
   enqueued: UtcDatetime;
 };
 
+export type GetRequestId = string;
+
 /**
- * ScheduleRequestModel
+ * GenericTask
  *
- * Request to schedule a task.
+ * Data of a task of any status.
  */
-export type ScheduleRequestData = {
-  operation: Specification;
-  condition: Specification;
+export type GetResponseTask = {
+  task: Task;
+  status: Status;
+};
+
+export type GetRunningRequestId = string;
+
+/**
+ * RunningTask
+ *
+ * Data of a running task.
+ */
+export type GetRunningResponseTask = {
+  task: Task;
+  enqueued: UtcDatetime;
+  dequeued: UtcDatetime;
+  started: UtcDatetime;
+};
+
+export type GetSleepingRequestId = string;
+
+/**
+ * SleepingTask
+ *
+ * Data of a sleeping task.
+ */
+export type GetSleepingResponseTask = {
+  task: Task;
+  enqueued: UtcDatetime;
   /**
-   * Dependencies
-   *
-   * Dependencies of the task.
+   * Datetime in UTC when the task was dequeued.
    */
-  dependencies?: {
-    [key: string]: string;
-  };
+  dequeued: UtcDatetime | null;
+  slept: UtcDatetime;
+};
+
+export type GetWaitingRequestId = string;
+
+/**
+ * WaitingTask
+ *
+ * Data of a waiting task.
+ */
+export type GetWaitingResponseTask = {
+  task: Task;
+  enqueued: UtcDatetime;
+  dequeued: UtcDatetime;
 };
 
 /**
@@ -190,185 +243,136 @@ export type ListResponseTasks = {
 };
 
 /**
- * WaitingTask
+ * Parameters
  *
- * Data of a waiting task.
+ * Parameters for testing.
  */
-export type GetWaitingResponseTask = {
-  task: Task;
-  enqueued: UtcDatetime;
-  dequeued: UtcDatetime;
-};
-
-export type GetWaitingRequestId = string;
-
-/**
- * SleepingTask
- *
- * Data of a sleeping task.
- */
-export type GetSleepingResponseTask = {
-  task: Task;
-  enqueued: UtcDatetime;
+export type Parameters = {
   /**
-   * Datetime in UTC when the task was dequeued.
+   * Message
+   *
+   * Optional message to include in the test.
    */
-  dequeued: UtcDatetime | null;
-  slept: UtcDatetime;
+  message?: string | null;
 };
-
-export type GetSleepingRequestId = string;
 
 /**
- * RunningTask
+ * ScheduleRequestModel
  *
- * Data of a running task.
+ * Request to schedule a task.
  */
-export type GetRunningResponseTask = {
-  task: Task;
-  enqueued: UtcDatetime;
-  dequeued: UtcDatetime;
-  started: UtcDatetime;
+export type ScheduleRequestData = {
+  operation: Specification;
+  condition: Specification;
+  /**
+   * Dependencies
+   *
+   * Dependencies of the task.
+   */
+  dependencies?: {
+    [key: string]: string;
+  };
 };
-
-export type GetRunningRequestId = string;
-
-/**
- * GenericTask
- *
- * Data of a task of any status.
- */
-export type GetResponseTask = {
-  task: Task;
-  status: Status;
-};
-
-export type GetRequestId = string;
 
 /**
  * QueuedTask
  *
  * Data of a queued task.
  */
-export type GetQueuedResponseTask = {
+export type ScheduleResponseTask = {
   task: Task;
   enqueued: UtcDatetime;
 };
 
-export type GetQueuedRequestId = string;
+/**
+ * Specification
+ *
+ * Generic specification for type-based implementation.
+ */
+export type Specification = {
+  /**
+   * Type
+   */
+  type: string;
+  /**
+   * Parameters
+   */
+  parameters: {
+    [key: string]:
+      | {
+          [key: string]: unknown;
+        }
+      | Array<unknown>
+      | string
+      | number
+      | number
+      | boolean
+      | null;
+  };
+};
 
 /**
- * FailedTask
+ * Status
  *
- * Data of a failed task.
+ * Status of a task.
  */
-export type GetFailedResponseTask = {
-  task: Task;
-  enqueued: UtcDatetime;
-  dequeued: UtcDatetime;
+export type Status =
+  | "queued"
+  | "waiting"
+  | "sleeping"
+  | "running"
+  | "cancelled"
+  | "failed"
+  | "completed";
+
+export type SubscribeRequestTypes = string | Array<EventType> | null;
+
+/**
+ * Task
+ *
+ * Core task data.
+ */
+export type Task = {
   /**
-   * Datetime in UTC when the task was started.
+   * Id
    */
-  started: UtcDatetime | null;
-  failed: UtcDatetime;
+  id: string;
+  operation: Specification;
+  condition: Specification;
   /**
-   * Error
+   * Dependencies
+   */
+  dependencies: {
+    [key: string]: string;
+  };
+};
+
+export type TestRequestParameters = Parameters | null;
+
+/**
+ * Result
+ *
+ * Result of the test.
+ */
+export type TestResponseResult = {
+  /**
+   * Success
    *
-   * Error message.
+   * Indicates if the test was successful.
    */
-  error: string;
-};
-
-export type GetFailedRequestId = string;
-
-/**
- * CompletedTask
- *
- * Data of a completed task.
- */
-export type GetCompletedResponseTask = {
-  task: Task;
-  enqueued: UtcDatetime;
-  dequeued: UtcDatetime;
-  started: UtcDatetime;
-  completed: UtcDatetime;
+  success: boolean;
   /**
-   * Result
+   * Message
    *
-   * Result of the task.
+   * Message returned from the test.
    */
-  result:
-    | {
-        [key: string]: unknown;
-      }
-    | Array<unknown>
-    | string
-    | number
-    | number
-    | boolean
-    | null;
-};
-
-export type GetCompletedRequestId = string;
-
-/**
- * CancelledTask
- *
- * Data of a cancelled task.
- */
-export type GetCancelledResponseTask = {
-  task: Task;
-  enqueued: UtcDatetime;
-  dequeued: UtcDatetime;
-  /**
-   * Datetime in UTC when the task was started.
-   */
-  started: UtcDatetime | null;
-  cancelled: UtcDatetime;
-};
-
-export type GetCancelledRequestId = string;
-
-/**
- * CleaningResult
- *
- * Result of cleaning.
- */
-export type CleanResponseResults = {
-  /**
-   * Removed
-   *
-   * Identifiers of removed tasks.
-   */
-  removed: Array<string>;
+  message: string;
 };
 
 /**
- * CleanRequestModel
- *
- * Request to clean tasks.
+ * Datetime in UTC.
  */
-export type CleanRequestData = {
-  strategy: Specification;
-};
-
-/**
- * CancelledTask
- *
- * Data of a cancelled task.
- */
-export type CancelResponseTask = {
-  task: Task;
-  enqueued: UtcDatetime;
-  dequeued: UtcDatetime;
-  /**
-   * Datetime in UTC when the task was started.
-   */
-  started: UtcDatetime | null;
-  cancelled: UtcDatetime;
-};
-
-export type CancelRequestId = string;
+export type UtcDatetime = string;
 
 export type PingPingRequest = {
   body?: never;
