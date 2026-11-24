@@ -1,7 +1,7 @@
 openapi: "3.1.0"
 info:
   title: mantis
-  version: "0.23.0"
+  version: "0.25.0"
 paths:
   /ping:
     get:
