@@ -6,13 +6,13 @@ import { msg } from "@lingui/core/macro";
 import { Button, Stack, Text, Title, UnstyledButton } from "@mantine/core";
 import { List, ListItem } from "@radio-aktywne/ui";
 import { useMutation, useSuspenseQuery } from "@tanstack/react-query";
-import Link from "next/link";
 import { useCallback, useState } from "react";
 
 import type { TaskListWidgetInput } from "./types";
 
 import { useLocalization } from "../../../../isomorphic/localization/hooks/use-localization";
 import { useNotifications } from "../../../../isomorphic/notifications/hooks/use-notifications";
+import { LocalizedLink } from "../../../../isomorphic/routing/components/localized-link";
 import { orpcClientSideQueryClient } from "../../../orpc/vars/clients";
 import { FiltersPanel } from "./components/filters-panel";
 import { TaskItem } from "./components/task-item";
@@ -71,7 +71,7 @@ export function TaskListWidget({}: TaskListWidgetInput) {
 
   return (
     <Stack h="100%" w="100%">
-      <UnstyledButton component={Link} href="/tasks">
+      <UnstyledButton component={LocalizedLink} href="/tasks">
         <Title ta="center">
           {localization.localize(msg({ message: "Tasks" }))}
         </Title>
@@ -83,7 +83,11 @@ export function TaskListWidget({}: TaskListWidgetInput) {
       ) : (
         <List style={{ overflowY: "auto" }}>
           {filteredTasks.map(({ id, status }) => (
-            <UnstyledButton component={Link} href={`/tasks/${id}`} key={id}>
+            <UnstyledButton
+              component={LocalizedLink}
+              href={`/tasks/${id}`}
+              key={id}
+            >
               <ListItem>
                 <TaskItem id={id} status={status} />
               </ListItem>
